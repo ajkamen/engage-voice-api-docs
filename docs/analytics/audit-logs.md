@@ -196,126 +196,126 @@ To help developers navigate the audit logs, the following list represents the sy
 ??? info "View Supported Audited Elements"
 
     | Element | Description |
-    | --- | --- |
-    | **Account** | Core account configuration and feature enablement. |
-    | **AccountAuthConfig** | Basic and OAuth authentication credentials for remote services. |
-    | **AccountAuxState** | Customized agent presence and auxiliary states. |
-    | **AccountCallerId** | Configured outbound caller ID settings for the account. |
-    | **AdminRegionalSettings** | Account-wide regional and localization configurations. |
-    | **Agent** | User profiles and core agent permissions. |
-    | **AgentChatGroupAccess** | Assignments between agents and digital chat groups. |
-    | **AgentChatQueueAccess** | Direct assignments between agents and specific chat queues. |
-    | **AgentDialGroupMember** | Membership associations between agents and dial groups. |
-    | **AgentGateAccess** | Individual agent assignments to voice queues (Gates). |
-    | **AgentGateGroupAccess** | Agent associations with voice queue groups. |
-    | **AgentGroup** | Administrative groupings for organizing agents. |
-    | **AgentRegionalSettings** | Individual localization settings for specific agents. |
-    | **AgentSkillProfile** | Bundled sets of skills assigned to agents. |
-    | **AgentSupervisor** | Associations between supervisors and their subordinate agents. |
-    | **Alert** | System notification and threshold alert configurations. |
-    | **AmdProfile** | Answering Machine Detection behavior profiles. |
-    | **AssignedDnis** | Dialed Number Identification Service mappings for voice traffic. |
-    | **AssignedSmsDnis** | Phone number mappings for SMS-based digital traffic. |
-    | **BlockedANI** | Inbound caller ID blacklists. |
-    | **BlockedIP** | Network-level access restriction lists. |
-    | **CallRecordingAccess** | Permissions and settings for managing call recordings. |
-    | **Campaign** | Outbound dialing campaign configurations. |
-    | **CampaignCriteriaGroupAccess** | Targeting criteria used for campaign lead selection. |
-    | **CampaignDisposition** | Outcome labels specific to outbound campaigns. |
-    | **CampaignFilterTimezones** | Active timezone windows for outbound dialing. |
-    | **CampaignLeadList** | Management of phone number lists assigned to campaigns. |
-    | **CampaignPass** | Configuration for lead recycling attempts. |
-    | **CampaignPassCustomDelay** | Timing rules for specific lead pass attempts. |
-    | **CampaignPassDisposition** | Disposition-based rules for lead recycling. |
-    | **CampaignUnlimitedFieldGroup** | Custom data field definitions for campaign leads. |
-    | **Canvas** | Visual layout and configuration data for the design interface. |
-    | **ChatGroup** | Organizational groups for digital chat queues. |
-    | **ChatGroupSkill** | Skill requirements for routing digital interactions. |
-    | **ChatPriorityGroup** | Weighting rules for digital interaction queues. |
-    | **ChatQueue** | Configuration for digital chat interaction queues. |
-    | **ChatQueueChatWidgetAccess** | Mappings between chat queues and customer-facing widgets. |
-    | **ChatQueueDisposition** | Outcome labels for digital chat interactions. |
-    | **ChatQueueEvent** | Automated actions triggered during chat queueing. |
-    | **ChatQueueScheduleOverride** | Temporary calendar-based rules for chat availability. |
-    | **ChatRequeueShortcut** | Quick-actions for transferring chat interactions. |
-    | **ChatRequeueShortcutGroup** | Administrative sets of chat transfer shortcuts. |
-    | **ChatRequeueShortcutGroupChatQueueAccess** | Permission mappings for chat shortcut groups. |
-    | **ChatRoom** | Virtual environments for persistent internal or external chat. |
-    | **ChatWidget** | Appearance and behavior settings for embedded chat interfaces. |
-    | **CloudRouteAssignedDestination** | Routing targets within a Cloud Route profile. |
-    | **CloudRouteAssignedOverride** | Temporary routing overrides for specific destinations. |
-    | **CloudRouteDestination** | Individual endpoints used in Cloud Routing. |
-    | **CloudRouteDestinationOverride** | Specific behavior overrides for routing endpoints. |
-    | **CloudRouteDtmfEvent** | DTMF-triggered actions within Cloud Routing. |
-    | **CloudRouteGroup** | Shared collections of Cloud Route profiles. |
-    | **CloudRouteProfile** | Global routing strategies and profiles. |
-    | **CustomCriteriaGroup** | User-defined logic blocks for advanced routing. |
-    | **CustomCriteriaPlan** | Strategic plans utilizing custom criteria logic. |
-    | **CustomDialZone** | Regional time zone rules for outbound dialing. |
-    | **CustomDialZoneGroups** | Collections of regional dialing rules. |
-    | **DialGroup** | Configuration for outbound dialer behavior and mode. |
-    | **DncListEntry** | Individual records on the Do Not Call list. |
-    | **DncTag** | Custom labels for classifying DNC records. |
-    | **DncUploadedFileResults** | Logs from bulk DNC list imports. |
-    | **DnisNotification** | Triggers based on incoming dialed numbers. |
-    | **DnisPool** | Standard groups of phone numbers for inbound traffic. |
-    | **DnisPoolV2** | Enhanced phone number pool configurations. |
-    | **EmailTemplate** | Definitions for automated system emails. |
-    | **EmailTemplateAttachment** | Files associated with automated email templates. |
-    | **Gate** | Configuration for voice queues. |
-    | **GateDisposition** | Outcome labels for voice calls. |
-    | **GateGroup** | Organizational groupings for voice queues. |
-    | **GateGroupSkill** | Skill requirements for voice call routing. |
-    | **GatePriorityGroup** | Logic for weighting different voice queues. |
-    | **GateQueueDtmfEvent** | DTMF-based menus and actions while in queue. |
-    | **GateQueueEvent** | Automated actions (like hold music) while in queue. |
-    | **GateScheduleOverride** | Temporary calendar-based rules for voice queue availability. |
-    | **GateSpecialAni** | Customized handling for specific inbound caller IDs. |
-    | **HttpServiceMapping** | Data transformations for internal HTTP service calls. |
-    | **IVRApplication** | Hosted application logic for interactive menus. |
-    | **KnowledgeBaseArticle** | Content records for agent-facing help documentation. |
-    | **KnowledgeBaseCategory** | Taxonomy used to organize help documentation. |
-    | **KnowledgeBaseGroup** | Permission-based sets of knowledge base content. |
-    | **MainAccount** | Parent account attributes in multi-account hierarchies. |
-    | **MappingTemplate** | Reusable data structure templates. |
-    | **NotificationGroup** | Collections of recipients for system alerts. |
-    | **NotificationTarget** | Individual endpoints (email/URL) for system alerts. |
-    | **PendingAccount** | Staging records for new account provisioning. |
-    | **PhoneBookEntry** | Speed-dial and contact records. |
-    | **QuotaGroup** | Logic sets for managing outbound dialing limits. |
-    | **QuotaTarget** | Specific thresholds for outbound limits. |
-    | **RcAccountData** | Synchronized data from the RingCentral core platform. |
-    | **RecordingDestinationV2** | Storage targets for system media. |
-    | **RecordingTaskV2** | Scheduled logic for media processing or archival. |
-    | **RemoteHttpService** | Core configuration for outbound API integrations. |
-    | **RemoteHttpServiceGroup** | Collections of related external API calls. |
-    | **RemoteHttpServiceInput** | Input parameter definitions for API integrations. |
-    | **RequeueShortcut** | Transfer shortcuts for voice queues. |
-    | **ResultFileDestination** | Automated targets for campaign report delivery. |
-    | **RightsDocTable** | Internal security and permission mappings. |
-    | **RTASubscriptionConfig** | Real-time analytics subscription settings. |
-    | **Script** | Dynamic agent guidance scripts used during calls. |
-    | **ScriptGroup** | Administrative sets for organizing agent scripts. |
-    | **TracGroup** | Logic groups for legacy routing numbers. |
-    | **TracLocation** | Geographic definitions for legacy routing. |
-    | **TracLocator** | Search logic for legacy routing targets. |
-    | **TracNumber** | Legacy inbound routing numbers. |
-    | **TracRoutingRule** | Specific logic applied to legacy routing. |
-    | **TracScheduleOverride** | Temporary availability rules for legacy routing. |
-    | **UploadedFileResults** | Status logs for general bulk file uploads. |
-    | **User** | System user accounts and portal access. |
-    | **VisualIvr** | High-level configuration for Studio-based IVR workflows. |
-    | **VisualIvrConfig** | Specific node-level logic and data for Visual IVR scripts. |
-    | **VisualIvrGroup** | Organizational containers for grouping Visual IVR workflows. |
-    | **WhitelistEntry** | Records permitted to bypass security filters. |
-    | **WhitelistLogEntry** | Audit records of whitelist activity. |
-    | **WhitelistTag** | Labels used to classify whitelist entries. |
-    | **WhitelistTagMembers** | Member lists associated with security tags. |
-    | **Workflow** | Automated multi-step business process logic. |
-    | **WorkflowConfig** | Specific configuration versions for workflows. |
-    | **WorkflowGroup** | Organizational groupings for business workflows. |
+    | :--- | :--- |
+    | `Account` | Core account configuration and feature enablement. |
+    | `AccountAuthConfig` | Basic and OAuth authentication credentials for remote services. |
+    | `AccountAuxState` | Customized agent presence and auxiliary states. |
+    | `AccountCallerId` | Configured outbound caller ID settings for the account. |
+    | `AdminRegionalSettings` | Account-wide regional and localization configurations. |
+    | `Agent` | User profiles and core agent permissions. |
+    | `AgentChatGroupAccess` | Assignments between agents and digital chat groups. |
+    | `AgentChatQueueAccess` | Direct assignments between agents and specific chat queues. |
+    | `AgentDialGroupMember` | Membership associations between agents and dial groups. |
+    | `AgentGateAccess` | Individual agent assignments to voice queues (Gates). |
+    | `AgentGateGroupAccess` | Agent associations with voice queue groups. |
+    | `AgentGroup` | Administrative groupings for organizing agents. |
+    | `AgentRegionalSettings` | Individual localization settings for specific agents. |
+    | `AgentSkillProfile` | Bundled sets of skills assigned to agents. |
+    | `AgentSupervisor` | Associations between supervisors and their subordinate agents. |
+    | `Alert` | System notification and threshold alert configurations. |
+    | `AmdProfile` | Answering Machine Detection behavior profiles. |
+    | `AssignedDnis` | Dialed Number Identification Service mappings for voice traffic. |
+    | `AssignedSmsDnis` | Phone number mappings for SMS-based digital traffic. |
+    | `BlockedANI` | Inbound caller ID blacklists. |
+    | `BlockedIP` | Network-level access restriction lists. |
+    | `CallRecordingAccess` | Permissions and settings for managing call recordings. |
+    | `Campaign` | Outbound dialing campaign configurations. |
+    | `CampaignCriteriaGroupAccess` | Targeting criteria used for campaign lead selection. |
+    | `CampaignDisposition` | Outcome labels specific to outbound campaigns. |
+    | `CampaignFilterTimezones` | Active timezone windows for outbound dialing. |
+    | `CampaignLeadList` | Management of phone number lists assigned to campaigns. |
+    | `CampaignPass` | Configuration for lead recycling attempts. |
+    | `CampaignPassCustomDelay` | Timing rules for specific lead pass attempts. |
+    | `CampaignPassDisposition` | Disposition-based rules for lead recycling. |
+    | `CampaignUnlimitedFieldGroup` | Custom data field definitions for campaign leads. |
+    | `Canvas` | Visual layout and configuration data for the design interface. |
+    | `ChatGroup` | Organizational groups for digital chat queues. |
+    | `ChatGroupSkill` | Skill requirements for routing digital interactions. |
+    | `ChatPriorityGroup` | Weighting rules for digital interaction queues. |
+    | `ChatQueue` | Configuration for digital chat interaction queues. |
+    | `ChatQueueChatWidgetAccess` | Mappings between chat queues and customer-facing widgets. |
+    | `ChatQueueDisposition` | Outcome labels for digital chat interactions. |
+    | `ChatQueueEvent` | Automated actions triggered during chat queueing. |
+    | `ChatQueueScheduleOverride` | Temporary calendar-based rules for chat availability. |
+    | `ChatRequeueShortcut` | Quick-actions for transferring chat interactions. |
+    | `ChatRequeueShortcutGroup` | Administrative sets of chat transfer shortcuts. |
+    | `ChatRequeueShortcutGroupChatQueueAccess` | Permission mappings for chat shortcut groups. |
+    | `ChatRoom` | Virtual environments for persistent internal or external chat. |
+    | `ChatWidget` | Appearance and behavior settings for embedded chat interfaces. |
+    | `CloudRouteAssignedDestination` | Routing targets within a Cloud Route profile. |
+    | `CloudRouteAssignedOverride` | Temporary routing overrides for specific destinations. |
+    | `CloudRouteDestination` | Individual endpoints used in Cloud Routing. |
+    | `CloudRouteDestinationOverride` | Specific behavior overrides for routing endpoints. |
+    | `CloudRouteDtmfEvent` | DTMF-triggered actions within Cloud Routing. |
+    | `CloudRouteGroup` | Shared collections of Cloud Route profiles. |
+    | `CloudRouteProfile` | Global routing strategies and profiles. |
+    | `CustomCriteriaGroup` | User-defined logic blocks for advanced routing. |
+    | `CustomCriteriaPlan` | Strategic plans utilizing custom criteria logic. |
+    | `CustomDialZone` | Regional time zone rules for outbound dialing. |
+    | `CustomDialZoneGroups` | Collections of regional dialing rules. |
+    | `DialGroup` | Configuration for outbound dialer behavior and mode. |
+    | `DncListEntry` | Individual records on the Do Not Call list. |
+    | `DncTag` | Custom labels for classifying DNC records. |
+    | `DncUploadedFileResults` | Logs from bulk DNC list imports. |
+    | `DnisNotification` | Triggers based on incoming dialed numbers. |
+    | `DnisPool` | Standard groups of phone numbers for inbound traffic. |
+    | `DnisPoolV2` | Enhanced phone number pool configurations. |
+    | `EmailTemplate` | Definitions for automated system emails. |
+    | `EmailTemplateAttachment` | Files associated with automated email templates. |
+    | `Gate` | Configuration for voice queues. |
+    | `GateDisposition` | Outcome labels for voice calls. |
+    | `GateGroup` | Organizational groupings for voice queues. |
+    | `GateGroupSkill` | Skill requirements for voice call routing. |
+    | `GatePriorityGroup` | Logic for weighting different voice queues. |
+    | `GateQueueDtmfEvent` | DTMF-based menus and actions while in queue. |
+    | `GateQueueEvent` | Automated actions (like hold music) while in queue. |
+    | `GateScheduleOverride` | Temporary calendar-based rules for voice queue availability. |
+    | `GateSpecialAni` | Customized handling for specific inbound caller IDs. |
+    | `HttpServiceMapping` | Data transformations for internal HTTP service calls. |
+    | `IVRApplication` | Hosted application logic for interactive menus. |
+    | `KnowledgeBaseArticle` | Content records for agent-facing help documentation. |
+    | `KnowledgeBaseCategory` | Taxonomy used to organize help documentation. |
+    | `KnowledgeBaseGroup` | Permission-based sets of knowledge base content. |
+    | `MainAccount` | Parent account attributes in multi-account hierarchies. |
+    | `MappingTemplate` | Reusable data structure templates. |
+    | `NotificationGroup` | Collections of recipients for system alerts. |
+    | `NotificationTarget` | Individual endpoints (email/URL) for system alerts. |
+    | `PendingAccount` | Staging records for new account provisioning. |
+    | `PhoneBookEntry` | Speed-dial and contact records. |
+    | `QuotaGroup` | Logic sets for managing outbound dialing limits. |
+    | `QuotaTarget` | Specific thresholds for outbound limits. |
+    | `RcAccountData` | Synchronized data from the RingCentral core platform. |
+    | `RecordingDestinationV2` | Storage targets for system media. |
+    | `RecordingTaskV2` | Scheduled logic for media processing or archival. |
+    | `RemoteHttpService` | Core configuration for outbound API integrations. |
+    | `RemoteHttpServiceGroup` | Collections of related external API calls. |
+    | `RemoteHttpServiceInput` | Input parameter definitions for API integrations. |
+    | `RequeueShortcut` | Transfer shortcuts for voice queues. |
+    | `ResultFileDestination` | Automated targets for campaign report delivery. |
+    | `RightsDocTable` | Internal security and permission mappings. |
+    | `RTASubscriptionConfig` | Real-time analytics subscription settings. |
+    | `Script` | Dynamic agent guidance scripts used during calls. |
+    | `ScriptGroup` | Administrative sets for organizing agent scripts. |
+    | `TracGroup` | Logic groups for legacy routing numbers. |
+    | `TracLocation` | Geographic definitions for legacy routing. |
+    | `TracLocator` | Search logic for legacy routing targets. |
+    | `TracNumber` | Legacy inbound routing numbers. |
+    | `TracRoutingRule` | Specific logic applied to legacy routing. |
+    | `TracScheduleOverride` | Temporary availability rules for legacy routing. |
+    | `UploadedFileResults` | Status logs for general bulk file uploads. |
+    | `User` | System user accounts and portal access. |
+    | `VisualIvr` | High-level configuration for Studio-based IVR workflows. |
+    | `VisualIvrConfig` | Specific node-level logic and data for Visual IVR scripts. |
+    | `VisualIvrGroup` | Organizational containers for grouping Visual IVR workflows. |
+    | `WhitelistEntry` | Records permitted to bypass security filters. |
+    | `WhitelistLogEntry` | Audit records of whitelist activity. |
+    | `WhitelistTag` | Labels used to classify whitelist entries. |
+    | `WhitelistTagMembers` | Member lists associated with security tags. |
+    | `Workflow` | Automated multi-step business process logic. |
+    | `WorkflowConfig` | Specific configuration versions for workflows. |
+    | `WorkflowGroup` | Organizational groupings for business workflows. |
 
-    
+
 ## Implementation Strategy
 
 To build a reliable synchronization service (e.g., exporting audit logs to an external security database), developers should implement a "Sliding Window" polling strategy.
