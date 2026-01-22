@@ -188,66 +188,6 @@ Below is an example output from the audit log search showing a configuration **U
 ]
 
 ```
-## Implementation Strategy
-
-To build a reliable synchronization service (e.g., exporting audit logs to an external security database), developers should implement a "Sliding Window" polling strategy.
-
-### Handling Data Propagation Delay
-
-Administrative actions are not available for API retrieval in real-time. There is a **5-minute propagation delay** before logs are finalized in the search index.
-
-### Recommended Polling Pattern
-
-To ensure 100% data integrity and account for the propagation delay, we recommend retrieving audit logs in **15-minute intervals**, initiated 5 minutes after the window closes.
-
-**Example Schedule:**
-
-| Execution Time | Search Time Range (`start` to `end`) | Purpose |
-| --- | --- | --- |
-| **08:05** | 07:45 — 08:00 | Captures all events finalized by 08:00. |
-| **08:20** | 08:00 — 08:15 | Captures all events finalized by 08:15. |
-| **08:35** | 08:15 — 08:30 | Captures all events finalized by 08:30. |
-
-### Sample Implementation (Python)
-
-This pattern ensures that your application always requests data that has safely passed the 5-minute propagation threshold.
-
-```python
-import requests
-import datetime
-
-# Configuration
-BASE_URL = "https://ringcx.ringcentral.com/voice/api/v1/admin/auditLogs/search"
-ACCOUNT_ID = "12345"
-
-def get_audit_logs():
-    # Calculate the window: 
-    # End time is 5 minutes ago (to respect propagation)
-    # Start time is 15 minutes before that
-    now = datetime.datetime.now(datetime.timezone.utc)
-    end_time = now - datetime.timedelta(minutes=5)
-    start_time = end_time - datetime.timedelta(minutes=15)
-
-    # Note: Use startDateTimeAsUnix for easier programmatic calculation
-    payload = {
-        "accountId": ACCOUNT_ID,
-        "startDateTimeAsUnix": int(start_time.timestamp() * 1000),
-        "endDateTimeAsUnix": int(end_time.timestamp() * 1000),
-        "ascOrDesc": "ASCENDING"
-    }
-
-    # Replace with your actual authentication logic
-    headers = {
-        'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
-        'Content-Type': 'application/json'
-    }
-
-    response = requests.put(BASE_URL, json=payload, headers=headers)
-    response.raise_for_status()
-    return response.json()
-
-```
-
 
 ### Supported elements
 
@@ -374,3 +314,66 @@ To help developers navigate the audit logs, the following list represents the sy
     | **Workflow** | Automated multi-step business process logic. |
     | **WorkflowConfig** | Specific configuration versions for workflows. |
     | **WorkflowGroup** | Organizational groupings for business workflows. |
+
+    
+## Implementation Strategy
+
+To build a reliable synchronization service (e.g., exporting audit logs to an external security database), developers should implement a "Sliding Window" polling strategy.
+
+### Handling Data Propagation Delay
+
+Administrative actions are not available for API retrieval in real-time. There is a **5-minute propagation delay** before logs are finalized in the search index.
+
+### Recommended Polling Pattern
+
+To ensure 100% data integrity and account for the propagation delay, we recommend retrieving audit logs in **15-minute intervals**, initiated 5 minutes after the window closes.
+
+**Example Schedule:**
+
+| Execution Time | Search Time Range (`start` to `end`) | Purpose |
+| --- | --- | --- |
+| **08:05** | 07:45 — 08:00 | Captures all events finalized by 08:00. |
+| **08:20** | 08:00 — 08:15 | Captures all events finalized by 08:15. |
+| **08:35** | 08:15 — 08:30 | Captures all events finalized by 08:30. |
+
+### Sample Implementation (Python)
+
+This pattern ensures that your application always requests data that has safely passed the 5-minute propagation threshold.
+
+```python
+import requests
+import datetime
+
+# Configuration
+BASE_URL = "https://ringcx.ringcentral.com/voice/api/v1/admin/auditLogs/search"
+ACCOUNT_ID = "12345"
+
+def get_audit_logs():
+    # Calculate the window: 
+    # End time is 5 minutes ago (to respect propagation)
+    # Start time is 15 minutes before that
+    now = datetime.datetime.now(datetime.timezone.utc)
+    end_time = now - datetime.timedelta(minutes=5)
+    start_time = end_time - datetime.timedelta(minutes=15)
+
+    # Note: Use startDateTimeAsUnix for easier programmatic calculation
+    payload = {
+        "accountId": ACCOUNT_ID,
+        "startDateTimeAsUnix": int(start_time.timestamp() * 1000),
+        "endDateTimeAsUnix": int(end_time.timestamp() * 1000),
+        "ascOrDesc": "ASCENDING"
+    }
+
+    # Replace with your actual authentication logic
+    headers = {
+        'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+        'Content-Type': 'application/json'
+    }
+
+    response = requests.put(BASE_URL, json=payload, headers=headers)
+    response.raise_for_status()
+    return response.json()
+
+```
+
+
