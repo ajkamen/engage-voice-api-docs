@@ -23,7 +23,7 @@ This API is designed for post-interaction retrieval. Transcripts are generated a
 
 #### 1. Configure OAuth Scopes
 
-To authenticate, your application must be configured with the following permission in the [Developer Portal]():
+To authenticate, your application must be configured with the following permission in the [Developer Portal](https://developers.ringcentral.com/my-account.html#/applications):
 
 * **`ReadAccounts`**: Required to validate the account context and access interaction metadata.
 
