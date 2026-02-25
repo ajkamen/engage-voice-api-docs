@@ -53,31 +53,29 @@ This endpoint retrieves metadata for both VOICE and DIGITAL channels within a sp
     | Field | Type | Description |
     | :--- | :--- | :--- |
     | `subAccountId` | Integer | The unique identifier for the RingCX sub-account. |
-    | `dialogId` | String | Unique ID used to connect segments in transfer/conference scenarios. |
-    | `interactionId` | String | Deprecated. Unique ID provided for backward compatibility only. |
-    | `channelId` | String | Unique ID of the channel (DNIS for voice, UUID for digital). |
-    | `channelType` | String | The specific communication channel (VOICE, EMAIL, SMS, MESSENGER, etc.). |
-    | `channelClass` | String | Classification of the channel: `VOICE` or `DIGITAL`. |
-    | `channelEndpointAddress` | String | The identifier of the contact center/company (e.g., DNIS for inbound). |
-    | `contactEndpointAddress` | String | The identifier of the contact (e.g., phoneNumber for voice). |
-    | `dialogOrigination` | String | Origin of the dialog: `INBOUND` or `OUTBOUND`. |
-    | `dialogStartTimeMs` | String | Start time of the entire dialog in UTC. |
-    | `dialogEndTimeMs` | String | End time of the entire dialog in UTC. |
-    | `dialogDurationMs` | Integer | The total duration of the dialog in milliseconds. |
-    | `segmentId` | String | Unique ID of the specific segment. |
-    | `segmentType` | String | Type of participant in control: `AGENT` or `IVR`. |
-    | `segmentParticipantId` | String | RingCX identifier for the Agent or IVR. |
-    | `segmentParticipantRcExtensionId` | String | RingCentral user extension ID. |
-    | `segmentStartTimeMs` | String | Time participant joined the conversation in UTC. |
-    | `segmentEndTimeMs` | String | Time participant left the conversation in UTC. |
-    | `segmentDurationMs` | Integer | Segment duration in milliseconds. |
+    | `interactionId` | String | Unique interaction ID used to connect different call segments together. |
+    | `interactionStartTimeMs` | String | Start time of the interaction. Milliseconds precision. |
+    | `interactionDurationMs` | Integer | The total duration of the interaction. Milliseconds precision. |
+    | `segmentID` | Integer | Unique segment sequence ID within the interaction. |
+    | `segmentAgentId` | Integer | RingCentral user ID of the agent. |
+    | `segmentContactStartTimeMs` | String | Time agent joined the conversation. Milliseconds precision. |
+    | `segmentContactEndTimeMs` | String | Time agent left the conversation. Milliseconds precision. |
+    | `segmentDuration` | Integer | Segment duration in seconds. |
+    | `interactionCallingAddress` | String | The ANI (caller ID) of the interaction. |
+    | `interactionCalledAddress` | String | The DNIS (dialed number) of the interaction. |
+    | `interactionDirection` | String | Direction of the interaction: `INBOUND` or `OUTBOUND`. |
+    | `segmentRecordingURL` | String | URL for segment recording retrieval. |
     | `segmentAgentGroupId` | String | The ID of the agent group this agent belongs to for this segment. |
+    | `segmentEvents` | Array | Ordered list of events (e.g., `REC_START`, `REC_STOP`). |
+    | `campaignId` | String | Unique identifier for the campaign. |
+    | `campaignName` | String | Name of the campaign. |
+    | `dialMode` | String | Dial mode of the campaign (e.g., PREDICTIVE, PREVIEW). |
+    | `hciType` | String | Human Call Initiator type. |
+    | `dialType` | String | Type of dialing (e.g., AGENT_ORIGINATED). |
+    | `systemDisposition` | String | Disposition Code set by the System. |
     | `agentDisposition` | String | Disposition Code set by the agent. |
     | `agentNotes` | String | Notes added by the agent. |
-    | `hasRecording` | Boolean | Indicates if recording data exists for this segment. |
-    | `hasTranscript` | Boolean | Indicates if transcript data exists for this segment. |
-    | `segmentEvents` | Array | Ordered list of events starting with `REC_START` if recording exists. |
-
+    | `ringSenseEnabled` | Boolean | Identifies if the recording is RingSense enabled. |
 
 
 #### Python Example: Fetching Metadata
@@ -101,11 +99,12 @@ headers = {
 response = requests.post(url, headers=headers, data=payload)
 print(response.json())
 
+
 ```
 
 ### Retrieving Agent Segment Recordings
 
-To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `hasRecording` field.
+To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `segmentRecordingURL` field.
 
 To account for processing time, please allow at least 10 minutes after an interaction completes before invoking this API to ensure the media is finalized and ready for retrieval.
 
@@ -151,6 +150,7 @@ if response.status_code == 200:
 else:
     print(f"Error: {response.status_code}")
 
+
 ```
 
 ### Retrieving Agent Segment Transcripts
@@ -190,6 +190,7 @@ if response.status_code == 200:
     for entry in data.get('transcript', []):
         print(f"[{entry['participantType']}]: {entry['message']}")
 
+
 ```
 
 ---
@@ -210,6 +211,8 @@ This report returns performance metrics for all queues within a specified sub-ac
 | `endDate` | String | Optional | End date and time in `YYYY-MM-DD HH:MM:SS` format. |
 | `timeInterval` | Integer | **Required** | Interval length in minutes. Valid values: `15`, `30`, `45`, or `60`. |
 | `timeZone` | String | **Required** | Timezone name used for report generation (e.g., `US/Eastern`). |
+| `reportType` | String | Optional | Report type defining parameters (default: `WEM`). |
+| `outputFormat` | String | **Required** | Format of the report: `CSV` or `XML`. |
 
 ??? info "View Queue Statistics Response Fields"
 
@@ -251,7 +254,8 @@ payload = json.dumps({
   "startDate": "2024-03-04 00:00:00",
   "endDate": "2024-03-04 01:00:00",
   "timeInterval": 60,
-  "timeZone": "US/Eastern"
+  "timeZone": "US/Eastern",
+  "outputFormat": "CSV"
 })
 headers = {
   'Content-Type': 'application/json',
@@ -260,6 +264,7 @@ headers = {
 
 response = requests.post(url, headers=headers, data=payload)
 print(response.json())
+
 
 ```
 
@@ -279,6 +284,8 @@ This report provides a granular breakdown of performance metrics for all agents 
 | `endDate` | String | Optional | End date and time in `YYYY-MM-DD HH:MM:SS` format. |
 | `timeInterval` | Integer | **Required** | Interval length in minutes (`15`, `30`, `45`, or `60`). |
 | `timeZone` | String | **Required** | Timezone name used for report generation. |
+| `reportType` | String | Optional | Report type defining parameters (default: `WEM`). |
+| `outputFormat` | String | **Required** | Format of the report: `CSV` or `XML`. |
 
 ??? info "View Agent Extended Statistics Response Fields"
 
@@ -309,7 +316,8 @@ payload = json.dumps({
   "startDate": "2024-03-04 05:00:00",
   "endDate": "2024-03-04 06:00:00",
   "timeInterval": 60,
-  "timeZone": "US/Eastern"
+  "timeZone": "US/Eastern",
+  "outputFormat": "CSV"
 })
 headers = {
   'Content-Type': 'application/json',
@@ -318,6 +326,7 @@ headers = {
 
 response = requests.post(url, headers=headers, data=payload)
 print(response.json())
+
 
 ```
 
@@ -336,5 +345,5 @@ To maintain data integrity and account for the **5-minute propagation delay**, d
 | **10:50** | 10:30 – 10:45 | Captures all events finalized by 10:45. |
 
 !!! important "Rate Limiting & Stability"
-    * **Limit:** Requests are limited to **2 calls per minute** per node.
+    * **Limit:** Requests are limited to **120 calls per minute** per node.
     * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts.
