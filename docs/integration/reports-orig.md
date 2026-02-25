@@ -37,7 +37,7 @@ For detailed instructions on obtaining your access token, please refer to the [R
 
 This endpoint retrieves metadata for both VOICE and DIGITAL channels within a specified time range. A **Dialog** represents the entire customer journey, while a **Segment** represents a specific participant's (Agent, IVR, or Bot) involvement in that journey.
 
-`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{{rcAccountId}}/sub-accounts/{{subAccountId}}/interaction-metadata`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/admin/reports/accounts/{{subAccountId}}/interactionMetadata`
 
 #### Request Body
 
@@ -79,13 +79,14 @@ This endpoint retrieves metadata for both VOICE and DIGITAL channels within a sp
     | `segmentEvents` | Array | Ordered list of events starting with `REC_START` if recording exists. |
 
 
+
 #### Python Example: Fetching Metadata
 
 ```python
 import requests
 import json
 
-url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/980634004/sub-accounts/99999999/interaction-metadata"
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v2/admin/reports/accounts/99999999/interactionMetadata"
 
 payload = json.dumps({
   "segmentEndTime": "2024-07-22 11:25:00",
@@ -104,7 +105,7 @@ print(response.json())
 
 ### Retrieving Agent Segment Recordings
 
-To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interaction-metadata` API will indicate if a recording is available for a specific segment via the `hasRecording` field.
+To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `hasRecording` field.
 
 To account for processing time, please allow at least 10 minutes after an interaction completes before invoking this API to ensure the media is finalized and ready for retrieval.
 
@@ -171,7 +172,6 @@ This endpoint retrieves the transcribed text for a specific interaction segment.
     | `message` | String | The transcribed text content. |
 
 
-
 #### Python Example: Fetching a Transcript
 
 ```python
@@ -200,7 +200,7 @@ if response.status_code == 200:
 
 This report returns performance metrics for all queues within a specified sub-account over a defined interval. Data is returned in JSON format and provides a high-level view of inbound traffic, abandoned interactions, and service level performance.
 
-`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{{rcAccountId}}/sub-accounts/{{subAccountId}}/agg-queue-stats`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/{{subAccountId}}/aggQueueStats`
 
 #### Request Body
 
@@ -239,14 +239,13 @@ This report returns performance metrics for all queues within a specified sub-ac
     | `segmentHoldTime` | Integer | Total duration in milliseconds a customer was placed on hold (VOICE only). |
 
 
-
 #### Python Example: Fetching Queue Stats
 
 ```python
 import requests
 import json
 
-url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/138885004/sub-accounts/99999033/agg-queue-stats"
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/99999033/aggQueueStats"
 
 payload = json.dumps({
   "startDate": "2024-03-04 00:00:00",
@@ -270,7 +269,7 @@ print(response.json())
 
 This report provides a granular breakdown of performance metrics for all agents across their assigned queues for a specific duration. It is primarily used to track individual agent productivity, including talk time and transfer counts.
 
-`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{{rcAccountId}}/sub-accounts/{{subAccountId}}/agg-agent-extended-stats`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/{{subAccountId}}/aggAgentExtendedStats`
 
 #### Request Body
 
@@ -298,14 +297,13 @@ This report provides a granular breakdown of performance metrics for all agents 
     | `transferOutIxnCnt` | Integer | Number of interactions answered and then transferred to another queue. |
 
 
-
 #### Python Example: Fetching Agent Extended Stats
 
 ```python
 import requests
 import json
 
-url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/138885004/sub-accounts/99999033/agg-agent-extended-stats"
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/99999033/aggAgentExtendedStats"
 
 payload = json.dumps({
   "startDate": "2024-03-04 05:00:00",
