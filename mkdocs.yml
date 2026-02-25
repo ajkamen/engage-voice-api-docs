@@ -106,7 +106,7 @@ nav:
     - 'Web Services': notifications/web-service/index.md
   - 'Integration': 
     - 'Overview': integration/index.md
-    - 'Reports': integration/reports.md
+    - 'Reports': integration/reports-orig.md
     - 'Administration': integration/admin.md
     - 'Routing': integration/agent-avail.md
   - 'SDKs': sdks.md

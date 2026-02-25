@@ -1,110 +1,340 @@
-# Historical Reporting APIs
+# Reports
 
-The following reports are commonly used for workforce management and give you detailed agent interaction records or aggregated statistics across queues and agents.
+The Reports APIs provide workforce management (WFM) tools to retrieve detailed agent interaction records and aggregated performance statistics across queues and agents. These endpoints are designed to feed external systems with raw data necessary for scheduling, compliance, and performance analysis.
 
-## Integration Reports
+## Strategic Overview
 
-The integration reports are special reports for integration purposes to assist with better workforce management. The integration reports consists of the following reports for agent and queue statistics.
+These tools allow developers to synchronize RingCX interaction data with third-party WFM platforms. By providing both granular segment metadata and high-level interval statistics, the API supports reporting requirements and forensic interaction tracking.
 
-!!! tip "The Reports API calls must be 5 minutes before now!"
-    When making an API call for the following reports, you must specify a time period at least 5 minutes before the current time. This means you can not specify a time period in the future, or even the current time. You must specify at least an end time with the end time being 5 minutes before the current time.
+### Key Use Cases
 
-!!! tip "Be aware of rate limits"
-    The following report APIs are rate limited. This means you can only call the API a certain number of times before having to wait to call the report API again.
+* **WFM Synchronization:** Exporting agent activity and queue metrics to workforce management software for staffing optimization.
+* **Compliance Archiving:** Maintaining a metadata trail of all interactions, including links to recordings and transcripts.
+* **Performance Analysis:** Reviewing aggregated queue and agent data to identify trends in talk time and wrap-up durations.
 
-    The rate limit is currently set at 2 calls per minute (per node)
+### Real-Time vs. Latency Expectations
 
-    What this means is you may call the report API up to 2 times per node, but your request may be distributed to another node where your API call will succeed. The best way to handle this rate limit is to make an API call and if you receive a rate limit warning `429 Too Many Requests` status code, implement a backoff mechanism (e.g. exponential backoff) to space out retry attempts. You should also log rate limit errors and adjust request strategies accordingly.
+Data availability is subject to a propagation delay while interactions are finalized and indexed.
 
-* Agent Extended Statistics Report - An extended agent and queue report with call counts and durations
-* Agent Segment Metadata Report - A detailed agent interaction report by segment for each call
-* Queue Statistics Report - A specific report that lists all the queues in a queue group and the agents within each queue.
+* **Data Availability:** Data must be fetched **at least 5 minutes** before the current time to avoid API errors.
+* **Processing Buffer:** For interaction metadata and recordings, it is recommended to allow a 15-minute window for all media processing to complete.
 
-### Agent Extended Statistics Report
+### Required Permissions & Scopes
 
-The report file can be in either CSV or XML format. The table below explains the fields of each interval.
+To successfully authenticate, your application must be configured with the following permissions:
 
-| Field | Description |
-|-|-|
-| interval | period of time in minutes in 15, 30, 45, or 60 minute lengths. |
-| date_from | start date for this interval |
-| time (H24:MI) | time in hour:minute format of the current interval |
-| agent_id | the agent's unique identifier |
-| agent_name | the agent's full name |
-| queue | the queue's unique identifier in which the agent is in |
-| queue_name | the queue's name in which the agent is in |
-| talking_call_dur | total handling time (in seconds) on the call |
-| wrap_up_dur | Total wrap-up time or after call work (in seconds), associated with queue calls answered by the agent |
-| answ_call_cnt | number of answered calls (only calls through a queue)|
-| transfer_out_call_cnt | number of calls answered and then transferred to a queue |
+#### 1. Configure OAuth Scopes
 
-### Agent Segment Metadata Report
+* **`ReadAccounts`**: Required to validate the account context and complete the authentication flow.
 
-Also known as the interaction metadata report, this report is broken down into call legs, or also known as segments. Each segment consists of an interaction between a single agent and client. Each client could have have multiple segments as they are transferred to different agents, but each agent has only a single segment with a client.
+For detailed instructions on obtaining your access token, please refer to the [RingCentral Authentication Guide](https://developers.ringcentral.com/engage/voice/guide/authentication/auth-ringcentral).
 
-`POST https://{BASE_URL}/voice/api/integration/v2/admin/reports/accounts/{subAccountId}/interactionMetadata`
+---
+
+## Interaction Metadata & Media
+
+### Agent Segment Metadata
+
+This endpoint retrieves metadata for both VOICE and DIGITAL channels within a specified time range. A **Dialog** represents the entire customer journey, while a **Segment** represents a specific participant's (Agent, IVR, or Bot) involvement in that journey.
+
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/admin/reports/accounts/{{subAccountId}}/interactionMetadata`
 
 #### Request Body
 
-| Field | Description|
-|-|-|
-| segmentEndTime | Start date and time for the logging interval |
-| timeInterval | Interval length in seconds. Maximum allowed length is 3600 (1 hour). Note: if your time interval start or end in the future consecutive requests may return different list of segment. Idempotent results only guaranteed for the completed intervals. Segment recording URL may be added after delay. Allow 1-2min for processing |
-| timeZone | Timezone name which should be used for report generation |
+| Parameter | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| `segmentEndTime` | String | **Required** | The end of the logging interval (e.g., `2024-07-22 11:25:00`). |
+| `timeInterval` | Integer | **Required** | Interval length in seconds. Maximum allowed length is 3600 (1 hour). |
+| `timeZone` | String | **Required** | Timezone name used for report generation (e.g., `US/Eastern`). |
 
-**Quick example**: let's say we want to find the report with call start time `2022-10-20 07:47:48`, we'll have `segmentEndTime` < `2022-10-20 07:47:48` < `segmentEndTime + timeInterval` (assuming no time zone offset). So a valid set of values for request body will be:
+??? info "View Metadata Response Fields"
 
-```json
-{
-    "segmentEndTime": "2022-10-20 07:40:00",
-    "timeInterval": 600,
-    "timeZone": "US/Eastern"
+
+    | Field | Type | Description |
+    | :--- | :--- | :--- |
+    | `subAccountId` | Integer | The unique identifier for the RingCX sub-account. |
+    | `dialogId` | String | Unique ID used to connect segments in transfer/conference scenarios. |
+    | `interactionId` | String | Deprecated. Unique ID provided for backward compatibility only. |
+    | `channelId` | String | Unique ID of the channel (DNIS for voice, UUID for digital). |
+    | `channelType` | String | The specific communication channel (VOICE, EMAIL, SMS, MESSENGER, etc.). |
+    | `channelClass` | String | Classification of the channel: `VOICE` or `DIGITAL`. |
+    | `channelEndpointAddress` | String | The identifier of the contact center/company (e.g., DNIS for inbound). |
+    | `contactEndpointAddress` | String | The identifier of the contact (e.g., phoneNumber for voice). |
+    | `dialogOrigination` | String | Origin of the dialog: `INBOUND` or `OUTBOUND`. |
+    | `dialogStartTimeMs` | String | Start time of the entire dialog in UTC. |
+    | `dialogEndTimeMs` | String | End time of the entire dialog in UTC. |
+    | `dialogDurationMs` | Integer | The total duration of the dialog in milliseconds. |
+    | `segmentId` | String | Unique ID of the specific segment. |
+    | `segmentType` | String | Type of participant in control: `AGENT` or `IVR`. |
+    | `segmentParticipantId` | String | RingCX identifier for the Agent or IVR. |
+    | `segmentParticipantRcExtensionId` | String | RingCentral user extension ID. |
+    | `segmentStartTimeMs` | String | Time participant joined the conversation in UTC. |
+    | `segmentEndTimeMs` | String | Time participant left the conversation in UTC. |
+    | `segmentDurationMs` | Integer | Segment duration in milliseconds. |
+    | `segmentAgentGroupId` | String | The ID of the agent group this agent belongs to for this segment. |
+    | `agentDisposition` | String | Disposition Code set by the agent. |
+    | `agentNotes` | String | Notes added by the agent. |
+    | `hasRecording` | Boolean | Indicates if recording data exists for this segment. |
+    | `hasTranscript` | Boolean | Indicates if transcript data exists for this segment. |
+    | `segmentEvents` | Array | Ordered list of events starting with `REC_START` if recording exists. |
+
+
+
+#### Python Example: Fetching Metadata
+
+```python
+import requests
+import json
+
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v2/admin/reports/accounts/99999999/interactionMetadata"
+
+payload = json.dumps({
+  "segmentEndTime": "2024-07-22 11:25:00",
+  "timeInterval": 1800,
+  "timeZone": "US/Eastern"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
 }
+
+response = requests.post(url, headers=headers, data=payload)
+print(response.json())
+
 ```
 
-#### Response
+### Retrieving Agent Segment Recordings
 
-| Field | Description |
-|-|-|
-| interactionId | Unique interaction ID (UII) used to connect different call segments together in transfer/conference scenarios. |
-| interactionRecordingLocation | the link for entire call recording in mono format |
-| interactionStartTimeMs | Start time of the interaction. Could be different from segment start time if customer was engaged with the IVR, waited in queue, etc before agent joined the conversation. Milliseconds precision |Add commentMore actions
-| interactionDurationMs | The total duration of the interaction. Milliseconds precision |
-| interactionCallingAddress | The ANI of the interaction. The phone number of the person making the call (this could be the agent or the customer) |
-| interactionCalledAddress | The DNIS of the interaction. The phone number of the person who is receiving the call (this could be the agent or the customer) |
-| interactionDirection | the direction of the call whether `INBOUND` or `OUTBOUND` |
-| segmentID | Unique segment sequence ID within the interaction that typically begins at `2` |
-| segmentAgentId | the agent identifier (RingCentral user id) of the agent for this call leg |
-| segmentAgentGroupId | the agent group identifier of the agent group this agent belongs to, for this call leg |Add commentMore actions
-| segmentContactStartTimeMs | Time agent joined the conversation. Milliseconds precision |
-| segmentContactEndTimeMs | Time agent left the conversation. Milliseconds precision |
-| segmentDuration | Segment duration (available even when segmentContactEndTime is not provided) seconds |
-| segmentRecordingURL | the call recording for this call leg (note, there could be many legs to a single call if the call is transferred) |
-| segmentEvents | Ordered list of events. Can be empty if segmentRecordingURL is empty. In other cases array start with the event REC_START. Events don't overlap each other. A child element has `eventTimeMs`(event time with milliseconds precision. Server side), `clientEventTimeMs`(event time with milliseconds precision. Client side) and `eventType`(can be either `REC_START` or `REC_STOP`)|
+To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `hasRecording` field.
 
-### Queue Statistics Report
+To account for processing time, please allow at least 10 minutes after an interaction completes before invoking this API to ensure the media is finalized and ready for retrieval.
 
-The report file can be in either CSV or XML format. The table below explains the fields of each interval.
+`GET https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{{rcAccountId}}/sub-accounts/{{subAccountId}}/recordings/dialogs/{{dialogId}}/segments/{{segmentId}}`
 
-| Field | Description |
-|-|-|
-| interval | period of time in minutes in 15, 30, 45, or 60 minute lengths. |
-| date_from | start date for this interval |
-| time (H24:MI) | time in hour:minute format of the current interval |
-| queue | the queue’s unique numeric identifier |Add commentMore actions
-| queue_name | given name of the queue |
-| offd_direct_call_cnt | inbound calls to this queue, this queue being the original receiver |
-| overflow_in_call_cnt | number of calls to this queue with another queue as original receiver (Overflow in) |
-| aband_call_cnt | number of lost/abandoned calls during this interval |
-| overflow_out_call_cnt | number of overflow calls in this interval |
-| answ_call_cnt | number of answered calls in this interval |
-| queued_and_answ_call_dur | total queue time for all queued calls that were answered (in seconds) |
-| queued_and_aband_call_dur | total queue time for all queued calls that were abandoned (in seconds) |
-| talking_call_dur | length of time for the call |
-| wrap_up_dur | length of time for the agent to disposition the call |
-| queued_answ_longest_que_dur | the longest time a caller was in the queue before it was answered by an agent (in seconds) |
-| queued_aband_longest_que_dur | the longest time a caller was in the queue before the caller abandoned (or lost) the call (in seconds) |
-| ans_servicelevel_cnt | number of items answered within service level |
-| wait_dur | total waiting time for agents ready and waiting on items (in seconds) |
-| aband_short_call_cnt | number of abandoned short items, e.g. items with a queue time less than 5 seconds |
-| aband_within_sl_cnt | number of abandoned items within service level. Any abandoned items reported in `aband_short_call_cnt` should not be included |
+#### Request Parameters
+
+| Parameter | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| `rcAccountId` | String | **Required** | The unique identifier for your RingEX account. |
+| `subAccountId` | String | **Required** | The unique identifier for your RingCX sub-account. |
+| `dialogId` | String | **Required** | The unique ID for the interaction, obtained from metadata. |
+| `segmentId` | String | **Required** | The unique ID for the specific segment, obtained from metadata. |
+
+#### Special Note About Call Recording Formats
+
+By default, call recordings are returned as a WAV file with PCM 16-bit encoding. To receive a compressed MP3 file instead, you must set a browser-like `User-Agent` in your request header.
+
+| Key | Value |
+| --- | --- |
+| `User-Agent` | `Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36` |
+
+#### Python Example: Downloading a Recording
+
+```python
+import requests
+
+# Parameters obtained from the Metadata API
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/980634004/sub-accounts/99999999/recordings/dialogs/d-123/segments/s-456"
+
+headers = {
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN',
+  'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36'
+}
+
+response = requests.get(url, headers=headers, stream=True)
+
+if response.status_code == 200:
+    with open("recording.mp3", 'wb') as f:
+        for chunk in response.iter_content(chunk_size=1024):
+            f.write(chunk)
+    print("Recording downloaded successfully.")
+else:
+    print(f"Error: {response.status_code}")
+
+```
+
+### Retrieving Agent Segment Transcripts
+
+This endpoint retrieves the transcribed text for a specific interaction segment. Like recordings, transcripts require processing time and should be accessed after the 10-15 minute processing window.
+
+`GET https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{{rcAccountId}}/sub-accounts/{{subAccountId}}/transcripts/dialogs/{{dialogId}}/segments/{{segmentId}}`
+
+??? info "View Transcript Response Fields"
+
+
+    | Field | Type | Description |
+    | :--- | :--- | :--- |
+    | `channelClass` | String | Classification of the channel: `VOICE` or `DIGITAL`. |
+    | `transcript` | Array | Ordered list of transcribed messages. |
+    | `participantId` | String | Unique ID of the participant who spoke. |
+    | `participantType` | String | Type of participant: `agent` or `contact`. |
+    | `timestamp` | String | The epoch timestamp of the specific message. |
+    | `message` | String | The transcribed text content. |
+
+
+#### Python Example: Fetching a Transcript
+
+```python
+import requests
+
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/980634004/sub-accounts/99999999/transcripts/dialogs/d-123/segments/s-456"
+
+headers = {
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+}
+
+response = requests.get(url, headers=headers)
+
+if response.status_code == 200:
+    data = response.json()
+    for entry in data.get('transcript', []):
+        print(f"[{entry['participantType']}]: {entry['message']}")
+
+```
+
+---
+
+## Aggregated Statistics
+
+### Queue Statistics
+
+This report returns performance metrics for all queues within a specified sub-account over a defined interval. Data is returned in JSON format and provides a high-level view of inbound traffic, abandoned interactions, and service level performance.
+
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/{{subAccountId}}/aggQueueStats`
+
+#### Request Body
+
+| Parameter | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| `startDate` | String | **Required** | Start date and time in `YYYY-MM-DD HH:MM:SS` format. |
+| `endDate` | String | Optional | End date and time in `YYYY-MM-DD HH:MM:SS` format. |
+| `timeInterval` | Integer | **Required** | Interval length in minutes. Valid values: `15`, `30`, `45`, or `60`. |
+| `timeZone` | String | **Required** | Timezone name used for report generation (e.g., `US/Eastern`). |
+
+??? info "View Queue Statistics Response Fields"
+
+
+    | Field | Type | Description |
+    | :--- | :--- | :--- |
+    | `interval` | Integer | Period of time in minutes (15, 30, 45, or 60). |
+    | `dateTimeFrom` | String | Start date for this specific interval. |
+    | `queue` | Integer | The queue’s unique numeric identifier. |
+    | `queueName` | String | Given name of the queue. |
+    | `offDirectIxnCnt` | Integer | Inbound calls or chats where this queue was the original receiver. |
+    | `overflowInIxnCnt` | Integer | Interactions where another queue was the original receiver (Overflow in). |
+    | `abandIxnCnt` | Integer | Number of lost or abandoned interactions during this interval. |
+    | `overflowOutIxnCnt` | Integer | Number of interactions sent to another queue (Overflow out). |
+    | `answIxnCnt` | Integer | Number of answered interactions in this interval. |
+    | `queuedAndAnswIxnDur` | Integer | Total queue time for all answered interactions (in seconds). |
+    | `queuedAndAbandIxnDur` | Integer | Total queue time for all abandoned interactions (in seconds). |
+    | `talkingIxnDur` | Integer | Total length of time in seconds for the interactions. |
+    | `wrapUpDur` | Integer | Total length of time in seconds for agent disposition/after-call work. |
+    | `queuedAnswLongestQueDur` | Integer | Longest time a caller waited in queue before being answered (seconds). |
+    | `queuedAbandLongestQueDur` | Integer | Longest time a caller waited in queue before abandoning (seconds). |
+    | `ansServicelevelCnt` | Integer | Number of interactions answered within the defined service level. |
+    | `waitDur` | Integer | Total waiting time for agents ready and waiting on contacts (seconds). |
+    | `abandShortIxnCnt` | Integer | Number of abandoned contacts with queue time less than 5 seconds. |
+    | `abandWithinSlCnt` | Integer | Number of abandoned contacts within the defined service level. |
+    | `completedContacts` | Integer | Total answered and wrapped-up contacts completed during the interval. |
+    | `segmentHoldTime` | Integer | Total duration in milliseconds a customer was placed on hold (VOICE only). |
+
+
+#### Python Example: Fetching Queue Stats
+
+```python
+import requests
+import json
+
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/99999033/aggQueueStats"
+
+payload = json.dumps({
+  "startDate": "2024-03-04 00:00:00",
+  "endDate": "2024-03-04 01:00:00",
+  "timeInterval": 60,
+  "timeZone": "US/Eastern"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+}
+
+response = requests.post(url, headers=headers, data=payload)
+print(response.json())
+
+```
+
+---
+
+### Agent Extended Statistics Report
+
+This report provides a granular breakdown of performance metrics for all agents across their assigned queues for a specific duration. It is primarily used to track individual agent productivity, including talk time and transfer counts.
+
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/{{subAccountId}}/aggAgentExtendedStats`
+
+#### Request Body
+
+| Parameter | Type | Requirement | Description |
+| --- | --- | --- | --- |
+| `startDate` | String | **Required** | Start date and time in `YYYY-MM-DD HH:MM:SS` format. |
+| `endDate` | String | Optional | End date and time in `YYYY-MM-DD HH:MM:SS` format. |
+| `timeInterval` | Integer | **Required** | Interval length in minutes (`15`, `30`, `45`, or `60`). |
+| `timeZone` | String | **Required** | Timezone name used for report generation. |
+
+??? info "View Agent Extended Statistics Response Fields"
+
+
+    | Field | Type | Description |
+    | :--- | :--- | :--- |
+    | `interval` | Integer | Period of time in minutes (15, 30, 45, or 60). |
+    | `dateTimeFrom` | String | Start date for this specific interval. |
+    | `agentId` | Integer | The agent's unique numeric identifier. |
+    | `agentName` | String | The agent's full name. |
+    | `queue` | Integer | The unique identifier for the queue the agent was active in. |
+    | `queueName` | String | The name of the associated queue. |
+    | `talkingIxnDur` | Integer | Total handling/talking time (in seconds) for the interval. |
+    | `wrapUpDur` | Integer | Total wrap-up time (in seconds) associated with queue interactions. |
+    | `answIxnCnt` | Integer | Number of interactions answered by the agent through the queue. |
+    | `transferOutIxnCnt` | Integer | Number of interactions answered and then transferred to another queue. |
+
+
+#### Python Example: Fetching Agent Extended Stats
+
+```python
+import requests
+import json
+
+url = "https://ringcx.ringcentral.com/voice/api/cx/integration/v1/admin/reports/accounts/99999033/aggAgentExtendedStats"
+
+payload = json.dumps({
+  "startDate": "2024-03-04 05:00:00",
+  "endDate": "2024-03-04 06:00:00",
+  "timeInterval": 60,
+  "timeZone": "US/Eastern"
+})
+headers = {
+  'Content-Type': 'application/json',
+  'Authorization': 'Bearer YOUR_ACCESS_TOKEN'
+}
+
+response = requests.post(url, headers=headers, data=payload)
+print(response.json())
+
+```
+
+---
+
+## Implementation Strategy
+
+### Recommended Polling Pattern (Sliding Window)
+
+To maintain data integrity and account for the **5-minute propagation delay**, developers should utilize a "Sliding Window" polling strategy.
+
+| Execution Time | Request Range | Purpose |
+| --- | --- | --- |
+| **10:20** | 10:00 – 10:15 | Captures all events finalized by 10:15. |
+| **10:35** | 10:15 – 10:30 | Captures all events finalized by 10:30. |
+| **10:50** | 10:30 – 10:45 | Captures all events finalized by 10:45. |
+
+!!! important "Rate Limiting & Stability"
+    * **Limit:** Requests are limited to **2 calls per minute** per node.
+    * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts.
