@@ -20,18 +20,15 @@ Data availability is subject to a propagation delay while interactions are final
 * **Processing Buffer:** For interaction metadata and recordings, it is recommended to allow a 15-minute window for all media processing to complete.
 
 !!! important "Rate Limiting & Stability"
-    * **Limit:** Requests are limited to **120 calls per minute** per node.
-    * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts.
+    * **Limit:** Requests are limited to **4 calls per minute** per node.
+    * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts. This strategy involves doubling the delay after each consecutive 429 error (e.g., 1s, 2s, 4s...) rather than retrying at fixed intervals.
 
 ### Required Permissions & Scopes
 
-To successfully authenticate, your application must be configured with the following permissions:
-
-#### 1. Configure OAuth Scopes
-
-* **`ReadAccounts`**: Required to validate the account context and complete the authentication flow.
-
 For detailed instructions on obtaining your access token, please refer to the [RingCentral Authentication Guide](https://developers.ringcentral.com/engage/voice/guide/authentication/auth-ringcentral).
+
+To successfully call the API, your RingCX account must be configured with **WEM Access**. If you lack the necessary permissions or receive an error when calling the API, please contact your Customer Success Manager (CSM).
+
 
 ---
 
