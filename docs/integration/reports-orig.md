@@ -19,6 +19,10 @@ Data availability is subject to a propagation delay while interactions are final
 * **Data Availability:** Data must be fetched **at least 5 minutes** before the current time to avoid API errors.
 * **Processing Buffer:** For interaction metadata and recordings, it is recommended to allow a 15-minute window for all media processing to complete.
 
+!!! important "Rate Limiting & Stability"
+    * **Limit:** Requests are limited to **120 calls per minute** per node.
+    * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts.
+
 ### Required Permissions & Scopes
 
 To successfully authenticate, your application must be configured with the following permissions:
@@ -104,7 +108,8 @@ print(response.json())
 
 ### Retrieving Agent Segment Recordings
 
-To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `segmentRecordingURL` field.
+!!!
+    To retrieve agent call recordings, you must first ensure the agent segment recording feature is enabled for each queue or campaign you wish to monitor. Once enabled, the `interactionMetadata` API will indicate if a recording is available for a specific segment via the `segmentRecordingURL` field.
 
 To account for processing time, please allow at least 10 minutes after an interaction completes before invoking this API to ensure the media is finalized and ready for retrieval.
 
@@ -154,6 +159,7 @@ else:
 ```
 
 ### Retrieving Agent Segment Transcripts
+
 
 This endpoint retrieves the transcribed text for a specific interaction segment. Like recordings, transcripts require processing time and should be accessed after the 10-15 minute processing window.
 
@@ -344,6 +350,3 @@ To maintain data integrity and account for the **5-minute propagation delay**, d
 | **10:35** | 10:15 – 10:30 | Captures all events finalized by 10:30. |
 | **10:50** | 10:30 – 10:45 | Captures all events finalized by 10:45. |
 
-!!! important "Rate Limiting & Stability"
-    * **Limit:** Requests are limited to **120 calls per minute** per node.
-    * **Strategy:** If the API returns a `429 Too Many Requests` status code, implement an **exponential backoff** strategy for subsequent retry attempts.
