@@ -26719,7 +26719,7 @@
                 ],
                 "summary": "startStream",
                 "description": "",
-                "operationId": "startStream",
+                "operationId": "startSegmentStream",
                 "parameters": [
                     {
                         "name": "rcAccountId",
@@ -26796,7 +26796,7 @@
                 ],
                 "summary": "stopStream",
                 "description": "",
-                "operationId": "stopStream",
+                "operationId": "stopSegmentStream",
                 "parameters": [
                     {
                         "name": "rcAccountId",
@@ -26872,7 +26872,7 @@
                 ],
                 "summary": "startStream2",
                 "description": "",
-                "operationId": "startStream2",
+                "operationId": "startDialogStream",
                 "parameters": [
                     {
                         "name": "rcAccountId",
@@ -26940,7 +26940,7 @@
                 ],
                 "summary": "stopStream2",
                 "description": "",
-                "operationId": "stopStream2",
+                "operationId": "stopDialogStream",
                 "parameters": [
                     {
                         "name": "rcAccountId",
