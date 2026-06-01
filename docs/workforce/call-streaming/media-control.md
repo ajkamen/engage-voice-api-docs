@@ -52,8 +52,8 @@ Media control requires interaction identifiers from another workflow.
 | --- | --- | --- | --- |
 | `rcAccountId` | String | **Required** | RingCentral account ID. |
 | `subAccountId` | String | **Required** | RingCX sub-account ID that owns the dialog. |
-| `dialogId` | String | **Required** | Conversation-level identifier. You can discover it from interaction metadata after the interaction is indexed, or receive it from an upstream live interaction workflow. |
-| `segmentId` | String | Optional | Segment identifier when you only want to stream one segment within the dialog. |
+| `dialogId` | String | **Required** | Conversation-level identifier. Capture it from the live interaction workflow that decides to start streaming, or from interaction metadata once the interaction is available to your integration. |
+| `segmentId` | String | Optional | Segment identifier when you only want to stream one segment within the dialog. Capture it from the same interaction metadata source as the dialog when segment-level routing is required. |
 | `streamId` | String | **Required** | Caller-provided stream identifier. You choose this value when starting the stream and reuse it to stop the same stream. |
 
 !!! info
@@ -76,9 +76,9 @@ The request body matches the `StartStreamRequestDTO` schema (with a nested `Audi
 | `url` | String | **Required** | Destination URL that will receive the audio stream. |
 | `streamId` | String | **Required** | Unique identifier you assign to this stream. Use the same value when stopping the stream. |
 | `token` | String | Optional | Opaque token passed through to the media-control layer for the stream receiver. |
-| `properties.encoding` | String | Optional | Requested audio encoding. Confirm supported values with your call streaming configuration. |
-| `properties.rate` | Integer (`int32`) | Optional | Requested sample rate in Hz. |
-| `properties.ptime` | Integer (`int32`) | Optional | Requested packetization time in milliseconds. |
+| `properties.encoding` | String | Optional | Requested audio encoding. The API surface treats this as free-form; use values supported by the configured streaming profile. |
+| `properties.rate` | Integer (`int32`) | Optional | Requested sample rate in Hz. The API surface does not publish an enum; align it with the configured streaming profile. |
+| `properties.ptime` | Integer (`int32`) | Optional | Requested packetization time in milliseconds. The API surface does not publish an enum; align it with the configured streaming profile. |
 
 **Example Request:**
 
