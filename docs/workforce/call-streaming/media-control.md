@@ -69,14 +69,16 @@ Starts a stream for the full dialog.
 
 ### Request Body
 
+The request body matches the `StartStreamRequestDTO` schema (with a nested `AudioStreamProperties` object).
+
 | Parameter | Type | Requirement | Description |
 | --- | --- | --- | --- |
 | `url` | String | **Required** | Destination URL that will receive the audio stream. |
 | `streamId` | String | **Required** | Unique identifier you assign to this stream. Use the same value when stopping the stream. |
 | `token` | String | Optional | Opaque token passed through to the media-control layer for the stream receiver. |
 | `properties.encoding` | String | Optional | Requested audio encoding. Confirm supported values with your call streaming configuration. |
-| `properties.rate` | Integer | Optional | Requested sample rate. |
-| `properties.ptime` | Integer | Optional | Requested packetization time. |
+| `properties.rate` | Integer (`int32`) | Optional | Requested sample rate in Hz. |
+| `properties.ptime` | Integer (`int32`) | Optional | Requested packetization time in milliseconds. |
 
 **Example Request:**
 
