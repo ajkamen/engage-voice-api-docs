@@ -26717,7 +26717,7 @@
                 "tags": [
                     "Media Control"
                 ],
-                "summary": "startStream",
+                "summary": "Start segment media stream",
                 "description": "",
                 "operationId": "startSegmentStream",
                 "parameters": [
@@ -26794,7 +26794,7 @@
                 "tags": [
                     "Media Control"
                 ],
-                "summary": "stopStream",
+                "summary": "Stop segment media stream",
                 "description": "",
                 "operationId": "stopSegmentStream",
                 "parameters": [
@@ -26870,7 +26870,7 @@
                 "tags": [
                     "Media Control"
                 ],
-                "summary": "startStream2",
+                "summary": "Start dialog media stream",
                 "description": "",
                 "operationId": "startDialogStream",
                 "parameters": [
@@ -26938,7 +26938,7 @@
                 "tags": [
                     "Media Control"
                 ],
-                "summary": "stopStream2",
+                "summary": "Stop dialog media stream",
                 "description": "",
                 "operationId": "stopDialogStream",
                 "parameters": [
@@ -27078,6 +27078,9 @@
         },
         {
             "name": "Users"
+        },
+        {
+            "name": "Media Control"
         }
     ],
     "x-tag-groups": [
@@ -27120,7 +27123,8 @@
             "name": "Workforce",
             "popular": true,
             "tags": [
-                "Audio Streaming"
+                "Audio Streaming",
+                "Media Control"
             ]
         },
         {
