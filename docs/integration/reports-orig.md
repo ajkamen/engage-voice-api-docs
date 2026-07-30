@@ -39,9 +39,52 @@ To successfully call the API, your RingCX account must be configured with **WEM 
 
 The **Interaction Metadata** API is used to reconstruct the complete "story" of a customer journey. While a standard report might show a single call, this API breaks that call down into specific **Segments**, representing every participant (Agent, IVR, or Bot) involved.
 
-A user would use this to perform forensic tracking or quality assurance. For example, if a customer was transferred three times, this API provides the metadata for all three segments, including specific timestamps for when each agent joined or left, and the direct URL to the audio recording for that specific portion of the call.
+A user would use this to perform forensic tracking or quality assurance. For example, if a customer was transferred three times, this API provides the metadata for all three segments, including specific timestamps for when each agent joined or left and whether recordings or transcripts are available for that specific portion of the call.
 
-* **Reference:** [Interaction Metadata API Details](https://developers.ringcentral.com/engage/voice/api-reference/Public-Integration-API/getInteractionMetadata)
+For new integrations, use the v2 endpoint:
+
+```http
+POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata
+Authorization: Bearer <ringcxAccessToken>
+Content-Type: application/json
+```
+
+```json
+{
+  "segmentEndTime": "2026-03-02 09:00:00",
+  "timeInterval": 1800,
+  "timeZone": "US/Eastern"
+}
+```
+
+Set `segmentEndTime` to the beginning of the completed time window you want to query. The API searches forward by `timeInterval` seconds.
+
+The v2 response uses current customer-facing field names. Use `uii` as the interaction identifier, `ani` and `dnis` for caller and dialed addresses, `callType` for the interaction direction, and `agentId` for the RingCX agent identifier. The `dialogId` and `segmentId` fields remain the values needed to retrieve recordings, transcripts, and summaries. The `callResult` field is populated for voice interactions and is `null` for digital interactions.
+
+```json
+[
+  {
+    "uii": "202603020901250144700000000001",
+    "dialogId": "s-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808",
+    "segmentId": "p-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808-190dcc63d90ab",
+    "interactionStartTimeMs": "2026-03-02T09:01:25.000Z",
+    "interactionEndTimeMs": "2026-03-02T09:04:02.000Z",
+    "callType": "INBOUND",
+    "channelClass": "VOICE",
+    "ani": "+15550101000",
+    "dnis": "+15550101100",
+    "agentId": "449438",
+    "agentFullName": "Alex Smith",
+    "callResult": "Inbound Answered",
+    "hasRecording": true,
+    "hasTranscript": true
+  }
+]
+```
+
+Existing integrations that depend on the v1 field names can continue to use `/cx/integration/v1/.../interaction-metadata`.
+
+* **Reference:** [Interaction Metadata API Details](https://developers.ringcentral.com/engage/voice/api-reference/Public-Integration-API/getInteractionMetadataV2)
 
 ### Retrieving Agent Segment Recordings & Transcripts
 

@@ -44,7 +44,7 @@ To authenticate, your application must be configured with the following permissi
 
 To retrieve a recording, you must first identify the unique identifiers for the call. Unlike legacy systems that provided a direct URL, the current API requires a **Dialog ID** and a **Segment ID**, which are discovered via the `interaction-metadata` report.
 
-`POST https://engage.ringcentral.com/voice/api/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
 
 For a detailed walkthrough on discovering metadata, please refer to the [Agent Segment Metadata API Guide](../../integration/reports-orig.md#agent-segment-metadata).
 
@@ -60,7 +60,7 @@ The response will contain a list of interaction segments. For each segment you w
 
 Once you have the necessary IDs from the metadata report, use the following endpoint to stream the `.WAV` audio file.
 
-`GET https://engage.ringcentral.com/voice/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/recordings/dialogs/{dialogId}/segments/{segmentId}`
+`GET https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/recordings/dialogs/{dialogId}/segments/{segmentId}`
 
 ### Path Parameters
 
@@ -99,7 +99,7 @@ The API returns a binary stream of the recording.
 import requests
 
 # Configuration
-BASE_URL = "https://engage.ringcentral.com"
+BASE_URL = "https://ringcx.ringcentral.com/voice/api"
 ACCESS_TOKEN = "YOUR_TOKEN"
 
 def download_recording(rc_account_id, sub_account_id, dialog_id, segment_id):
@@ -126,5 +126,3 @@ def download_recording(rc_account_id, sub_account_id, dialog_id, segment_id):
 ```
 
 ---
-
-
