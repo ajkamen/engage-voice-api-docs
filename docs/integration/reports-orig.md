@@ -37,7 +37,7 @@ To successfully call the API, your RingCX account must be configured with **WEM 
 
 **Purpose:** Granular Interaction Auditing and Quality Management.
 
-The **Interaction Metadata** API is used to reconstruct the complete "story" of a customer journey. While a standard report might show a single call, this API breaks that call down into specific **Segments**, representing every participant (Agent, IVR, or Bot) involved.
+The **Interaction Metadata** API is used to reconstruct the complete "story" of a customer journey. While a standard report might show a single call, this API breaks that call down into specific **Segments**, representing every participant (Agent, IVR, queue, or Bot) involved.
 
 A user would use this to perform forensic tracking or quality assurance. For example, if a customer was transferred three times, this API provides the metadata for all three segments, including specific timestamps for when each agent joined or left and whether recordings or transcripts are available for that specific portion of the call.
 
@@ -57,27 +57,44 @@ Content-Type: application/json
 }
 ```
 
-Set `segmentEndTime` to the beginning of the completed time window you want to query. The API searches forward by `timeInterval` seconds.
+Set `segmentEndTime` to the beginning of the completed time window you want to query. The API searches forward by `timeInterval` seconds, up to 10800 seconds (3 hours).
 
-The v2 response uses current customer-facing field names. Use `uii` as the interaction identifier, `ani` and `dnis` for caller and dialed addresses, `callType` for the interaction direction, and `agentId` for the RingCX agent identifier. The `dialogId` and `segmentId` fields remain the values needed to retrieve recordings, transcripts, and summaries. The `callResult` field is populated for voice interactions and is `null` for digital interactions.
+The v2 response uses current customer-facing field names and includes voice interactions that end before an agent leg is created, such as IVR abandons, queue timeouts, and no-agent-available outcomes. Use `uii` as the interaction identifier, `ani` and `dnis` for caller and dialed addresses, `callType` for the interaction direction, and `agentId` for the RingCX agent identifier when an agent segment exists. The `dialogId` and `segmentId` fields remain the values needed to retrieve recordings, transcripts, and summaries. The `callResult` field is populated for voice interactions using RingCX Historical Analytics outcome semantics and is `null` for digital interactions.
+
+| v1 field | v2 field | Notes |
+| --- | --- | --- |
+| `interactionId` | `uii` | Unique interaction identifier. |
+| `dialogStartTimeMs` | `interactionStartTimeMs` | Interaction start time. |
+| `dialogEndTimeMs` | `interactionEndTimeMs` | Interaction end time. |
+| `dialogOrigination` | `callType` | Interaction direction, such as `INBOUND` or `OUTBOUND`. |
+| `contactEndpointAddress` | `ani` | Caller address. |
+| `channelEndpointAddress` | `dnis` | Dialed address. |
+| `segmentParticipantId` | `agentId` | Populated when the segment has an agent. |
+| N/A | `callResult` | Final voice call outcome, such as `Inbound Accepted` or `Inbound Abandoned`. |
 
 ```json
 [
   {
-    "uii": "202603020901250144700000000001",
-    "dialogId": "s-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808",
-    "segmentId": "p-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808-190dcc63d90ab",
-    "interactionStartTimeMs": "2026-03-02T09:01:25.000Z",
-    "interactionEndTimeMs": "2026-03-02T09:04:02.000Z",
+    "uii": "202606020106368133110000000002",
+    "dialogId": "s-v-23eb89e65275496496bc956876e45568-1780376796111",
+    "segmentId": "p-v-23eb89e65275496496bc956876e45568-1780376796111-00e86b9fbcf05",
+    "interactionStartTimeMs": "2026-06-02T05:06:36.000Z",
+    "interactionEndTimeMs": "2026-06-02T05:07:21.000Z",
+    "dialogDurationMs": 45000,
     "callType": "INBOUND",
+    "channelType": "VOICE",
     "channelClass": "VOICE",
-    "ani": "+15550101000",
-    "dnis": "+15550101100",
-    "agentId": "449438",
-    "agentFullName": "Alex Smith",
-    "callResult": "Inbound Answered",
-    "hasRecording": true,
-    "hasTranscript": true
+    "ani": "2098886424",
+    "dnis": "9072901055",
+    "agentId": null,
+    "agentFullName": null,
+    "productType": 3,
+    "productId": "483",
+    "termParty": "CALLER",
+    "termReason": "HANGUP",
+    "callResult": "Inbound Abandoned",
+    "hasRecording": false,
+    "hasTranscript": false
   }
 ]
 ```

@@ -14259,7 +14259,9 @@
           "timeInterval": {
             "type": "integer",
             "format": "int32",
-            "description": "Interval length in seconds. Maximum allowed length is 3600 (1 hour). Query completed intervals for consistent results. Recording and transcript fields can be populated after a short processing delay.",
+            "minimum": 1,
+            "maximum": 10800,
+            "description": "Length of the lookup window in seconds, measured forward from segmentEndTime. Maximum allowed length is 10800 (3 hours). Query completed intervals; results for recent interactions can change while metadata and media fields are still processing.",
             "example": 1800
           },
           "timeZone": {
@@ -14415,7 +14417,7 @@
       },
       "RCInteractionMetaDataV2Response": {
         "type": "object",
-        "description": "Interaction metadata response for the v2 CX integration endpoint.",
+        "description": "Interaction metadata response for the v2 CX integration endpoint. V2 uses current customer-facing field names, includes non-agent voice sessions by default, and returns callResult for voice interactions.",
         "properties": {
           "uii": {
             "type": "string",
@@ -14454,7 +14456,7 @@
           },
           "agentId": {
             "type": "string",
-            "description": "RingCX agent ID for the segment when an agent leg exists.",
+            "description": "RingCX agent ID for the segment when an agent leg exists. Non-agent voice segments return null.",
             "nullable": true
           },
           "product": {
@@ -14490,7 +14492,7 @@
           },
           "callResult": {
             "type": "string",
-            "description": "Final call result for voice interactions. Digital interactions return null.",
+            "description": "Final call result for voice interactions, such as Inbound Accepted or Inbound Abandoned. Digital interactions return null.",
             "nullable": true
           },
           "subAccountId": {
@@ -26459,8 +26461,8 @@
         "tags": [
           "Public Integration API"
         ],
-        "summary": "Returns Interaction Segment Metadata with Current Field Names",
-        "description": "Returns completed voice and digital interaction segment metadata for the requested account and time window. Requires WEM Access. Use this v2 endpoint for new integrations; v1 remains available for integrations that depend on legacy field names.",
+        "summary": "Returns interaction metadata with current field names and voice call results",
+        "description": "Returns completed voice and digital interaction segment metadata for the requested account and time window. Requires WEM Access. Voice results include non-agent sessions by default, such as IVR abandons, queue timeouts, and no-agent-available outcomes. Use this v2 endpoint for new integrations; v1 remains available for integrations that depend on legacy field names.",
         "operationId": "getInteractionMetadataV2",
         "parameters": [
           {
@@ -26509,29 +26511,33 @@
                 },
                 "example": [
                   {
-                    "uii": "202603020901250144700000000001",
-                    "dialogId": "s-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808",
-                    "segmentId": "p-v-93bd0e6f0f0a479ea8025fe8f8ec3e1d-1721690897808-190dcc63d90ab",
-                    "interactionStartTimeMs": "2026-03-02T09:01:25.000Z",
-                    "interactionEndTimeMs": "2026-03-02T09:04:02.000Z",
-                    "dialogDurationMs": 157000,
+                    "uii": "202606020106368133110000000002",
+                    "dialogId": "s-v-23eb89e65275496496bc956876e45568-1780376796111",
+                    "segmentId": "p-v-23eb89e65275496496bc956876e45568-1780376796111-00e86b9fbcf05",
+                    "interactionStartTimeMs": "2026-06-02T05:06:36.000Z",
+                    "interactionEndTimeMs": "2026-06-02T05:07:21.000Z",
+                    "dialogDurationMs": 45000,
                     "callType": "INBOUND",
                     "channelType": "VOICE",
                     "channelClass": "VOICE",
-                    "ani": "+15550101000",
-                    "dnis": "+15550101100",
-                    "agentId": "449438",
-                    "agentFullName": "Alex Smith",
-                    "callResult": "Inbound Answered",
+                    "ani": "2098886424",
+                    "dnis": "9072901055",
+                    "agentId": null,
+                    "agentFullName": null,
+                    "productType": 3,
+                    "productId": "483",
+                    "termParty": "CALLER",
+                    "termReason": "HANGUP",
+                    "callResult": "Inbound Abandoned",
                     "subAccountId": "99999999",
-                    "segmentStartTimeMs": "2026-03-02T09:01:25.000Z",
-                    "segmentEndTimeMs": "2026-03-02T09:04:02.000Z",
-                    "segmentDurationMs": 157000,
-                    "segmentAgentGroupId": "76873",
-                    "systemDisposition": "ANSWER",
-                    "agentDisposition": "Success",
-                    "hasRecording": true,
-                    "hasTranscript": true,
+                    "segmentStartTimeMs": "2026-06-02T05:06:36.000Z",
+                    "segmentEndTimeMs": "2026-06-02T05:07:21.000Z",
+                    "segmentDurationMs": 45000,
+                    "segmentAgentGroupId": null,
+                    "systemDisposition": "",
+                    "agentDisposition": null,
+                    "hasRecording": false,
+                    "hasTranscript": false,
                     "hasScreenRecording": false
                   }
                 ]
