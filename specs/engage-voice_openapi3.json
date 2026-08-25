@@ -128,10 +128,12 @@
             "type": "string"
           },
           "mainAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX main account identifier for the authenticated user."
           },
           "platformId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral platform identifier."
           },
           "port": {
             "format": "int32",
@@ -159,7 +161,8 @@
       "Account": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX sub-account identifier."
           },
           "accountName": {
             "type": "string"
@@ -213,10 +216,12 @@
             "type": "integer"
           },
           "dncOrgId": {
-            "type": "string"
+            "type": "string",
+            "description": "Do-not-call organization identifier."
           },
           "dncOrgIdConfirmed": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the do-not-call organization identifier is confirmed."
           },
           "emailFromAddress": {
             "type": "string"
@@ -329,7 +334,8 @@
             "$ref": "#/components/schemas/MainAccount"
           },
           "mainAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX main account identifier for this sub-account."
           },
           "mainAccountName": {
             "type": "string"
@@ -459,7 +465,8 @@
       "AccountAuxState": {
         "properties": {
           "agentAuxState": {
-            "type": "string"
+            "type": "string",
+            "description": "Auxiliary state assigned to the agent."
           },
           "baseAgentState": {
             "$ref": "#/components/schemas/BaseAgentState"
@@ -478,11 +485,13 @@
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "stateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Auxiliary state identifier."
           }
         },
         "type": "object"
@@ -490,7 +499,8 @@
       "AccountView": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "accountName": {
             "type": "string"
@@ -564,13 +574,15 @@
             "type": "boolean"
           },
           "engageAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX account identifier."
           },
           "ivrAppsEnabled": {
             "type": "boolean"
           },
           "mainAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX main account identifier for this account view."
           },
           "mainAccountName": {
             "type": "string"
@@ -587,7 +599,8 @@
             "type": "string"
           },
           "rcAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral account identifier associated with the RingCX context."
           },
           "tcpaSafeMode": {
             "type": "boolean"
@@ -601,7 +614,8 @@
       "ActiveCallListResponse": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "agentFirstName": {
             "type": "string"
@@ -610,13 +624,16 @@
             "type": "string"
           },
           "ani": {
-            "type": "string"
+            "type": "string",
+            "description": "Automatic Number Identification (ANI) caller number."
           },
           "archive": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the resource is archived."
           },
           "callState": {
-            "type": "string"
+            "type": "string",
+            "description": "Current state of the call."
           },
           "cnam": {
             "type": "string"
@@ -630,10 +647,12 @@
             "type": "string"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "enqueueTime": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -641,10 +660,12 @@
             "type": "string"
           },
           "externalId": {
-            "type": "string"
+            "type": "string",
+            "description": "External identifier supplied by your system."
           },
           "uii": {
-            "type": "string"
+            "type": "string",
+            "description": "Unique interaction identifier for the call."
           }
         },
         "type": "object"
@@ -692,14 +713,17 @@
             "type": "string"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "rcAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral account identifier associated with the RingCX context."
           },
           "rcUserId": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "regionalSettings": {
             "$ref": "#/components/schemas/RegionalSettingRequestResponse"
@@ -715,10 +739,12 @@
           },
           "userId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX user identifier."
           },
           "userManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is managed by RingCentral identity."
           },
           "userName": {
             "type": "string"
@@ -766,7 +792,8 @@
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "agentLoadBalance": {
             "$ref": "#/components/schemas/CollectionAgentLoadBalanceMember"
@@ -776,7 +803,8 @@
           },
           "agentRank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent ranking value used for routing."
           },
           "agentSkillProfiles": {
             "$ref": "#/components/schemas/CollectionAgentSkillProfile"
@@ -788,7 +816,8 @@
               "MULTI_USER",
               "MULTI_SUPERVISOR"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of agent account."
           },
           "allowAgentReports": {
             "type": "boolean"
@@ -818,7 +847,8 @@
             "type": "boolean"
           },
           "allowCrossGateRequeue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can requeue interactions across gates."
           },
           "allowDirectAgentTransfer": {
             "enum": [
@@ -835,7 +865,8 @@
             "type": "boolean"
           },
           "allowFromIpAddresses": {
-            "type": "string"
+            "type": "string",
+            "description": "Allowed source IP addresses for the agent."
           },
           "allowGateStats": {
             "type": "boolean"
@@ -862,7 +893,8 @@
             "type": "boolean"
           },
           "allowLoginUpdates": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether login state updates are allowed for the agent."
           },
           "allowManualCalls": {
             "type": "boolean"
@@ -874,7 +906,8 @@
             "type": "boolean"
           },
           "allowManualOutboundGates": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can choose gates for manual outbound calls."
           },
           "allowManualPass": {
             "type": "boolean"
@@ -886,7 +919,8 @@
             "type": "boolean"
           },
           "allowRequeue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can requeue interactions."
           },
           "allowSelfAgentStats": {
             "type": "boolean"
@@ -902,7 +936,8 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Chat queue assignments for the agent."
           },
           "createdOn": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -920,10 +955,12 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Dial group assignments for the agent."
           },
           "directAgentExtension": {
-            "type": "string"
+            "type": "string",
+            "description": "Extension used for direct-to-agent routing."
           },
           "disableSupervisorMonitoring": {
             "type": "boolean"
@@ -935,7 +972,8 @@
             "type": "boolean"
           },
           "externalAgentId": {
-            "type": "string"
+            "type": "string",
+            "description": "External agent identifier supplied by your system."
           },
           "firstName": {
             "type": "string"
@@ -945,24 +983,29 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Gate assignments for the agent."
           },
           "gatesControlAgentVisibility": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether gate assignments control agent visibility."
           },
           "ghostRnaAction": {
             "type": "string"
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "initLoginBaseState": {
-            "type": "string"
+            "type": "string",
+            "description": "Initial base state assigned when the agent logs in."
           },
           "initLoginBaseStateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Identifier of the initial base state assigned at login."
           },
           "isActive": {
             "type": "boolean"
@@ -982,24 +1025,29 @@
             "type": "string"
           },
           "manualOutboundDefaultCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Default caller ID for manual outbound calls."
           },
           "manualOutboundDefaultCallerIdE164": {
-            "type": "string"
+            "type": "string",
+            "description": "Default manual outbound caller ID in E.164 format."
           },
           "manualOutboundDefaultGate": {
             "$ref": "#/components/schemas/Gate"
           },
           "maxChats": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of concurrent chats allowed for the agent."
           },
           "multiAccountAgent": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can access multiple accounts."
           },
           "parentAgentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Parent agent identifier."
           },
           "password": {
             "type": "string"
@@ -1015,7 +1063,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "phoneLoginDialGroup": {
             "$ref": "#/components/schemas/DialGroup"
@@ -1025,7 +1074,8 @@
           },
           "rcUserId": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "regionalSettings": {
             "$ref": "#/components/schemas/RegionalSettingRequestResponse"
@@ -1041,16 +1091,19 @@
           },
           "softphoneId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Softphone identifier assigned to the agent."
           },
           "team": {
             "type": "string"
           },
           "transientAgent": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent is temporary."
           },
           "transientDelete": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the transient agent is scheduled for deletion."
           },
           "transientDeleteDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1058,7 +1111,8 @@
             "type": "string"
           },
           "userManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is managed by RingCentral identity."
           },
           "username": {
             "type": "string"
@@ -1089,7 +1143,8 @@
             "$ref": "#/components/schemas/Account"
           },
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "accountName": {
             "type": "string"
@@ -1099,7 +1154,8 @@
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "name": {
             "type": "string"
@@ -1111,11 +1167,13 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "chatGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat group identifier."
           }
         },
         "type": "object"
@@ -1124,11 +1182,13 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "dialGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Dial group identifier."
           },
           "hciClicker": {
             "type": "boolean"
@@ -1140,18 +1200,21 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "agentRank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent ranking value used for routing."
           },
           "defaultDestOverride": {
             "type": "string"
           },
           "gateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate identifier."
           }
         },
         "type": "object"
@@ -1160,11 +1223,13 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "gateGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate group identifier."
           }
         },
         "type": "object"
@@ -1176,7 +1241,8 @@
           },
           "agentGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent group identifier."
           },
           "agents": {
             "$ref": "#/components/schemas/CollectionAgent"
@@ -1198,7 +1264,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           }
         },
         "type": "object"
@@ -1249,7 +1316,8 @@
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "agentLoadBalance": {
             "$ref": "#/components/schemas/CollectionAgentLoadBalanceMember"
@@ -1259,7 +1327,8 @@
           },
           "agentRank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent ranking value used for routing."
           },
           "agentSkillProfiles": {
             "items": {
@@ -1274,7 +1343,8 @@
               "MULTI_USER",
               "MULTI_SUPERVISOR"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of agent account."
           },
           "allowAgentReports": {
             "type": "boolean"
@@ -1304,7 +1374,8 @@
             "type": "boolean"
           },
           "allowCrossGateRequeue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can requeue interactions across gates."
           },
           "allowDirectAgentTransfer": {
             "enum": [
@@ -1321,7 +1392,8 @@
             "type": "boolean"
           },
           "allowFromIpAddresses": {
-            "type": "string"
+            "type": "string",
+            "description": "Allowed source IP addresses for the agent."
           },
           "allowGateStats": {
             "type": "boolean"
@@ -1348,7 +1420,8 @@
             "type": "boolean"
           },
           "allowLoginUpdates": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether login state updates are allowed for the agent."
           },
           "allowManualCalls": {
             "type": "boolean"
@@ -1360,7 +1433,8 @@
             "type": "boolean"
           },
           "allowManualOutboundGates": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can choose gates for manual outbound calls."
           },
           "allowManualPass": {
             "type": "boolean"
@@ -1372,7 +1446,8 @@
             "type": "boolean"
           },
           "allowRequeue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can requeue interactions."
           },
           "allowSelfAgentStats": {
             "type": "boolean"
@@ -1388,7 +1463,8 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Chat queue assignments for the agent."
           },
           "createdOn": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1406,10 +1482,12 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Dial group assignments for the agent."
           },
           "directAgentExtension": {
-            "type": "string"
+            "type": "string",
+            "description": "Extension used for direct-to-agent routing."
           },
           "disableSupervisorMonitoring": {
             "type": "boolean"
@@ -1421,7 +1499,8 @@
             "type": "boolean"
           },
           "externalAgentId": {
-            "type": "string"
+            "type": "string",
+            "description": "External agent identifier supplied by your system."
           },
           "firstName": {
             "type": "string"
@@ -1431,24 +1510,29 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Gate assignments for the agent."
           },
           "gatesControlAgentVisibility": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether gate assignments control agent visibility."
           },
           "ghostRnaAction": {
             "type": "string"
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "initLoginBaseState": {
-            "type": "string"
+            "type": "string",
+            "description": "Initial base state assigned when the agent logs in."
           },
           "initLoginBaseStateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Identifier of the initial base state assigned at login."
           },
           "isActive": {
             "type": "boolean"
@@ -1468,24 +1552,29 @@
             "type": "string"
           },
           "manualOutboundDefaultCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Default caller ID for manual outbound calls."
           },
           "manualOutboundDefaultCallerIdE164": {
-            "type": "string"
+            "type": "string",
+            "description": "Default manual outbound caller ID in E.164 format."
           },
           "manualOutboundDefaultGate": {
             "$ref": "#/components/schemas/Gate"
           },
           "maxChats": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of concurrent chats allowed for the agent."
           },
           "multiAccountAgent": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent can access multiple accounts."
           },
           "parentAgentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Parent agent identifier."
           },
           "password": {
             "type": "string"
@@ -1501,7 +1590,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "phoneLoginDialGroup": {
             "$ref": "#/components/schemas/DialGroup"
@@ -1510,11 +1600,13 @@
             "type": "string"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "rcUserId": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "regionalSettings": {
             "$ref": "#/components/schemas/RegionalSettingRequestResponse"
@@ -1530,16 +1622,19 @@
           },
           "softphoneId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Softphone identifier assigned to the agent."
           },
           "team": {
             "type": "string"
           },
           "transientAgent": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the agent is temporary."
           },
           "transientDelete": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the transient agent is scheduled for deletion."
           },
           "transientDeleteDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1547,7 +1642,8 @@
             "type": "string"
           },
           "userManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is managed by RingCentral identity."
           },
           "username": {
             "type": "string"
@@ -1600,7 +1696,8 @@
           },
           "profileId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Profile identifier."
           },
           "profileName": {
             "type": "string"
@@ -1612,11 +1709,13 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "supervisorId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Supervisor agent identifier."
           }
         },
         "type": "object"
@@ -1624,37 +1723,44 @@
       "AgentV2": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "accountName": {
             "type": "string"
           },
           "agentGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent group identifier."
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "agentRank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent ranking value used for routing."
           },
           "agentType": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of agent account."
           },
           "allowLoginControl": {
             "type": "boolean"
           },
           "allowLoginUpdates": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether login state updates are allowed for the agent."
           },
           "altDefaultLoginDest": {
             "type": "string"
           },
           "directAgentExtension": {
-            "type": "string"
+            "type": "string",
+            "description": "Extension used for direct-to-agent routing."
           },
           "email": {
             "type": "string"
@@ -1663,7 +1769,8 @@
             "type": "boolean"
           },
           "externalAgentId": {
-            "type": "string"
+            "type": "string",
+            "description": "External agent identifier supplied by your system."
           },
           "firstName": {
             "type": "string"
@@ -1672,7 +1779,8 @@
             "type": "string"
           },
           "initLoginBaseState": {
-            "type": "string"
+            "type": "string",
+            "description": "Initial base state assigned when the agent logs in."
           },
           "lastName": {
             "type": "string"
@@ -1681,11 +1789,13 @@
             "type": "string"
           },
           "manualOutboundDefaultCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Default caller ID for manual outbound calls."
           },
           "maxChats": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of concurrent chats allowed for the agent."
           },
           "password": {
             "type": "string"
@@ -1695,7 +1805,8 @@
           },
           "rcUserId": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "team": {
             "type": "string"
@@ -1710,7 +1821,8 @@
       "AmdProfile": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "amdAfterGreetingSilence": {
             "format": "int32",
@@ -1770,13 +1882,16 @@
             "$ref": "#/components/schemas/CloudRouteProfileSkinny"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "endDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1796,10 +1911,12 @@
             "type": "boolean"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1821,13 +1938,16 @@
             "$ref": "#/components/schemas/ChatQueueSkinny"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "dnisPool": {
             "$ref": "#/components/schemas/DnisPoolV2"
@@ -1841,10 +1961,12 @@
             "type": "boolean"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1857,7 +1979,8 @@
       "AuditLog": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "actionType": {
             "enum": [
@@ -1880,14 +2003,16 @@
             "type": "object"
           },
           "auditedEntityId": {
-            "type": "object"
+            "type": "object",
+            "description": "Identifier of the audited entity."
           },
           "authUser": {
             "$ref": "#/components/schemas/AuditLogAuthenticatedUser"
           },
           "createTime": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Date and time when the resource was created."
           },
           "createTimeAsDateTime": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1915,10 +2040,12 @@
             "type": "string"
           },
           "sourceId": {
-            "type": "string"
+            "type": "string",
+            "description": "History source identifier."
           },
           "userId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX user identifier."
           },
           "userName": {
             "type": "string"
@@ -1946,7 +2073,8 @@
       "AuditLogSearchCriteria": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "ascOrDesc": {
             "enum": [
@@ -1967,10 +2095,12 @@
             "type": "array"
           },
           "auditedEntityId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier of the audited entity."
           },
           "createUserId": {
-            "type": "string"
+            "type": "string",
+            "description": "User identifier that created the audit record."
           },
           "endDateTime": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1979,7 +2109,8 @@
           },
           "endDateTimeAsUnix": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "End timestamp for the search, in Unix time."
           },
           "orderBy": {
             "type": "string"
@@ -1988,7 +2119,8 @@
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Entity types included in the audit search."
           },
           "startDateTime": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -1997,7 +2129,8 @@
           },
           "startDateTimeAsUnix": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Start timestamp for the search, in Unix time."
           }
         },
         "type": "object"
@@ -2064,7 +2197,8 @@
             "type": "object"
           },
           "sourceIp": {
-            "type": "string"
+            "type": "string",
+            "description": "Source IP address."
           },
           "stayLoggedIn": {
             "type": "boolean"
@@ -2116,7 +2250,8 @@
       "CallerIdBucket": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "active": {
             "type": "boolean"
@@ -2170,7 +2305,8 @@
             "type": "string"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           }
         },
         "type": "object"
@@ -2253,7 +2389,8 @@
             "type": "string"
           },
           "billingCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing code associated with the resource."
           },
           "callerId": {
             "type": "string"
@@ -2275,14 +2412,16 @@
           },
           "campaignId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Campaign identifier."
           },
           "campaignName": {
             "type": "string"
           },
           "campaignPriority": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Priority value used when ordering campaigns."
           },
           "campaignRequeueShortcuts": {
             "$ref": "#/components/schemas/CollectionRequeueShortcut"
@@ -2321,7 +2460,8 @@
               "CELLULAR_AND_INTERNAL",
               "CELLULAR_ONLY"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Do-not-call scrub option for the campaign."
           },
           "enableGlobalPhoneBook": {
             "type": "boolean"
@@ -2346,14 +2486,16 @@
             "type": "string"
           },
           "friSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Friday schedule."
           },
           "genericKeyValuePairs": {
             "type": "string"
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "hangupOnDisposition": {
             "format": "int32",
@@ -2388,7 +2530,8 @@
           },
           "maxPasses": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of dialing passes allowed for the lead."
           },
           "maxPassesExclude": {
             "type": "string"
@@ -2406,7 +2549,8 @@
             "type": "integer"
           },
           "monSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Monday schedule."
           },
           "onHoldMsg": {
             "type": "string"
@@ -2430,7 +2574,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "perspectiveRecordingMode": {
             "enum": [
@@ -2479,7 +2624,8 @@
             "type": "integer"
           },
           "satSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Saturday schedule."
           },
           "script": {
             "$ref": "#/components/schemas/Script"
@@ -2519,7 +2665,8 @@
             "type": "boolean"
           },
           "sunSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Sunday schedule."
           },
           "survey": {
             "$ref": "#/components/schemas/Survey"
@@ -2532,7 +2679,8 @@
             "type": "number"
           },
           "thuSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Thursday schedule."
           },
           "trackSpeedToLead": {
             "format": "byte",
@@ -2540,19 +2688,22 @@
             "type": "string"
           },
           "transferCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for transferred calls."
           },
           "transferTermSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
           },
           "tueSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Tuesday schedule."
           },
           "useGlobalWhitelist": {
             "type": "boolean"
           },
           "wedSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Wednesday schedule."
           },
           "whisperMsg": {
             "type": "string"
@@ -2599,7 +2750,8 @@
             "type": "string"
           },
           "auxExternalUrl": {
-            "type": "string"
+            "type": "string",
+            "description": "External URL associated with the lead."
           },
           "auxGreeting": {
             "type": "string"
@@ -2624,7 +2776,8 @@
           },
           "dupeKeyOverride": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Value used to override the default duplicate-detection key."
           },
           "email": {
             "type": "string"
@@ -2633,20 +2786,24 @@
             "additionalProperties": {
               "type": "string"
             },
-            "type": "object"
+            "type": "object",
+            "description": "Custom lead data fields."
           },
           "externId": {
-            "type": "string"
+            "type": "string",
+            "description": "External lead identifier supplied by your system."
           },
           "firstName": {
             "type": "string"
           },
           "gateKeeper": {
-            "type": "string"
+            "type": "string",
+            "description": "Gatekeeper contact or routing value associated with the lead."
           },
           "id": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Internal identifier for this lead record."
           },
           "lastName": {
             "type": "string"
@@ -2674,17 +2831,19 @@
             "type": "string"
           },
           "lastPassDts": {
-            "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
+            "description": "Date and time of the most recent dialing pass. Use yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
             "example": "2026-08-12T22:30:00.000+0000",
             "type": "string"
           },
           "leadId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Campaign lead identifier."
           },
           "leadPasses": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of dialing passes already attempted for the lead."
           },
           "leadPhone": {
             "description": "Primary lead phone number. For accounts enabled for E.164 or international phone-number handling, provide the primary phone in leadPhoneE164.",
@@ -2696,7 +2855,8 @@
           },
           "leadPriority": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Priority value used when ordering leads for dialing."
           },
           "leadState": {
             "enum": [
@@ -2719,16 +2879,18 @@
               "TRANSITIONED",
               "WHITELIST"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Current workflow state of the lead."
           },
           "leadTimezone": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone assigned to the lead."
           },
           "liveAnswerMessage": {
             "type": "string"
           },
           "loadedDts": {
-            "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
+            "description": "Date and time when the lead was loaded. Use yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
             "example": "2026-08-12T22:30:00.000+0000",
             "type": "string"
           },
@@ -2737,7 +2899,8 @@
           },
           "maxPasses": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of dialing passes allowed for the lead."
           },
           "midName": {
             "type": "string"
@@ -2746,7 +2909,7 @@
             "type": "string"
           },
           "nextDialTime": {
-            "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
+            "description": "Next scheduled date and time when the lead can be dialed. Use yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
             "example": "2026-08-12T22:30:00.000+0000",
             "type": "string"
           },
@@ -2755,7 +2918,8 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Quota target identifiers associated with the lead."
           },
           "quotaTargets": {
             "$ref": "#/components/schemas/CollectionQuotaTarget"
@@ -2774,7 +2938,7 @@
             "type": "string"
           },
           "stateDts": {
-            "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
+            "description": "Date and time when the lead state last changed. Use yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
             "example": "2026-08-12T22:30:00.000+0000",
             "type": "string"
           },
@@ -2782,7 +2946,8 @@
             "type": "string"
           },
           "suppressed": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the lead is suppressed from dialing."
           },
           "title": {
             "type": "string"
@@ -2821,7 +2986,8 @@
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "auxData1": {
             "type": "string"
@@ -2846,7 +3012,8 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Campaign identifiers to include in the search."
           },
           "city": {
             "type": "string"
@@ -2858,7 +3025,8 @@
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "External lead identifiers to include in the search."
           },
           "firstName": {
             "type": "string"
@@ -2874,7 +3042,8 @@
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Lead identifiers to include in the search."
           },
           "leadPassesCriteria": {
             "$ref": "#/components/schemas/ComparableSearchField"
@@ -2912,20 +3081,23 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Lead states to include in the search."
           },
           "leadTimezones": {
             "items": {
               "$ref": "#/components/schemas/Timezone"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Lead time zones to include in the search."
           },
           "listIds": {
             "items": {
               "format": "int32",
               "type": "integer"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Lead list identifiers to include in the search."
           },
           "loadedDtsEnd": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -2945,13 +3117,15 @@
           },
           "pendingAgentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent identifier used to filter leads pending for a specific agent."
           },
           "physicalStates": {
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Physical state or province values to include in the search."
           },
           "suppressed": {
             "enum": [
@@ -3032,7 +3206,8 @@
           },
           "campaignId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Campaign identifier."
           },
           "campaignLead": {
             "$ref": "#/components/schemas/CampaignLead"
@@ -3045,17 +3220,20 @@
           },
           "dialGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Dial group identifier."
           },
           "dupeKeyOverride": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Value used to override the default duplicate-detection key."
           },
           "email": {
             "type": "string"
           },
           "externId": {
-            "type": "string"
+            "type": "string",
+            "description": "External identifier supplied by your system."
           },
           "extraData": {
             "type": "string"
@@ -3064,7 +3242,8 @@
             "type": "string"
           },
           "gateKeeper": {
-            "type": "string"
+            "type": "string",
+            "description": "Gatekeeper contact or routing value associated with the lead."
           },
           "lastName": {
             "type": "string"
@@ -3090,20 +3269,24 @@
           },
           "leadId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Lead identifier."
           },
           "leadPasses": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of dialing passes already attempted for the lead."
           },
           "leadPhone": {
             "type": "string"
           },
           "leadState": {
-            "type": "string"
+            "type": "string",
+            "description": "Current workflow state of the lead."
           },
           "leadTimezone": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone assigned to the lead."
           },
           "listDesc": {
             "type": "string"
@@ -3125,7 +3308,8 @@
           },
           "maxPasses": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of dialing passes allowed for the lead."
           },
           "midName": {
             "type": "string"
@@ -3263,7 +3447,8 @@
         "properties": {
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "callBackDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -3317,11 +3502,13 @@
       "ChatGroup": {
         "properties": {
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "chatGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat group identifier."
           },
           "chatGroupSkills": {
             "items": {
@@ -3360,7 +3547,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           }
         },
         "type": "object"
@@ -3395,17 +3583,21 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "skillDesc": {
-            "type": "string"
+            "type": "string",
+            "description": "Skill description."
           },
           "skillId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Skill identifier."
           },
           "skillName": {
-            "type": "string"
+            "type": "string",
+            "description": "Skill name."
           }
         },
         "type": "object"
@@ -3434,7 +3626,8 @@
             "$ref": "#/components/schemas/Account"
           },
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "active": {
             "type": "boolean"
@@ -3476,7 +3669,8 @@
           },
           "chatQueueId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat queue identifier."
           },
           "chatQueueName": {
             "type": "string"
@@ -3503,7 +3697,8 @@
             "type": "integer"
           },
           "friSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Friday schedule."
           },
           "gateQueueAnips": {
             "items": {
@@ -3513,7 +3708,8 @@
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "idleTimeout": {
             "format": "int32",
@@ -3534,7 +3730,8 @@
             "type": "integer"
           },
           "monSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Monday schedule."
           },
           "newChatHttpService": {
             "$ref": "#/components/schemas/RemoteHttpService"
@@ -3556,7 +3753,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "postChatHttpService": {
             "$ref": "#/components/schemas/RemoteHttpService"
@@ -3569,7 +3767,8 @@
           },
           "queuePriority": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Priority value used when routing to this queue."
           },
           "requeueShortcutAccess": {
             "items": {
@@ -3584,7 +3783,8 @@
             "type": "boolean"
           },
           "satSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Saturday schedule."
           },
           "script": {
             "$ref": "#/components/schemas/Script"
@@ -3595,17 +3795,20 @@
           },
           "slaTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Service-level threshold in seconds."
           },
           "specialIpEvent": {
             "type": "string"
           },
           "sunSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Sunday schedule."
           },
           "surveyId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Survey identifier."
           },
           "surveyPopType": {
             "type": "string"
@@ -3622,13 +3825,16 @@
             "type": "string"
           },
           "thuSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Thursday schedule."
           },
           "tueSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Tuesday schedule."
           },
           "wedSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Wednesday schedule."
           }
         },
         "type": "object"
@@ -3640,7 +3846,8 @@
           },
           "chatQueueId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat queue identifier."
           },
           "dateAdded": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -3659,15 +3866,18 @@
       "ChatQueueSkinny": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "chatGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat group identifier."
           },
           "chatQueueId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat queue identifier."
           },
           "chatQueueName": {
             "type": "string"
@@ -3692,7 +3902,8 @@
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "requeueGroup": {
             "$ref": "#/components/schemas/ChatGroup"
@@ -3722,7 +3933,8 @@
           },
           "chatQueueId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat queue identifier."
           },
           "chatRequeueShortcutGroup": {
             "$ref": "#/components/schemas/ChatRequeueShortcutGroup"
@@ -3738,14 +3950,17 @@
         "properties": {
           "allocationPercent": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Percentage of traffic allocated to this destination."
           },
           "allocationPercentHours": {
-            "type": "string"
+            "type": "string",
+            "description": "Hours during which the allocation percentage applies."
           },
           "assignedDestinationId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Assigned cloud-route destination identifier."
           },
           "cloudDestination": {
             "$ref": "#/components/schemas/CloudRouteDestination"
@@ -3766,22 +3981,28 @@
               "IVR",
               "IVR_STUDIO"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of routing destination."
           },
           "dtmfEventsEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether DTMF events are enabled for this destination."
           },
           "enablePrerouteHttp": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether pre-route HTTP is enabled for this destination."
           },
           "forceAcdQueue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether calls are forced into the ACD queue."
           },
           "outboundCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for outbound calls."
           },
           "overrideFlag": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this assignment uses override settings."
           },
           "permissions": {
             "items": {
@@ -3794,32 +4015,40 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "repeatIndexStart": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Repeat sequence index where this destination starts."
           },
           "ringDuration": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Ring duration in seconds."
           },
           "routeDestination": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination value used when routing calls."
           },
           "takeBackDtmf": {
-            "type": "string"
+            "type": "string",
+            "description": "DTMF value used to take back the call."
           },
           "ttAccept": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether transfer-to-accept is enabled."
           },
           "ttAcceptTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Time allowed for transfer-to-accept, in seconds."
           }
         },
         "type": "object"
@@ -3837,10 +4066,12 @@
             "type": "string"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "routeDestination": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination value used when routing calls."
           }
         },
         "type": "object"
@@ -3861,7 +4092,8 @@
           },
           "cloudDestinationId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route destination identifier."
           },
           "cloudRouteGroup": {
             "$ref": "#/components/schemas/CloudRouteGroup"
@@ -3873,10 +4105,12 @@
             "type": "boolean"
           },
           "destinationDesc": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the cloud-route destination."
           },
           "destinationName": {
-            "type": "string"
+            "type": "string",
+            "description": "Display name of the cloud-route destination."
           },
           "destinationType": {
             "enum": [
@@ -3888,7 +4122,8 @@
               "IVR",
               "IVR_STUDIO"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of cloud-route destination."
           },
           "endDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -3896,10 +4131,12 @@
             "type": "string"
           },
           "forceAcdQueue": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether calls are forced into the ACD queue."
           },
           "friSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Friday schedule."
           },
           "isActive": {
             "type": "boolean"
@@ -3909,24 +4146,30 @@
           },
           "lat": {
             "format": "double",
-            "type": "number"
+            "type": "number",
+            "description": "Destination latitude."
           },
           "lon": {
             "format": "double",
-            "type": "number"
+            "type": "number",
+            "description": "Destination longitude."
           },
           "maxConcurrent": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum concurrent calls allowed for this destination."
           },
           "maxConcurrentHours": {
-            "type": "string"
+            "type": "string",
+            "description": "Hours during which the concurrent-call limit applies."
           },
           "maxConcurrentType": {
-            "type": "string"
+            "type": "string",
+            "description": "Type of concurrent-call limit."
           },
           "monSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Monday schedule."
           },
           "permissions": {
             "items": {
@@ -3939,20 +4182,25 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "prerouteHttpUrl": {
-            "type": "string"
+            "type": "string",
+            "description": "Pre-route HTTP endpoint URL."
           },
           "ringDuration": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Ring duration in seconds."
           },
           "routeDestination": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination value used when routing calls."
           },
           "satSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Saturday schedule."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -3963,23 +4211,29 @@
             "type": "string"
           },
           "sunSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Sunday schedule."
           },
           "thuSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Thursday schedule."
           },
           "ttAccept": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether transfer-to-accept is enabled."
           },
           "ttAcceptTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Time allowed for transfer-to-accept, in seconds."
           },
           "tueSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Tuesday schedule."
           },
           "wedSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Wednesday schedule."
           },
           "zip": {
             "type": "string"
@@ -4000,10 +4254,12 @@
             "type": "integer"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "routeDestination": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination value used when routing calls."
           }
         },
         "type": "object"
@@ -4016,10 +4272,12 @@
           },
           "dtmfCode": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "DTMF code for the event."
           },
           "dtmfEventData": {
-            "type": "string"
+            "type": "string",
+            "description": "Payload or destination associated with the DTMF event."
           }
         },
         "type": "object"
@@ -4028,7 +4286,8 @@
         "properties": {
           "cloudGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route group identifier."
           },
           "cloudRouteDestinations": {
             "$ref": "#/components/schemas/CollectionCloudRouteDestination"
@@ -4053,7 +4312,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           }
         },
         "type": "object"
@@ -4061,10 +4321,12 @@
       "CloudRouteProfile": {
         "properties": {
           "billingCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing code associated with the resource."
           },
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "callConnSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
@@ -4077,21 +4339,24 @@
           },
           "cloudProfileId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route profile identifier."
           },
           "cloudRouteGroup": {
             "$ref": "#/components/schemas/CloudRouteGroup"
           },
           "dequeueDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay before dequeueing, in seconds."
           },
           "endcallMsg": {
             "type": "string"
           },
           "geoMaxDistance": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum distance used for geographic routing."
           },
           "introMsg": {
             "type": "string"
@@ -4104,13 +4369,16 @@
           },
           "longCall": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Long-call threshold in seconds."
           },
           "outboundCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for outbound calls."
           },
           "percentAllocType": {
-            "type": "string"
+            "type": "string",
+            "description": "Allocation strategy used for percentage-based routing."
           },
           "permissions": {
             "items": {
@@ -4123,7 +4391,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "profileDesc": {
             "type": "string"
@@ -4136,27 +4405,34 @@
           },
           "repeatCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of times to repeat the route sequence."
           },
           "repeatDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay between route repeats, in seconds."
           },
           "revMatch": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether reverse matching is enabled."
           },
           "routeExhaustedAction": {
-            "type": "string"
+            "type": "string",
+            "description": "Action to take when all route destinations are exhausted."
           },
           "routingType": {
-            "type": "string"
+            "type": "string",
+            "description": "Routing strategy used by the profile."
           },
           "shortCall": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Short-call threshold in seconds."
           },
           "stickyDestinationType": {
-            "type": "string"
+            "type": "string",
+            "description": "Sticky destination selection mode."
           },
           "takeBackMsg": {
             "type": "string"
@@ -4173,19 +4449,23 @@
       "CloudRouteProfileSkinny": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "cloudGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route group identifier."
           },
           "cloudProfileId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route profile identifier."
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "isActive": {
             "type": "boolean"
@@ -4344,7 +4624,8 @@
       "CustomDialZoneGroups": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "baseTimezone": {
             "type": "string"
@@ -4434,13 +4715,16 @@
       "DeleteDnisRequest": {
         "properties": {
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           }
         },
         "type": "object"
@@ -4461,7 +4745,8 @@
             "type": "boolean"
           },
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "campaigns": {
             "$ref": "#/components/schemas/CollectionCampaign"
@@ -4471,7 +4756,8 @@
           },
           "dialGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Dial group identifier."
           },
           "dialGroupName": {
             "type": "string"
@@ -4503,7 +4789,8 @@
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "hciEnabled": {
             "enum": [
@@ -4543,7 +4830,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "progressiveCallDelay": {
             "format": "int32",
@@ -4570,7 +4858,8 @@
             "type": "string"
           },
           "updatedRows": {
-            "type": "string"
+            "type": "string",
+            "description": "Number of rows updated."
           }
         },
         "type": "object"
@@ -4595,16 +4884,20 @@
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Account identifiers associated with the request."
           },
           "dnisState": {
-            "type": "string"
+            "type": "string",
+            "description": "State assigned to the DNIS number."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "searchText": {
-            "type": "string"
+            "type": "string",
+            "description": "Text used to filter search results."
           }
         },
         "type": "object"
@@ -4632,19 +4925,24 @@
             "type": "string"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisCategory": {
-            "type": "string"
+            "type": "string",
+            "description": "Category assigned to the DNIS number."
           },
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "dnisManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the DNIS number is managed by RingCentral."
           },
           "inboundContext": {
             "type": "string"
@@ -4655,7 +4953,8 @@
             "type": "string"
           },
           "lastModifiedBy": {
-            "type": "string"
+            "type": "string",
+            "description": "User who last modified the resource."
           },
           "mediaCode": {
             "type": "string"
@@ -4664,7 +4963,8 @@
             "type": "string"
           },
           "mediaIsci": {
-            "type": "string"
+            "type": "string",
+            "description": "ISCI code associated with the media placement."
           },
           "mediaLength": {
             "type": "string"
@@ -4682,28 +4982,34 @@
             "type": "string"
           },
           "mediaWebSourcecode": {
-            "type": "string"
+            "type": "string",
+            "description": "Web source code associated with the media placement."
           },
           "notes": {
             "type": "string"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "platformId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral platform identifier."
           },
           "reservedAccount": {
             "$ref": "#/components/schemas/Account"
           },
           "reservedAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier that reserves the number."
           },
           "resporg": {
-            "type": "string"
+            "type": "string",
+            "description": "Responsible organization for the number."
           },
           "smsEnabled": {
             "type": "boolean"
@@ -4712,11 +5018,13 @@
             "type": "string"
           },
           "vendorId": {
-            "type": "string"
+            "type": "string",
+            "description": "Vendor identifier associated with the number."
           },
           "vruNetworkId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Voice response unit network identifier."
           }
         },
         "type": "object"
@@ -4725,7 +5033,8 @@
         "properties": {
           "chatQueueId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Chat queue identifier."
           },
           "dnisPool": {
             "$ref": "#/components/schemas/DnisPoolV2"
@@ -4759,7 +5068,8 @@
           },
           "productId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Product identifier."
           },
           "smsEndDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -4808,16 +5118,20 @@
             "type": "string"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisCategory": {
-            "type": "string"
+            "type": "string",
+            "description": "Category assigned to the DNIS number."
           },
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "inboundContext": {
             "type": "string"
@@ -4828,7 +5142,8 @@
             "type": "string"
           },
           "lastModifiedBy": {
-            "type": "string"
+            "type": "string",
+            "description": "User who last modified the resource."
           },
           "mediaCode": {
             "type": "string"
@@ -4861,19 +5176,23 @@
             "type": "string"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "platformId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral platform identifier."
           },
           "reservedAccount": {
             "$ref": "#/components/schemas/Account"
           },
           "reservedAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier that reserves the number."
           },
           "resporg": {
             "type": "string"
@@ -4885,7 +5204,8 @@
             "type": "string"
           },
           "vendorId": {
-            "type": "string"
+            "type": "string",
+            "description": "Vendor identifier associated with the number."
           },
           "vruNetworkId": {
             "format": "int32",
@@ -4911,10 +5231,12 @@
           },
           "validRecords": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of records that passed validation."
           },
           "validated": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether validation has completed."
           }
         },
         "type": "object"
@@ -4922,7 +5244,8 @@
       "EmailTemplate": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "allowBccChange": {
             "type": "boolean"
@@ -4992,13 +5315,15 @@
           },
           "timestamp": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "Timestamp for the event or error."
           },
           "validationErrors": {
             "items": {
               "$ref": "#/components/schemas/ValidationErrorData"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Validation errors returned for the request."
           }
         },
         "type": "object"
@@ -5011,10 +5336,12 @@
           "acceptTime": {
             "format": "byte",
             "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-            "type": "string"
+            "type": "string",
+            "description": "Time allowed for an agent to accept an interaction."
           },
           "afterCallBaseState": {
-            "type": "string"
+            "type": "string",
+            "description": "Agent base state applied after a call ends."
           },
           "afterCallState": {
             "$ref": "#/components/schemas/AccountAuxState"
@@ -5041,7 +5368,8 @@
             "type": "string"
           },
           "billingCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing code associated with the resource."
           },
           "blockedAniMessage": {
             "type": "string"
@@ -5056,20 +5384,23 @@
           },
           "dequeueDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay before dequeueing, in seconds."
           },
           "dequeueSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
           },
           "dispositionTimeout": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Time allowed for disposition entry, in seconds."
           },
           "enableGlobalPhoneBook": {
             "type": "boolean"
           },
           "enableIvrTokens": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether IVR tokens are enabled for the gate."
           },
           "endCallMessage": {
             "type": "string"
@@ -5078,30 +5409,36 @@
             "type": "boolean"
           },
           "friSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Friday schedule."
           },
           "gateClosedEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue event used when the gate is closed."
           },
           "gateDesc": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the gate."
           },
           "gateGroup": {
             "$ref": "#/components/schemas/GateGroup"
           },
           "gateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate identifier."
           },
           "gateName": {
             "type": "string"
           },
           "gateOpen": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the gate is currently open."
           },
           "gatePriority": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Priority value used when routing to this gate."
           },
           "gatePriorityGroup": {
             "$ref": "#/components/schemas/GatePriorityGroup"
@@ -5120,39 +5457,49 @@
           },
           "longCallTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Long-call threshold in seconds."
           },
           "manualCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for manual calls."
           },
           "manualCallerIdE164": {
-            "type": "string"
+            "type": "string",
+            "description": "Manual caller ID in E.164 format."
           },
           "maxQueueEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue event used when the queue limit is reached."
           },
           "maxQueueLimit": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Maximum number of interactions allowed in queue."
           },
           "monSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Monday schedule."
           },
           "noAgentEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue event used when no agent is available."
           },
           "observeDst": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether daylight saving time is observed for scheduling."
           },
           "onHoldMessage": {
             "type": "string"
           },
           "outboundCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for outbound calls."
           },
           "pauseRecordingSec": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of seconds to pause recording."
           },
           "permissions": {
             "items": {
@@ -5165,17 +5512,20 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "perspectiveRecordingMode": {
             "enum": [
               "DISABLED",
               "ALL_AGENT_LEGS"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Recording perspective mode for the gate."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "postCallSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
@@ -5185,7 +5535,8 @@
           },
           "recordCall": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Call recording mode for the gate."
           },
           "recordingInConference": {
             "type": "boolean"
@@ -5204,34 +5555,40 @@
               "ADVANCED",
               "RESTRICTED"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Requeue behavior for interactions in this gate."
           },
           "resultFileDestination": {
             "$ref": "#/components/schemas/ResultFileDestination"
           },
           "revMatch": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether reverse matching is enabled."
           },
           "satSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Saturday schedule."
           },
           "script": {
             "$ref": "#/components/schemas/Script"
           },
           "shortAbandonTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Short-abandon threshold in seconds."
           },
           "shortCallTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Short-call threshold in seconds."
           },
           "singleChannelEnabled": {
             "type": "boolean"
           },
           "slaTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Service-level threshold in seconds."
           },
           "specialAniEvent": {
             "type": "string"
@@ -5240,7 +5597,8 @@
             "type": "boolean"
           },
           "sunSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Sunday schedule."
           },
           "survey": {
             "$ref": "#/components/schemas/Survey"
@@ -5250,46 +5608,56 @@
           },
           "syncQueueWait": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Synchronized queue wait time in seconds."
           },
           "throttleCalls": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of calls allowed before throttling applies."
           },
           "throttleDays": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of days used for throttling checks."
           },
           "throttlingAniEvent": {
             "type": "string"
           },
           "thuSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Thursday schedule."
           },
           "transferCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for transferred calls."
           },
           "transferCallerIdE164": {
-            "type": "string"
+            "type": "string",
+            "description": "Transfer caller ID in E.164 format."
           },
           "transferTermSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
           },
           "ttAccept": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether transfer-to-accept is enabled."
           },
           "tueSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Tuesday schedule."
           },
           "wedSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Wednesday schedule."
           },
           "whisperMessage": {
             "type": "string"
           },
           "wrapTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Default agent wrap-up time in seconds."
           }
         },
         "type": "object"
@@ -5306,13 +5674,15 @@
             "type": "string"
           },
           "dncTagLabel": {
-            "type": "string"
+            "type": "string",
+            "description": "Do-not-call tag label applied by this disposition."
           },
           "doNotCall": {
             "type": "boolean"
           },
           "dtmfMapping": {
-            "type": "string"
+            "type": "string",
+            "description": "DTMF value mapped to this disposition."
           },
           "emailDestinations": {
             "type": "string"
@@ -5322,13 +5692,16 @@
           },
           "gateDispositionId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate disposition identifier."
           },
           "isComplete": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this disposition marks the interaction complete."
           },
           "isContact": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this disposition counts as a contact."
           },
           "isDefault": {
             "type": "boolean"
@@ -5338,24 +5711,30 @@
           },
           "isRequeued": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Whether this disposition requeues the interaction."
           },
           "isSuccess": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this disposition counts as successful."
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "requeueDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay before requeueing, in seconds."
           },
           "requireNote": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether agents must enter a note for this disposition."
           },
           "saveSurvey": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether survey results are saved for this disposition."
           },
           "setAgentFlag": {
             "type": "boolean"
@@ -5370,7 +5749,8 @@
             "type": "string"
           },
           "xferDest": {
-            "type": "string"
+            "type": "string",
+            "description": "Transfer destination used by this disposition."
           }
         },
         "type": "object"
@@ -5378,7 +5758,8 @@
       "GateGroup": {
         "properties": {
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "createdOn": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -5392,7 +5773,8 @@
           },
           "gateGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate group identifier."
           },
           "gates": {
             "items": {
@@ -5420,7 +5802,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -5450,17 +5833,21 @@
             "type": "array"
           },
           "skillDesc": {
-            "type": "string"
+            "type": "string",
+            "description": "Skill description."
           },
           "skillId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Skill identifier."
           },
           "skillName": {
-            "type": "string"
+            "type": "string",
+            "description": "Skill name."
           },
           "whisperAudio": {
-            "type": "string"
+            "type": "string",
+            "description": "Whisper audio used for the skill."
           }
         },
         "type": "object"
@@ -5468,14 +5855,17 @@
       "GateGroupV2": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "gateGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate group identifier."
           },
           "groupName": {
             "type": "string"
@@ -5498,14 +5888,17 @@
       "GateQueueDtmfEvent": {
         "properties": {
           "dtmf": {
-            "type": "string"
+            "type": "string",
+            "description": "DTMF input value."
           },
           "dtmfEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue event triggered by the DTMF input."
           },
           "dtmfEventId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "DTMF queue event identifier."
           }
         },
         "type": "object"
@@ -5515,25 +5908,30 @@
           "enableDtmf": {
             "format": "byte",
             "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-            "type": "string"
+            "type": "string",
+            "description": "Whether DTMF input is enabled for this queue event."
           },
           "eventDuration": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Duration of the queue event in seconds."
           },
           "eventId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Queue event identifier."
           },
           "eventRank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Order in which the queue event is evaluated."
           },
           "gate": {
             "$ref": "#/components/schemas/Gate"
           },
           "queueEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue event action or message name."
           }
         },
         "type": "object"
@@ -5541,7 +5939,8 @@
       "GateScheduleOverride": {
         "properties": {
           "overrideClosedEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Closed event used by the schedule override."
           },
           "overrideDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -5549,14 +5948,17 @@
             "type": "string"
           },
           "overrideLabel": {
-            "type": "string"
+            "type": "string",
+            "description": "Display label for the schedule override."
           },
           "overrideSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Schedule used by the override."
           },
           "scheduleOverrideId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Schedule override identifier."
           }
         },
         "type": "object"
@@ -5564,25 +5966,29 @@
       "GateSkinnyAssignable": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "gateGroup": {
             "$ref": "#/components/schemas/GateGroupV2"
           },
           "gateGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate group identifier."
           },
           "gateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate identifier."
           },
           "gateName": {
             "type": "string"
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "isActive": {
             "type": "boolean"
@@ -5593,10 +5999,12 @@
       "GateSpecialAni": {
         "properties": {
           "ani": {
-            "type": "string"
+            "type": "string",
+            "description": "Automatic Number Identification (ANI) caller number."
           },
           "aniE164": {
-            "type": "string"
+            "type": "string",
+            "description": "ANI caller number in E.164 format."
           },
           "dateAdded": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -5604,7 +6012,8 @@
             "type": "string"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "type": {
             "type": "string"
@@ -5616,11 +6025,13 @@
         "properties": {
           "agentGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Agent group identifier."
           },
           "agentId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX agent identifier."
           },
           "firstName": {
             "type": "string"
@@ -5725,7 +6136,8 @@
       "LeadActionParams": {
         "properties": {
           "paramMap": {
-            "type": "object"
+            "type": "object",
+            "description": "Additional parameters supplied for processing."
           }
         },
         "type": "object"
@@ -5733,7 +6145,8 @@
       "LeadActionResult": {
         "properties": {
           "dialerRefreshed": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the dialer was refreshed after processing."
           },
           "errorMessage": {
             "type": "string"
@@ -5743,15 +6156,18 @@
           },
           "leadDeleteCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of leads deleted."
           },
           "leadUpdateCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of leads updated."
           },
           "redialDeleteCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of redial records deleted."
           },
           "success": {
             "type": "boolean"
@@ -5826,7 +6242,8 @@
             "type": "array"
           },
           "transactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "Processing transaction identifier."
           },
           "personaPhoneConfig": {
             "description": "Configured additional persona phone fields available for mapping when the campaign uses strategic calling configuration.",
@@ -5848,13 +6265,15 @@
               "IMMEDIATE",
               "NORMAL"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Dialing priority to apply to leads in this import."
           },
           "dncTags": {
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Do-not-call tag labels or identifiers to apply during processing."
           },
           "duplicateHandling": {
             "enum": [
@@ -5862,17 +6281,20 @@
               "REMOVE_ALL_EXISTING",
               "REMOVE_FROM_LIST"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Duplicate lead handling mode for this import."
           },
           "extendedLeadDataMappings": {
             "additionalProperties": {
               "format": "int32",
               "type": "integer"
             },
-            "type": "object"
+            "type": "object",
+            "description": "Maps extended lead-data fields to source columns."
           },
           "fileContainsHeaders": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the uploaded file includes a header row."
           },
           "fileType": {
             "enum": [
@@ -5881,7 +6303,8 @@
               "COMMA",
               "TAB"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Format of the uploaded lead file."
           },
           "listState": {
             "enum": [
@@ -5897,21 +6320,25 @@
               "DUPLICATES_NOT_MOVED",
               "ARCHIVED"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Initial list state to apply after processing."
           },
           "pageColumnMappings": {
             "additionalProperties": {
               "format": "int32",
               "type": "integer"
             },
-            "type": "object"
+            "type": "object",
+            "description": "Maps standard lead fields to source columns."
           },
           "pageNumber": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Preview page number used during staged lead processing."
           },
           "quoteChar": {
-            "type": "string"
+            "type": "string",
+            "description": "Quote character used when parsing delimited files."
           },
           "timeZoneOption": {
             "enum": [
@@ -5921,16 +6348,19 @@
               "COUNTRY",
               "NOT_APPLICABLE"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Time zone handling mode for imported leads."
           },
           "transactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "Processing transaction identifier returned by the preview step."
           },
           "uploadLeads": {
             "items": {
               "$ref": "#/components/schemas/CampaignLead"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Lead records to process or import."
           },
           "additionalPhoneMappings": {
             "additionalProperties": {
@@ -5941,17 +6371,21 @@
             "type": "object"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled for the import."
           },
           "internationalNumberFormat": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether phone numbers are supplied in international format."
           },
           "numberOriginCountry": {
-            "type": "string"
+            "type": "string",
+            "description": "Country used to interpret non-E.164 phone numbers."
           },
           "scheduleArchiveDts": {
             "format": "date-time",
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the processed list should be archived."
           }
         },
         "type": "object"
@@ -5964,11 +6398,13 @@
           },
           "dncReturnedCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of do-not-call records returned."
           },
           "dncUploadCount": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Number of do-not-call records uploaded."
           },
           "failedAgentAssignment": {
             "description": "Number of accepted leads whose reserveAgent value could not be assigned because the agent ID was invalid or the agent does not have access to the account.",
@@ -6011,7 +6447,8 @@
               "DUPLICATES_NOT_MERGED",
               "DUPLICATES_NOT_MOVED"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "State applied to the lead list."
           },
           "message": {
             "type": "string"
@@ -6047,7 +6484,8 @@
               "EXPLICIT",
               "NOT_APPLICABLE"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Time zone handling mode."
           },
           "uploadFileName": {
             "type": "string"
@@ -6086,20 +6524,23 @@
             "type": "boolean"
           },
           "engageAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX account identifier."
           },
           "isActive": {
             "format": "int32",
             "type": "integer"
           },
           "mainAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX main account identifier."
           },
           "mainAccountName": {
             "type": "string"
           },
           "rcAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral account identifier associated with the RingCX context."
           }
         },
         "type": "object"
@@ -6128,7 +6569,8 @@
             "type": "string"
           },
           "sourceCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Source code value associated with the media or number."
           },
           "url": {
             "type": "string"
@@ -6142,7 +6584,8 @@
       "PhoneBookEntry": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "countryId": {
             "type": "string"
@@ -6156,11 +6599,13 @@
             "type": "string"
           },
           "destination": {
-            "type": "string"
+            "type": "string",
+            "description": "Routing destination value."
           },
           "entryId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Phone book entry identifier."
           },
           "notes": {
             "type": "string"
@@ -6175,7 +6620,8 @@
           },
           "typeId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Phone book type identifier."
           }
         },
         "type": "object"
@@ -6207,7 +6653,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "product": {
             "enum": [
@@ -6309,13 +6756,16 @@
         "properties": {
           "subscriptionId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "Subscription identifier."
           },
           "mainAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX main account identifier."
           },
           "subAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX sub-account identifier."
           },
           "subscriptionName": {
             "type": "string"
@@ -6328,7 +6778,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "active": {
             "type": "boolean"
@@ -6359,7 +6810,8 @@
           },
           "updatedAt": {
             "format": "date-time",
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           },
           "authConfig": {
             "$ref": "#/components/schemas/AuthConfig"
@@ -6386,7 +6838,8 @@
             "type": "string"
           },
           "timeFormat": {
-            "type": "string"
+            "type": "string",
+            "description": "Preferred time format."
           },
           "timezone": {
             "format": "int32",
@@ -6412,16 +6865,20 @@
       "RemoteHttpService": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "enableMappings": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether request or response mappings are enabled."
           },
           "httpPassword": {
-            "type": "string"
+            "type": "string",
+            "description": "Password used for Remote HTTP Service authentication."
           },
           "httpServiceConfig": {
-            "type": "string"
+            "type": "string",
+            "description": "Remote HTTP Service configuration payload."
           },
           "httpServiceGroup": {
             "$ref": "#/components/schemas/RemoteHttpServiceGroup"
@@ -6430,13 +6887,16 @@
             "$ref": "#/components/schemas/CollectionRemoteHttpServiceInput"
           },
           "httpUsername": {
-            "type": "string"
+            "type": "string",
+            "description": "Username used for Remote HTTP Service authentication."
           },
           "isDebug": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether debug logging is enabled."
           },
           "isEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the service is enabled."
           },
           "permissions": {
             "items": {
@@ -6449,20 +6909,25 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "returntype": {
-            "type": "string"
+            "type": "string",
+            "description": "Expected response format from the remote service."
           },
           "sendAllSurveyData": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether survey data is included in the service payload."
           },
           "serviceDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the Remote HTTP Service."
           },
           "serviceId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Remote HTTP Service identifier."
           },
           "serviceType": {
             "enum": [
@@ -6471,25 +6936,32 @@
               "HTTP_GET",
               "HTTP"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Remote HTTP Service type."
           },
           "soapAction": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP action for the service."
           },
           "soapEndpoint": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP endpoint URL."
           },
           "soapOperationname": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP operation name for the service."
           },
           "soapPortname": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP port name for the service."
           },
           "soapServicename": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP service name."
           },
           "targetNamespace": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP target namespace for the service."
           }
         },
         "type": "object"
@@ -6513,11 +6985,13 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "serviceGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Remote HTTP Service group identifier."
           },
           "services": {
             "$ref": "#/components/schemas/CollectionRemoteHttpService"
@@ -6529,7 +7003,8 @@
         "properties": {
           "inputId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Remote HTTP Service input identifier."
           },
           "name": {
             "type": "string"
@@ -6537,7 +7012,8 @@
           "rank": {
             "format": "byte",
             "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-            "type": "string"
+            "type": "string",
+            "description": "Sort or routing order for the resource."
           },
           "simpleDataType": {
             "type": "string"
@@ -6554,7 +7030,8 @@
       "ReportCriteria": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "criteriaType": {
             "enum": [
@@ -6568,7 +7045,8 @@
             "type": "string"
           },
           "databaseTimezone": {
-            "type": "string"
+            "type": "string",
+            "description": "Database time zone used for reporting."
           },
           "endDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -6579,7 +7057,8 @@
             "$ref": "#/components/schemas/TimeRange"
           },
           "scheduleTimezoneName": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone used for the schedule."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -6590,7 +7069,8 @@
             "$ref": "#/components/schemas/TimeRange"
           },
           "timezoneName": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone name."
           }
         },
         "type": "object"
@@ -6611,7 +7091,8 @@
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "requeueGate": {
             "$ref": "#/components/schemas/Gate"
@@ -6642,11 +7123,13 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "resourceId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Resource identifier used by the permission entry."
           },
           "resourceType": {
             "enum": [
@@ -6677,7 +7160,8 @@
               "KNOWLEDGEBASE_GROUP",
               "KNOWLEDGEBASE_CATEGORY"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of resource used by the permission entry."
           }
         },
         "type": "object"
@@ -6687,14 +7171,16 @@
           "aggregateOutput": {
             "format": "byte",
             "pattern": "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$",
-            "type": "string"
+            "type": "string",
+            "description": "Whether output is aggregated for the destination."
           },
           "destType": {
             "type": "string"
           },
           "destinationId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Destination identifier."
           },
           "destinationName": {
             "type": "string"
@@ -6735,7 +7221,8 @@
       "RightsDocTable": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "creationDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -6760,7 +7247,8 @@
       "RightsDocument": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "accountPermissions": {
             "items": {
@@ -6786,7 +7274,8 @@
           },
           "ownerId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Owner identifier."
           },
           "productPermissions": {
             "items": {
@@ -6802,7 +7291,8 @@
           },
           "rightsDocId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Rights document identifier."
           },
           "rightsDocName": {
             "type": "string"
@@ -6825,7 +7315,8 @@
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "isActive": {
             "type": "boolean"
@@ -6844,14 +7335,16 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "scriptGroup": {
             "$ref": "#/components/schemas/ScriptGroup"
           },
           "scriptId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Script identifier."
           },
           "updated": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -6868,7 +7361,8 @@
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "name": {
             "type": "string"
@@ -6884,7 +7378,8 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "scripts": {
             "items": {
@@ -6898,7 +7393,8 @@
       "Survey": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "active": {
             "format": "byte",
@@ -6931,7 +7427,8 @@
           },
           "surveyId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Survey identifier."
           },
           "surveyName": {
             "type": "string"
@@ -6964,7 +7461,8 @@
             "type": "integer"
           },
           "rangeValueValid": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the time range value is valid."
           }
         },
         "type": "object"
@@ -7028,13 +7526,15 @@
       "TnManagerSearchCriteria": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "accountIds": {
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Account identifiers associated with the request."
           },
           "active": {
             "type": "boolean"
@@ -7060,16 +7560,19 @@
             "type": "string"
           },
           "databaseTimezone": {
-            "type": "string"
+            "type": "string",
+            "description": "Database time zone used for reporting."
           },
           "dnis": {
             "items": {
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisFilter": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS filter used by the search."
           },
           "endDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -7081,7 +7584,8 @@
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "inboundContext": {
             "type": "string"
@@ -7091,10 +7595,12 @@
           },
           "objectId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Object identifier."
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "product": {
             "enum": [
@@ -7119,7 +7625,8 @@
             "type": "string"
           },
           "scheduleTimezoneName": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone used for the schedule."
           },
           "startDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -7130,10 +7637,12 @@
             "$ref": "#/components/schemas/TimeRange"
           },
           "timezoneName": {
-            "type": "string"
+            "type": "string",
+            "description": "Time zone name."
           },
           "vendorId": {
-            "type": "string"
+            "type": "string",
+            "description": "Vendor identifier associated with the number."
           },
           "vruNetworkId": {
             "format": "int32",
@@ -7161,11 +7670,13 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "tracGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking number group identifier."
           },
           "tracNumbers": {
             "items": {
@@ -7179,20 +7690,24 @@
       "TracNumber": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "assignedDnis": {
             "$ref": "#/components/schemas/AssignedDnis"
           },
           "billingCode": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing code associated with the resource."
           },
           "billingKey": {
-            "type": "string"
+            "type": "string",
+            "description": "Billing key associated with the resource."
           },
           "closeLocatorId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Locator identifier used when the tracking number is closed."
           },
           "closeType": {
             "enum": [
@@ -7200,11 +7715,13 @@
               "STANDARD_PARALLEL",
               "LOCATOR"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Routing behavior used when the tracking number is closed."
           },
           "dequeueDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay before dequeueing, in seconds."
           },
           "description": {
             "type": "string"
@@ -7213,17 +7730,20 @@
             "type": "string"
           },
           "friSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Friday schedule."
           },
           "introMsg": {
             "type": "string"
           },
           "monSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Monday schedule."
           },
           "openLocatorId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Locator identifier used when the tracking number is open."
           },
           "openType": {
             "enum": [
@@ -7231,10 +7751,12 @@
               "STANDARD_PARALLEL",
               "LOCATOR"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Routing behavior used when the tracking number is open."
           },
           "outboundCallerId": {
-            "type": "string"
+            "type": "string",
+            "description": "Caller ID used for outbound calls."
           },
           "permissions": {
             "items": {
@@ -7247,52 +7769,64 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "postCallSoapService": {
             "$ref": "#/components/schemas/RemoteHttpService"
           },
           "recordCall": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Call recording mode for the tracking number."
           },
           "revMatch": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Whether reverse matching is enabled."
           },
           "satSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Saturday schedule."
           },
           "shortCallTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Short-call threshold in seconds."
           },
           "sunSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Sunday schedule."
           },
           "surveyId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Survey identifier."
           },
           "thuSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Thursday schedule."
           },
           "tracGroup": {
             "$ref": "#/components/schemas/TracGroup"
           },
           "tracId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking number identifier."
           },
           "tueSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Tuesday schedule."
           },
           "voicemailEnabled": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Whether voicemail is enabled for the tracking number."
           },
           "wedSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Wednesday schedule."
           },
           "whisperMsg": {
             "type": "string"
@@ -7303,22 +7837,26 @@
       "TracNumberSkinny": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "description": {
             "type": "string"
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "tracGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking number group identifier."
           },
           "tracId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking number identifier."
           }
         },
         "type": "object"
@@ -7329,26 +7867,32 @@
             "type": "string"
           },
           "destination": {
-            "type": "string"
+            "type": "string",
+            "description": "Routing destination value."
           },
           "openRule": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether this rule applies while the tracking number is open."
           },
           "parallelDelay": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Delay before parallel routing starts, in seconds."
           },
           "rank": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Sort or routing order for the resource."
           },
           "ringDuration": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Ring duration in seconds."
           },
           "ruleId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking routing rule identifier."
           },
           "ruleType": {
             "enum": [
@@ -7360,21 +7904,25 @@
               "IN_NETWORK",
               "VIVR"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Type of tracking routing rule."
           },
           "tracNumber": {
             "$ref": "#/components/schemas/TracNumber"
           },
           "ttAccept": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether transfer-to-accept is enabled."
           },
           "xferGateId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Gate identifier used as the transfer destination."
           },
           "xferTracId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Tracking number identifier used as the transfer destination."
           }
         },
         "type": "object"
@@ -7382,7 +7930,8 @@
       "TracScheduleOverride": {
         "properties": {
           "overrideClosedEvent": {
-            "type": "string"
+            "type": "string",
+            "description": "Closed event used by the schedule override."
           },
           "overrideDate": {
             "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
@@ -7390,14 +7939,17 @@
             "type": "string"
           },
           "overrideLabel": {
-            "type": "string"
+            "type": "string",
+            "description": "Display label for the schedule override."
           },
           "overrideSched": {
-            "type": "string"
+            "type": "string",
+            "description": "Schedule used by the override."
           },
           "scheduleOverrideId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Schedule override identifier."
           }
         },
         "type": "object"
@@ -7437,14 +7989,17 @@
             "type": "string"
           },
           "phoneNumbersI18nEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether international phone-number handling is enabled."
           },
           "rcAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral account identifier associated with the RingCX context."
           },
           "rcUserId": {
             "format": "int64",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "regionalSettings": {
             "$ref": "#/components/schemas/RegionalSettingRequestResponse"
@@ -7460,10 +8015,12 @@
           },
           "userId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "RingCX user identifier."
           },
           "userManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the user is managed by RingCentral identity."
           },
           "userName": {
             "type": "string"
@@ -7508,11 +8065,13 @@
       "VisualIvrSkinny": {
         "properties": {
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "groupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Group identifier associated with the resource."
           },
           "isActive": {
             "type": "boolean"
@@ -7529,7 +8088,8 @@
           },
           "visualIvrId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Visual IVR identifier."
           },
           "visualIvrName": {
             "type": "string"
@@ -7585,11 +8145,13 @@
               "TEAMS",
               "KNOWLEDGE_BASE",
               "UTILITIES"
-            ]
+            ],
+            "description": "Type of DNIS number."
           },
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "End date for the resource or schedule."
           },
           "id": {
             "type": "integer",
@@ -7597,7 +8159,8 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Start date for the resource or schedule."
           }
         }
       },
@@ -7606,7 +8169,8 @@
         "properties": {
           "endDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "End date for the resource or schedule."
           },
           "id": {
             "type": "integer",
@@ -7614,7 +8178,8 @@
           },
           "startDate": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Start date for the resource or schedule."
           }
         }
       },
@@ -7648,10 +8213,12 @@
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "reservedAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier that reserves the number."
           }
         }
       },
@@ -7659,16 +8226,19 @@
         "type": "object",
         "properties": {
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "inboundContext": {
             "type": "string"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "reservedAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier that reserves the number."
           }
         }
       },
@@ -7676,7 +8246,8 @@
         "type": "object",
         "properties": {
           "dnisCategory": {
-            "type": "string"
+            "type": "string",
+            "description": "Category assigned to the DNIS number."
           },
           "mediaCode": {
             "type": "string"
@@ -7901,16 +8472,20 @@
         "type": "object",
         "properties": {
           "subAccountId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCX sub-account identifier."
           },
           "dialogId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier for the full dialog or conversation."
           },
           "interactionId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier for the related interaction."
           },
           "channelId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier for the channel where the interaction occurred."
           },
           "channelType": {
             "type": "string"
@@ -7929,40 +8504,48 @@
           },
           "dialogStartTimeMs": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Dialog start time in milliseconds since epoch."
           },
           "dialogEndTimeMs": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Dialog end time in milliseconds since epoch."
           },
           "dialogDurationMs": {
             "type": "integer"
           },
           "segmentId": {
-            "type": "string"
+            "type": "string",
+            "description": "Identifier for one segment within the dialog."
           },
           "segmentType": {
             "type": "string"
           },
           "segmentParticipantId": {
-            "type": "string"
+            "type": "string",
+            "description": "Participant identifier for the segment."
           },
           "segmentParticipantRcExtensionId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral extension identifier for the segment participant."
           },
           "segmentStartTimeMs": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Segment start time in milliseconds since epoch."
           },
           "segmentEndTimeMs": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "description": "Segment end time in milliseconds since epoch."
           },
           "segmentDurationMs": {
             "type": "integer"
           },
           "segmentAgentGroupId": {
-            "type": "string"
+            "type": "string",
+            "description": "Agent group identifier associated with the segment."
           },
           "systemDisposition": {
             "type": "string",
@@ -8011,8 +8594,14 @@
           "timeInterval": {
             "type": "integer",
             "format": "int32",
-            "description": "Interval length in seconds (e.g., 1800 for 30 minutes).",
-            "example": 1800
+            "description": "Aggregation interval length in minutes. Allowed values are 15, 30, 45, or 60.",
+            "example": 15,
+            "enum": [
+              15,
+              30,
+              45,
+              60
+            ]
           },
           "timeZone": {
             "type": "string",
@@ -8035,14 +8624,17 @@
         "properties": {
           "interval": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Aggregation interval length in minutes."
           },
           "dateTimeFrom": {
-            "type": "string"
+            "type": "string",
+            "description": "Start timestamp for the requested reporting interval."
           },
           "agentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "RingCX agent identifier."
           },
           "agentName": {
             "type": "string"
@@ -8089,18 +8681,21 @@
         "type": "object",
         "properties": {
           "dateTimeFrom": {
-            "type": "string"
+            "type": "string",
+            "description": "Start timestamp for the requested reporting interval."
           },
           "interval": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Aggregation interval length in minutes."
           },
           "queue": {
             "type": "integer",
             "format": "int32"
           },
           "queueName": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue name."
           },
           "offdDirectIxnCnt": {
             "type": "integer",
@@ -8132,19 +8727,23 @@
           },
           "queuedAndAnswIxnDur": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Queued-and-answered interaction duration."
           },
           "queuedAndAbandIxnDur": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Queued-and-abandoned interaction duration."
           },
           "queuedAnswLongestQueDur": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Longest queue duration for answered interactions."
           },
           "queuedAbandLongestQueDur": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Longest queue duration for abandoned interactions."
           },
           "talkingIxnDur": {
             "type": "integer",
@@ -8160,7 +8759,8 @@
           },
           "segmentHoldTime": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Hold time for the segment."
           },
           "overflowInIxnCnt": {
             "type": "integer",
@@ -8177,14 +8777,17 @@
         "properties": {
           "interval": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "Aggregation interval length in minutes."
           },
           "dateTimeFrom": {
-            "type": "string"
+            "type": "string",
+            "description": "Start timestamp for the requested reporting interval."
           },
           "agentId": {
             "type": "integer",
-            "format": "int32"
+            "format": "int32",
+            "description": "RingCX agent identifier."
           },
           "agentName": {
             "type": "string"
@@ -8194,7 +8797,8 @@
             "format": "int32"
           },
           "queueName": {
-            "type": "string"
+            "type": "string",
+            "description": "Queue name."
           },
           "talkingIxnDur": {
             "type": "integer",
@@ -8236,7 +8840,8 @@
               "VOICE",
               "DIGITAL"
             ],
-            "example": "VOICE"
+            "example": "VOICE",
+            "description": "Type of queue."
           },
           "queueName": {
             "type": "string",
@@ -8301,11 +8906,13 @@
         "type": "object",
         "properties": {
           "participantId": {
-            "type": "string"
+            "type": "string",
+            "description": "Participant identifier."
           },
           "rcUserId": {
             "type": "string",
-            "nullable": true
+            "nullable": true,
+            "description": "RingCentral user identifier associated with the RingCX user or agent."
           },
           "participantName": {
             "type": "string",
@@ -8317,7 +8924,8 @@
           },
           "timestamp": {
             "type": "string",
-            "example": "1721651880000"
+            "example": "1721651880000",
+            "description": "Timestamp for the event or error."
           },
           "message": {
             "type": "string"
@@ -8353,13 +8961,15 @@
         "properties": {
           "cloudDestinationId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route destination identifier."
           },
           "destinationName": {
             "type": "string"
           },
           "cloudGroupId": {
-            "type": "string"
+            "type": "string",
+            "description": "Cloud-route group identifier."
           },
           "isActive": {
             "type": "boolean"
@@ -8371,13 +8981,15 @@
         "properties": {
           "cloudGroupId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Cloud-route group identifier."
           },
           "groupName": {
             "type": "string"
           },
           "accountId": {
-            "type": "string"
+            "type": "string",
+            "description": "Account identifier associated with the resource."
           },
           "cloudRouteDestinations": {
             "items": {
@@ -8418,7 +9030,8 @@
         "properties": {
           "phoneId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Persona phone identifier."
           },
           "phoneLabel": {
             "type": "string"
@@ -8451,7 +9064,8 @@
           "scheduleId": {
             "format": "int32",
             "readOnly": true,
-            "type": "integer"
+            "type": "integer",
+            "description": "Persona schedule identifier."
           },
           "day": {
             "enum": [
@@ -8468,7 +9082,8 @@
           "campaignId": {
             "format": "int32",
             "readOnly": true,
-            "type": "integer"
+            "type": "integer",
+            "description": "Campaign identifier."
           },
           "start": {
             "description": "Start time for the persona calling window, in HH:mm format.",
@@ -8519,31 +9134,39 @@
             "type": "string"
           },
           "dnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
           },
           "dnisCategory": {
-            "type": "string"
+            "type": "string",
+            "description": "Category assigned to the DNIS number."
           },
           "dnisDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the DNIS number."
           },
           "dnisE164": {
-            "type": "string"
+            "type": "string",
+            "description": "DNIS number in E.164 format."
           },
           "dnisManagedByRC": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the DNIS number is managed by RingCentral."
           },
           "dnisState": {
-            "type": "string"
+            "type": "string",
+            "description": "State assigned to the DNIS number."
           },
           "inboundContext": {
             "type": "string"
           },
           "lastModified": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last modified."
           },
           "lastModifiedBy": {
-            "type": "string"
+            "type": "string",
+            "description": "User who last modified the resource."
           },
           "mediaCode": {
             "type": "string"
@@ -8576,10 +9199,12 @@
             "type": "string"
           },
           "originatingDnis": {
-            "type": "string"
+            "type": "string",
+            "description": "Original DNIS before assignment or routing changes."
           },
           "platformId": {
-            "type": "string"
+            "type": "string",
+            "description": "RingCentral platform identifier."
           },
           "resporg": {
             "type": "string"
@@ -8591,7 +9216,8 @@
             "type": "string"
           },
           "vendorId": {
-            "type": "string"
+            "type": "string",
+            "description": "Vendor identifier associated with the number."
           }
         },
         "type": "object"
@@ -8622,7 +9248,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -8635,16 +9262,19 @@
             "type": "string"
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           }
         },
         "type": "object"
@@ -8658,7 +9288,8 @@
         "properties": {
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -8671,7 +9302,8 @@
             "type": "string"
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
@@ -8680,10 +9312,12 @@
             "type": "string"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           },
           "username": {
             "type": "string"
@@ -8698,7 +9332,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -8711,7 +9346,8 @@
             "type": "string"
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
@@ -8724,13 +9360,16 @@
             "type": "array"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           },
           "wcgFunctionId": {
-            "type": "string"
+            "type": "string",
+            "description": "Custom authentication function identifier."
           }
         },
         "type": "object"
@@ -8755,7 +9394,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -8768,14 +9408,16 @@
             "type": "string"
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
           },
           "expirationTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Date and time when the value expires."
           },
           "headerPrefix": {
             "type": "string"
@@ -8787,7 +9429,8 @@
             "type": "boolean"
           },
           "jwtHeaders": {
-            "type": "string"
+            "type": "string",
+            "description": "Headers included when creating the JWT."
           },
           "payload": {
             "type": "string"
@@ -8796,7 +9439,8 @@
             "type": "string"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "queryParamName": {
             "type": "string"
@@ -8805,7 +9449,8 @@
             "type": "string"
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           }
         },
         "type": "object"
@@ -8835,7 +9480,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -8856,10 +9502,12 @@
             "type": "string"
           },
           "clientId": {
-            "type": "string"
+            "type": "string",
+            "description": "OAuth client identifier."
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
@@ -8878,7 +9526,8 @@
               "ADMIN_POPULATED",
               "SFDC_WEBFLOW"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "OAuth provider for the auth configuration."
           },
           "otherParameters": {
             "items": {
@@ -8891,7 +9540,8 @@
             "type": "string"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "scope": {
             "type": "string"
@@ -8907,7 +9557,8 @@
             "type": "string"
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           },
           "username": {
             "type": "string"
@@ -8928,19 +9579,23 @@
         "properties": {
           "accountId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Account identifier associated with the resource."
           },
           "action": {
             "type": "string"
           },
           "authConfigId": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "enableMappings": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether request or response mappings are enabled."
           },
           "endpoint": {
-            "type": "string"
+            "type": "string",
+            "description": "Destination URL called by the service."
           },
           "httpServiceConfig": {
             "properties": {
@@ -9002,16 +9657,20 @@
                 "type": "string"
               }
             },
-            "type": "object"
+            "type": "object",
+            "description": "Remote HTTP Service configuration object."
           },
           "isDebug": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether debug logging is enabled."
           },
           "isEnabled": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether the service is enabled."
           },
           "operationName": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP or service operation name."
           },
           "permissions": {
             "items": {
@@ -9024,23 +9683,29 @@
               ],
               "type": "string"
             },
-            "type": "array"
+            "type": "array",
+            "description": "Permissions associated with the resource."
           },
           "portname": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP port name for the service."
           },
           "returnType": {
-            "type": "string"
+            "type": "string",
+            "description": "Expected response format from the remote service."
           },
           "sendAllSurveyData": {
-            "type": "boolean"
+            "type": "boolean",
+            "description": "Whether survey data is included in the service payload."
           },
           "serviceDescription": {
-            "type": "string"
+            "type": "string",
+            "description": "Description of the Remote HTTP Service."
           },
           "serviceId": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Remote HTTP Service identifier."
           },
           "serviceType": {
             "enum": [
@@ -9049,13 +9714,16 @@
               "HTTP_GET",
               "HTTP"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "Remote HTTP Service type."
           },
           "servicename": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP service name."
           },
           "targetNamespace": {
-            "type": "string"
+            "type": "string",
+            "description": "SOAP target namespace for the service."
           }
         },
         "type": "object"
@@ -9080,7 +9748,8 @@
           },
           "authConfigId": {
             "format": "uuid",
-            "type": "string"
+            "type": "string",
+            "description": "External authentication configuration identifier."
           },
           "authType": {
             "enum": [
@@ -9101,17 +9770,20 @@
             "type": "string"
           },
           "clientId": {
-            "type": "string"
+            "type": "string",
+            "description": "OAuth client identifier."
           },
           "createdTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was created."
           },
           "description": {
             "type": "string"
           },
           "expirationTime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Date and time when the value expires."
           },
           "grantType": {
             "enum": [
@@ -9132,14 +9804,16 @@
             "type": "boolean"
           },
           "jwtHeaders": {
-            "type": "string"
+            "type": "string",
+            "description": "Headers included when creating the JWT."
           },
           "oauthProvider": {
             "enum": [
               "ADMIN_POPULATED",
               "SFDC_WEBFLOW"
             ],
-            "type": "string"
+            "type": "string",
+            "description": "OAuth provider for the auth configuration."
           },
           "otherParameters": {
             "items": {
@@ -9158,7 +9832,8 @@
             "type": "string"
           },
           "providerName": {
-            "type": "string"
+            "type": "string",
+            "description": "External authentication provider name."
           },
           "queryParamName": {
             "type": "string"
@@ -9173,7 +9848,8 @@
             "type": "string"
           },
           "updatedTime": {
-            "type": "string"
+            "type": "string",
+            "description": "Date and time when the resource was last updated."
           },
           "username": {
             "type": "string"
@@ -9188,7 +9864,8 @@
           },
           "ptime": {
             "format": "int32",
-            "type": "integer"
+            "type": "integer",
+            "description": "Packetization time for the audio stream."
           },
           "rate": {
             "format": "int32",
@@ -9203,7 +9880,8 @@
             "$ref": "#/components/schemas/AudioStreamProperties"
           },
           "streamId": {
-            "type": "string"
+            "type": "string",
+            "description": "Stream identifier."
           },
           "token": {
             "type": "string"
