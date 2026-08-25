@@ -79,8 +79,8 @@ To generate and retrieve summaries, AI summaries must be enabled for the queue o
 Summary endpoints require the RingCX sub-account ID and the interaction segment ID. Use the interaction metadata API to find the completed segments you want to summarize.
 
 ```http
-POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata
-Authorization: Bearer <rcRingCXAccessToken>
+POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata
+Authorization: Bearer <ringcxAccessToken>
 Content-Type: application/json
 ```
 

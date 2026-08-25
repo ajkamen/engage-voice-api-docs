@@ -8279,7 +8279,7 @@
         }
       },
       "InteractionMetadataRequest": {
-        "description": "Parameters for realtime reports",
+        "description": "Parameters for interaction metadata requests.",
         "required": [
           "segmentEndTime",
           "timeInterval",
@@ -8297,12 +8297,12 @@
             "format": "int32",
             "minimum": 1,
             "maximum": 10800,
-            "description": "Length of the lookup window in seconds, measured forward from segmentEndTime. Maximum allowed length is 10800 (3 hours). Query completed intervals; results for recent interactions can change while metadata and recording URLs are still processing.",
+            "description": "Length of the lookup window in seconds, measured forward from segmentEndTime. Maximum allowed length is 10800 (3 hours). Query completed intervals; results for recent interactions can change while metadata and media fields are still processing.",
             "example": 1800
           },
           "timeZone": {
             "type": "string",
-            "description": "Timezone name which should be used for report generation",
+            "description": "Time zone name used to interpret segmentEndTime.",
             "example": "US/Eastern"
           }
         }
@@ -8334,6 +8334,207 @@
               "REC_STOP"
             ],
             "example": "REC_START"
+          }
+        }
+      },
+      "RCInteractionMetaDataV2ResponseArray": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/RCInteractionMetaDataV2Response"
+        }
+      },
+      "RCInteractionMetaDataV2Response": {
+        "type": "object",
+        "description": "Interaction metadata response for the v2 CX integration endpoint. V2 uses current customer-facing field names, includes non-agent voice sessions by default, and returns callResult for voice interactions.",
+        "properties": {
+          "uii": {
+            "type": "string",
+            "description": "Unique interaction identifier."
+          },
+          "interactionStartTimeMs": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Interaction start time in UTC with millisecond precision."
+          },
+          "interactionEndTimeMs": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Interaction end time in UTC with millisecond precision."
+          },
+          "dialogDurationMs": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Total interaction duration in milliseconds."
+          },
+          "callType": {
+            "type": "string",
+            "description": "Interaction direction or type, such as INBOUND or OUTBOUND."
+          },
+          "channelType": {
+            "type": "string",
+            "description": "Channel type for the interaction."
+          },
+          "ani": {
+            "type": "string",
+            "description": "Caller address."
+          },
+          "dnis": {
+            "type": "string",
+            "description": "Dialed or company channel address."
+          },
+          "agentId": {
+            "type": "string",
+            "description": "RingCX agent ID for the segment when an agent leg exists. Non-agent voice segments return null.",
+            "nullable": true
+          },
+          "product": {
+            "type": "string",
+            "description": "Product or routing source associated with the interaction.",
+            "nullable": true
+          },
+          "productType": {
+            "type": "integer",
+            "format": "int32",
+            "description": "Numeric product type identifier.",
+            "nullable": true
+          },
+          "productId": {
+            "type": "string",
+            "description": "Product or routing source identifier.",
+            "nullable": true
+          },
+          "termParty": {
+            "type": "string",
+            "description": "Party that terminated the interaction.",
+            "nullable": true
+          },
+          "termReason": {
+            "type": "string",
+            "description": "Reason the interaction ended.",
+            "nullable": true
+          },
+          "agentFullName": {
+            "type": "string",
+            "description": "Agent display name for the segment.",
+            "nullable": true
+          },
+          "callResult": {
+            "type": "string",
+            "description": "Final call result for voice interactions, such as Inbound Accepted or Inbound Abandoned. Digital interactions return null.",
+            "nullable": true
+          },
+          "subAccountId": {
+            "type": "string",
+            "description": "RingCX sub-account ID."
+          },
+          "dialogId": {
+            "type": "string",
+            "description": "Unique ID for the overall conversation."
+          },
+          "channelId": {
+            "type": "string",
+            "description": "Channel identifier for the interaction."
+          },
+          "channelClass": {
+            "type": "string",
+            "description": "High-level channel class.",
+            "enum": [
+              "VOICE",
+              "DIGITAL"
+            ]
+          },
+          "segmentId": {
+            "type": "string",
+            "description": "Unique identifier for this segment of the interaction."
+          },
+          "segmentType": {
+            "type": "string",
+            "description": "Type of segment, such as AGENT."
+          },
+          "segmentParticipantRcExtensionId": {
+            "type": "string",
+            "description": "RingCentral extension ID for the segment participant.",
+            "nullable": true
+          },
+          "segmentStartTimeMs": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Segment start time in UTC with millisecond precision."
+          },
+          "segmentEndTimeMs": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Segment end time in UTC with millisecond precision."
+          },
+          "segmentDurationMs": {
+            "type": "integer",
+            "format": "int64",
+            "description": "Segment duration in milliseconds."
+          },
+          "segmentAgentGroupId": {
+            "type": "string",
+            "description": "Agent group ID associated with the segment.",
+            "nullable": true
+          },
+          "systemDisposition": {
+            "type": "string",
+            "description": "System disposition for the segment.",
+            "nullable": true
+          },
+          "agentDisposition": {
+            "type": "string",
+            "description": "Agent-selected disposition for the segment.",
+            "nullable": true
+          },
+          "agentNotes": {
+            "type": "string",
+            "description": "Agent notes associated with the segment.",
+            "nullable": true
+          },
+          "hasRecording": {
+            "type": "boolean",
+            "description": "Whether a recording is available for this segment."
+          },
+          "hasTranscript": {
+            "type": "boolean",
+            "description": "Whether a transcript is available for this segment."
+          },
+          "segmentEvents": {
+            "type": "array",
+            "description": "Recording events associated with the segment.",
+            "items": {
+              "$ref": "#/components/schemas/InteractionSegmentEvent"
+            },
+            "nullable": true
+          },
+          "campaignId": {
+            "type": "string",
+            "description": "Campaign ID for outbound campaign interactions.",
+            "nullable": true
+          },
+          "campaignName": {
+            "type": "string",
+            "description": "Campaign name for outbound campaign interactions.",
+            "nullable": true
+          },
+          "dialMode": {
+            "type": "string",
+            "description": "Outbound dialing mode for campaign interactions.",
+            "nullable": true
+          },
+          "hciType": {
+            "type": "string",
+            "description": "Human call initiator type for campaign interactions.",
+            "nullable": true
+          },
+          "dialType": {
+            "type": "string",
+            "description": "Dialing type for campaign interactions.",
+            "nullable": true
+          },
+          "hasScreenRecording": {
+            "type": "boolean",
+            "description": "Whether a screen recording is available for this segment."
           }
         }
       },
@@ -20277,6 +20478,185 @@
                   "cause": "",
                   "generalMessage": "An Internal Server Error occurred while processing this request",
                   "requestUri": "/voice/api/cx/integration/v1/accounts/980634004/sub-accounts/99999999/interaction-metadata - POST",
+                  "timestamp": 1611847650696
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ]
+      }
+    },
+    "/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata": {
+      "post": {
+        "tags": [
+          "Public Integration API"
+        ],
+        "summary": "Returns interaction metadata with current field names and voice call results",
+        "description": "Returns completed voice and digital interaction segment metadata for the requested account and time window. Requires WEM Access. Voice results include non-agent sessions by default, such as IVR abandons, queue timeouts, and no-agent-available outcomes. Use this v2 endpoint for new integrations; v1 remains available for integrations that depend on legacy field names.",
+        "operationId": "getInteractionMetadataV2",
+        "parameters": [
+          {
+            "name": "rcAccountId",
+            "in": "path",
+            "description": "RingCentral account ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "980634004"
+            }
+          },
+          {
+            "name": "subAccountId",
+            "in": "path",
+            "description": "RingCX sub-account ID.",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "example": "99999999"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/InteractionMetadataRequest"
+              },
+              "example": {
+                "segmentEndTime": "2026-03-02 09:00:00",
+                "timeInterval": 1800,
+                "timeZone": "US/Eastern"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/RCInteractionMetaDataV2ResponseArray"
+                },
+                "example": [
+                  {
+                    "uii": "202606020106368133110000000002",
+                    "dialogId": "s-v-23eb89e65275496496bc956876e45568-1780376796111",
+                    "segmentId": "p-v-23eb89e65275496496bc956876e45568-1780376796111-00e86b9fbcf05",
+                    "interactionStartTimeMs": "2026-06-02T05:06:36.000Z",
+                    "interactionEndTimeMs": "2026-06-02T05:07:21.000Z",
+                    "dialogDurationMs": 45000,
+                    "callType": "INBOUND",
+                    "channelType": "VOICE",
+                    "channelClass": "VOICE",
+                    "ani": "2098886424",
+                    "dnis": "9072901055",
+                    "agentId": null,
+                    "agentFullName": null,
+                    "productType": 3,
+                    "productId": "483",
+                    "termParty": "CALLER",
+                    "termReason": "HANGUP",
+                    "callResult": "Inbound Abandoned",
+                    "subAccountId": "99999999",
+                    "segmentStartTimeMs": "2026-06-02T05:06:36.000Z",
+                    "segmentEndTimeMs": "2026-06-02T05:07:21.000Z",
+                    "segmentDurationMs": 45000,
+                    "segmentAgentGroupId": null,
+                    "systemDisposition": "",
+                    "agentDisposition": null,
+                    "hasRecording": false,
+                    "hasTranscript": false,
+                    "hasScreenRecording": false
+                  }
+                ]
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "example": {
+                  "details": "",
+                  "developerMessage": "Bad request",
+                  "cause": "",
+                  "generalMessage": "The supplied data is not valid",
+                  "requestUri": "/voice/api/cx/integration/v2/accounts/980634004/sub-accounts/99999999/interaction-metadata - POST",
+                  "timestamp": 1611847650696
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                },
+                "example": "JWT is expired."
+              }
+            }
+          },
+          "403": {
+            "description": "You do not have permission to access this resource.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "example": {
+                  "details": "",
+                  "developerMessage": "Access is denied.",
+                  "cause": "",
+                  "generalMessage": "You do not have permission to access this resource",
+                  "requestUri": "/voice/api/cx/integration/v2/accounts/980634004/sub-accounts/99999999/interaction-metadata - POST",
+                  "timestamp": 1611847650696
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "The resource you requested does not exist.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "example": {
+                  "details": "",
+                  "developerMessage": "Not found",
+                  "cause": "",
+                  "generalMessage": "The resource you have requested does not exist",
+                  "requestUri": "/voice/api/cx/integration/v2/accounts/980634004/sub-accounts/99999999/interaction-metadata - POST",
+                  "timestamp": 1611847650696
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal Server Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Errors"
+                },
+                "example": {
+                  "details": "",
+                  "developerMessage": "Internal server error",
+                  "cause": "",
+                  "generalMessage": "An Internal Server Error occurred while processing this request",
+                  "requestUri": "/voice/api/cx/integration/v2/accounts/980634004/sub-accounts/99999999/interaction-metadata - POST",
                   "timestamp": 1611847650696
                 }
               }

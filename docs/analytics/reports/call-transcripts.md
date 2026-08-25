@@ -51,13 +51,14 @@ To use AI-generated transcripts, ensure the feature is active within the RingCX 
 
 To retrieve a transcript, you must first obtain the unique `dialogId` and `segmentId` using the [interaction metadata endpoint](../../integration/reports-orig.md#agent-segment-metadata).
 
-`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
 
 ### Prerequisites & Constraints
 
 * **Account Context:** You must provide both the `rcAccountId` and the `subAccountId` in the path.
 * **Data Retention:** Metadata can only be returned for interactions that remain within your account's configured data retention period.
 * **Time Windows:** Set `segmentEndTime` to the beginning of the lookup window. RingCX searches forward by `timeInterval`; the window cannot exceed 10800 seconds (3 hours).
+* **Transcript Context:** Use the `dialogId` and `segmentId` values from the metadata response. Filter for segments where `hasTranscript` is `true`.
 
 ---
 

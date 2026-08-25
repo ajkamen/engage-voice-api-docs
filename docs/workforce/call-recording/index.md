@@ -44,7 +44,7 @@ To authenticate, your application must be configured with the following permissi
 
 To retrieve a recording, you must first identify the unique identifiers for the call. Unlike legacy systems that provided a direct URL, the current API requires a **Dialog ID** and a **Segment ID**, which are discovered via the `interaction-metadata` report.
 
-`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v1/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
+`POST https://ringcx.ringcentral.com/voice/api/cx/integration/v2/accounts/{rcAccountId}/sub-accounts/{subAccountId}/interaction-metadata`
 
 Metadata availability follows the account's configured data retention period. Each metadata request searches a completed lookup window beginning at `segmentEndTime` and continuing forward for `timeInterval` seconds, up to 10800 seconds (3 hours).
 
@@ -101,7 +101,7 @@ The API returns a binary stream of the recording.
 import requests
 
 # Configuration
-BASE_URL = "https://engage.ringcentral.com"
+BASE_URL = "https://ringcx.ringcentral.com/voice/api"
 ACCESS_TOKEN = "YOUR_TOKEN"
 
 def download_recording(rc_account_id, sub_account_id, dialog_id, segment_id):
