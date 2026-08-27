@@ -19,31 +19,104 @@ Agent disposition notes capture the outcome and free-text notes an agent records
 * Disposition values must already exist in the account, queue, or campaign configuration that applies to the interaction.
 * URL-encode query parameter values, especially free-text notes.
 
+## SDK Setup
+
+SDK examples in this article use JWT authentication and load credentials from environment variables.
+
+=== "JavaScript"
+
+    ```bash
+    npm install ringcentral-engage-voice-client dotenv
+    ```
+
+=== "Python"
+
+    ```bash
+    pip3 install ringcentral_engage_voice python-dotenv
+    ```
+
+Create a `.env` file in the directory where you run the sample:
+
+```text
+RC_CLIENT_ID=<clientId>
+RC_CLIENT_SECRET=<clientSecret>
+RC_JWT=<jwt>
+```
+
+The SDK wrapper reads these values, signs in with RingCentral, and exchanges the RingCentral access token for a RingCX access token before calling RingCX APIs.
+
 ## Read Notes for an Archived Call
 
 After a call is archived, use the call history endpoint to retrieve the disposition and notes associated with the UII.
 
-```http
-GET https://ringcx.ringcentral.com/voice/api/v1/admin/accounts/{accountId}/callHistory/{uii}
-Authorization: Bearer <ringcxAccessToken>
-Accept: application/json
-```
+=== "HTTP"
+
+    ```http
+    GET https://ringcx.ringcentral.com/voice/api/v1/admin/accounts/{accountId}/callHistory/{uii}
+    Authorization: Bearer <ringcxAccessToken>
+    Accept: application/json
+    ```
+
+=== "JavaScript SDK"
+
+    ```javascript
+    const EngageVoice = require("ringcentral-engage-voice-client").default;
+    require("dotenv").config();
+
+    async function main() {
+      const ev = new EngageVoice({
+        clientId: process.env.RC_CLIENT_ID,
+        clientSecret: process.env.RC_CLIENT_SECRET
+      });
+
+      await ev.authorize({ jwt: process.env.RC_JWT });
+
+      const response = await ev.get(
+        "/api/v1/admin/accounts/{accountId}/callHistory/{uii}"
+      );
+
+      console.log(response.data);
+    }
+
+    main().catch(console.error);
+    ```
+
+=== "Python SDK"
+
+    ```python
+    import os
+    from dotenv import load_dotenv
+    from ringcentral_engage_voice import RingCentralEngageVoice
+
+    load_dotenv()
+
+    ev = RingCentralEngageVoice(
+        os.environ["RC_CLIENT_ID"],
+        os.environ["RC_CLIENT_SECRET"],
+    )
+    ev.authorize(jwt=os.environ["RC_JWT"])
+
+    response = ev.get("/api/v1/admin/accounts/{accountId}/callHistory/{uii}")
+    print(response.json())
+    ```
 
 The response includes call-level fields such as `agentDisposition` and session-level history in `activeCallSessionHistories`. Session history records can include `agentNotes`.
 
-```json
-{
-  "accountId": "12345678",
-  "uii": "202605051013071101050000000902",
-  "agentDisposition": "SALE",
-  "activeCallSessionHistories": [
+??? example "Response example"
+
+    ```json
     {
-      "sessionId": "1",
-      "agentNotes": "Customer requested follow-up."
+      "accountId": "12345678",
+      "uii": "202605051013071101050000000902",
+      "agentDisposition": "SALE",
+      "activeCallSessionHistories": [
+        {
+          "sessionId": "1",
+          "agentNotes": "Customer requested follow-up."
+        }
+      ]
     }
-  ]
-}
-```
+    ```
 
 ## Set Notes for a Live Call
 
@@ -64,6 +137,12 @@ Accept: application/json
 
 The endpoint returns `true` when the update succeeds.
 
+??? example "Response example"
+
+    ```json
+    true
+    ```
+
 ## Read or Update Outbound Campaign Pass Notes
 
 For outbound campaign leads, notes can also be stored on a campaign pass. List passes for the lead first, then update the target `passUii`.
@@ -74,15 +153,17 @@ Authorization: Bearer <ringcxAccessToken>
 Accept: application/json
 ```
 
-```json
-[
-  {
-    "passUii": "202605051013071101050000000902",
-    "agentDisposition": "SALE",
-    "agentNotes": "Customer requested follow-up."
-  }
-]
-```
+??? example "Response example"
+
+    ```json
+    [
+      {
+        "passUii": "202605051013071101050000000902",
+        "agentDisposition": "SALE",
+        "agentNotes": "Customer requested follow-up."
+      }
+    ]
+    ```
 
 To update a pass:
 

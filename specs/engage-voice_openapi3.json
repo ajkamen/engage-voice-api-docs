@@ -10690,11 +10690,11 @@
     },
     "/voice/api/v1/admin/accounts/{accountId}/activeCalls/{uii}/dispositionCall": {
       "post": {
-        "description": "Permissions: READ on Account (Permission Override)",
+        "description": "Sets the disposition and optional notes for an active or pending-disposition call, then releases the agent from pending disposition state. Permissions: READ on Account (Permission Override).",
         "operationId": "dispositionCall",
         "parameters": [
           {
-            "description": "accountId",
+            "description": "RingCX sub-account ID.",
             "in": "path",
             "name": "accountId",
             "required": true,
@@ -10703,7 +10703,7 @@
             }
           },
           {
-            "description": "uii",
+            "description": "Unique interaction identifier for the call.",
             "in": "path",
             "name": "uii",
             "required": true,
@@ -10712,7 +10712,7 @@
             }
           },
           {
-            "description": "disposition",
+            "description": "Preconfigured disposition value to store on the call.",
             "in": "query",
             "name": "disposition",
             "required": true,
@@ -10721,7 +10721,7 @@
             }
           },
           {
-            "description": "callback",
+            "description": "Whether the disposition schedules a callback.",
             "in": "query",
             "name": "callback",
             "required": true,
@@ -10730,7 +10730,7 @@
             }
           },
           {
-            "description": "callBackDTS",
+            "description": "Callback date and time in yyyyMMddHHmmss format. Required when callback is true.",
             "in": "query",
             "name": "callBackDTS",
             "schema": {
@@ -10738,7 +10738,7 @@
             }
           },
           {
-            "description": "notes",
+            "description": "Free-text notes to store with the disposition record.",
             "in": "query",
             "name": "notes",
             "schema": {
@@ -10749,16 +10749,13 @@
         "responses": {
           "200": {
             "content": {
-              "text/plain": {
+              "application/json": {
                 "schema": {
                   "type": "boolean"
                 }
               }
             },
             "description": "OK"
-          },
-          "201": {
-            "description": "Created"
           },
           "401": {
             "description": "Unauthorized"
@@ -10773,15 +10770,9 @@
         "security": [
           {
             "BearerAuth": []
-          },
-          {
-            "BearerAuth": []
-          },
-          {
-            "BearerAuth": []
           }
         ],
-        "summary": "Sets the call disposition for either INBOUND or OUTBOUND calls and releases the agent from PD state",
+        "summary": "Set call disposition and notes",
         "tags": [
           "Active Calls"
         ]
@@ -11006,7 +10997,7 @@
         "operationId": "getActiveCallHistory",
         "parameters": [
           {
-            "description": "Account ID",
+            "description": "RingCX sub-account ID.",
             "in": "path",
             "name": "accountId",
             "required": true,
@@ -11122,7 +11113,7 @@
         "operationId": "getAgentGroupList",
         "parameters": [
           {
-            "description": "accountId",
+            "description": "RingCX sub-account ID.",
             "in": "path",
             "name": "accountId",
             "required": true,
@@ -13231,7 +13222,7 @@
             }
           },
           {
-            "description": "dialGroupId",
+            "description": "Dial group that owns the campaign.",
             "in": "path",
             "name": "dialGroupId",
             "required": true,
@@ -13764,7 +13755,7 @@
             }
           },
           {
-            "description": "campaignId",
+            "description": "Campaign that owns the lead.",
             "in": "path",
             "name": "campaignId",
             "required": true,
@@ -14004,7 +13995,7 @@
             }
           },
           {
-            "description": "leadId",
+            "description": "Lead whose pass history should be returned.",
             "in": "path",
             "name": "leadId",
             "required": true,
@@ -14014,7 +14005,7 @@
             }
           },
           {
-            "description": "page",
+            "description": "Page number for paginated results.",
             "in": "query",
             "name": "page",
             "schema": {
@@ -14023,7 +14014,7 @@
             }
           },
           {
-            "description": "maxRows",
+            "description": "Maximum number of rows to return per page.",
             "in": "query",
             "name": "maxRows",
             "schema": {
@@ -14073,7 +14064,7 @@
         "operationId": "updateCampaignPassAgentNotesAndDisposition",
         "parameters": [
           {
-            "description": "accountId",
+            "description": "RingCX sub-account ID.",
             "in": "path",
             "name": "accountId",
             "required": true,
@@ -14082,7 +14073,7 @@
             }
           },
           {
-            "description": "dialGroupId",
+            "description": "Dial group that owns the campaign.",
             "in": "path",
             "name": "dialGroupId",
             "required": true,
@@ -14092,7 +14083,7 @@
             }
           },
           {
-            "description": "campaignId",
+            "description": "Campaign that owns the lead.",
             "in": "path",
             "name": "campaignId",
             "required": true,
@@ -14102,7 +14093,7 @@
             }
           },
           {
-            "description": "leadId",
+            "description": "Lead whose pass should be updated.",
             "in": "path",
             "name": "leadId",
             "required": true,
@@ -14112,7 +14103,7 @@
             }
           },
           {
-            "description": "passUii",
+            "description": "Unique identifier for the campaign pass.",
             "in": "path",
             "name": "passUii",
             "required": true,
@@ -14164,7 +14155,7 @@
             "BearerAuth": []
           }
         ],
-        "summary": "Updates agent disposition and notes for a campaign pass",
+        "summary": "Update campaign pass disposition and notes",
         "tags": [
           "Leads"
         ]
