@@ -670,6 +670,118 @@
         },
         "type": "object"
       },
+      "ActiveCallHistory": {
+        "description": "Archived call history record returned for a UII.",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "description": "RingCX sub-account ID associated with the call."
+          },
+          "uii": {
+            "type": "string",
+            "description": "Unique interaction identifier for the call."
+          },
+          "dialogId": {
+            "type": "string",
+            "description": "Dialog identifier associated with the interaction."
+          },
+          "leadId": {
+            "format": "int32",
+            "type": "integer",
+            "description": "Lead identifier for outbound campaign calls."
+          },
+          "outboundDisposition": {
+            "type": "string",
+            "description": "Outbound disposition stored for the call."
+          },
+          "agentDisposition": {
+            "type": "string",
+            "description": "Agent disposition stored for the call."
+          },
+          "ani": {
+            "type": "string",
+            "description": "Automatic Number Identification (ANI) caller number."
+          },
+          "dnis": {
+            "type": "string",
+            "description": "Dialed Number Identification Service (DNIS) number."
+          },
+          "dnisE164": {
+            "type": "string",
+            "description": "DNIS number in E.164 format."
+          },
+          "callState": {
+            "type": "string",
+            "description": "Final or archived state of the call."
+          },
+          "callType": {
+            "type": "string",
+            "description": "Call direction or call type."
+          },
+          "activeCallSessionHistories": {
+            "items": {
+              "$ref": "#/components/schemas/ActiveCallSessionHistory"
+            },
+            "type": "array",
+            "description": "Session-level history records for the call."
+          }
+        },
+        "type": "object"
+      },
+      "ActiveCallSessionHistory": {
+        "description": "Session-level history record for an archived call.",
+        "properties": {
+          "sessionId": {
+            "type": "string",
+            "description": "Session identifier within the call."
+          },
+          "segmentId": {
+            "type": "string",
+            "description": "Segment identifier associated with the session."
+          },
+          "agentNotes": {
+            "type": "string",
+            "description": "Free-text notes recorded by the agent for this session."
+          },
+          "callDts": {
+            "description": "Date and time in yyyy-MM-dd'T'HH:mm:ss.SSSZ format.",
+            "example": "2026-08-12T22:30:00.000+0000",
+            "type": "string"
+          },
+          "dialDisposition": {
+            "type": "string",
+            "description": "Dial disposition for the session."
+          },
+          "duration": {
+            "format": "int32",
+            "type": "integer",
+            "description": "Session duration in seconds."
+          },
+          "phone": {
+            "type": "string",
+            "description": "Phone number associated with the session."
+          },
+          "sessionType": {
+            "type": "string",
+            "description": "Type of session, such as agent, customer, or monitoring session."
+          },
+          "termParty": {
+            "type": "string",
+            "description": "Party that terminated the session."
+          },
+          "termReason": {
+            "type": "string",
+            "description": "Reason the session ended."
+          },
+          "agentLoginId": {
+            "format": "int32",
+            "readOnly": true,
+            "type": "integer",
+            "description": "Agent login identifier associated with the session."
+          }
+        },
+        "type": "object"
+      },
       "ActiveState_boolean_": {
         "properties": {
           "isActive": {
