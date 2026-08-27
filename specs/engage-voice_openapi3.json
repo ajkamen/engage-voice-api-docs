@@ -31236,10 +31236,28 @@
             "schema": {
               "type": "string"
             }
+          },
+          {
+            "name": "uploadFileName",
+            "in": "query",
+            "description": "Optional uploaded file name override.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "audioName",
+            "in": "query",
+            "description": "Optional audio asset name used for display and multilingual audio matching.",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "requestBody": {
-          "description": "Multipart form data containing the audio file and optional display-name metadata.",
+          "description": "Multipart form data containing the audio file.",
           "required": true,
           "content": {
             "multipart/form-data": {
@@ -31253,14 +31271,6 @@
                     "type": "string",
                     "format": "binary",
                     "description": "Audio file to upload."
-                  },
-                  "uploadFileName": {
-                    "type": "string",
-                    "description": "Optional uploaded file name override."
-                  },
-                  "audioName": {
-                    "type": "string",
-                    "description": "Optional audio asset name used for display and multilingual audio matching."
                   }
                 }
               }
@@ -31268,6 +31278,16 @@
           }
         },
         "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AudioFileView"
+                }
+              }
+            }
+          },
           "201": {
             "description": "Created",
             "content": {

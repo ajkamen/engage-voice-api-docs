@@ -30,6 +30,32 @@ The authenticating user must have the RingCX administrative permissions required
 | Download audio file as MP3 | `READ` on Account, `READ` on Utilities |
 | Delete audio file | `READ` on Account (permission override), `DELETE` on Utilities |
 
+## SDK Setup
+
+SDK examples in this article use JWT authentication and load credentials from environment variables.
+
+=== "JavaScript"
+
+    ```bash
+    npm install ringcentral-engage-voice-client dotenv
+    ```
+
+=== "Python"
+
+    ```bash
+    pip3 install ringcentral_engage_voice python-dotenv
+    ```
+
+Create a `.env` file in the directory where you run the sample:
+
+```text
+RC_CLIENT_ID=<clientId>
+RC_CLIENT_SECRET=<clientSecret>
+RC_JWT=<jwt>
+```
+
+The SDK wrapper reads these values, signs in with RingCentral, and exchanges the RingCentral access token for a RingCX access token before calling RingCX APIs. For multipart upload and binary download, use the HTTP client examples to control file streams directly.
+
 ## Endpoints
 
 | Operation | Method and Path | API Reference |
@@ -102,6 +128,49 @@ When `fileName` is part of the URL path, URL-encode it. The `newFileName` value 
     console.log(await response.json());
     ```
 
+=== "JavaScript SDK"
+
+    ```javascript
+    const EngageVoice = require("ringcentral-engage-voice-client").default;
+    require("dotenv").config();
+
+    async function main() {
+      const ev = new EngageVoice({
+        clientId: process.env.RC_CLIENT_ID,
+        clientSecret: process.env.RC_CLIENT_SECRET
+      });
+
+      await ev.authorize({ jwt: process.env.RC_JWT });
+
+      const response = await ev.get(
+        "/api/v1/admin/accounts/{accountId}/utilities/audioFiles"
+      );
+
+      console.log(response.data);
+    }
+
+    main().catch(console.error);
+    ```
+
+=== "Python SDK"
+
+    ```python
+    import os
+    from dotenv import load_dotenv
+    from ringcentral_engage_voice import RingCentralEngageVoice
+
+    load_dotenv()
+
+    ev = RingCentralEngageVoice(
+        os.environ["RC_CLIENT_ID"],
+        os.environ["RC_CLIENT_SECRET"],
+    )
+    ev.authorize(jwt=os.environ["RC_JWT"])
+
+    response = ev.get("/api/v1/admin/accounts/{accountId}/utilities/audioFiles")
+    print(response.json())
+    ```
+
 ??? example "Response example"
 
     ```json
@@ -117,6 +186,8 @@ When `fileName` is part of the URL path, URL-encode it. The `newFileName` value 
 ## Upload an Audio File
 
 Send the audio file as `multipart/form-data`. Do not set the multipart `Content-Type` boundary manually; let your HTTP client set it.
+
+Use the `uploadFileName` query parameter when the stored file name should differ from the local file name. Use `audioName` when the audio asset needs a display name for multilingual audio matching.
 
 === "HTTP"
 
@@ -345,6 +416,51 @@ Use this endpoint to preview or retrieve an account audio file as an MP3 stream.
 
     if (!response.ok) throw new Error(await response.text());
     console.log(await response.json());
+    ```
+
+=== "JavaScript SDK"
+
+    ```javascript
+    const EngageVoice = require("ringcentral-engage-voice-client").default;
+    require("dotenv").config();
+
+    async function main() {
+      const ev = new EngageVoice({
+        clientId: process.env.RC_CLIENT_ID,
+        clientSecret: process.env.RC_CLIENT_SECRET
+      });
+
+      await ev.authorize({ jwt: process.env.RC_JWT });
+
+      const response = await ev.delete(
+        "/api/v1/admin/accounts/{accountId}/utilities/audioFiles/support_hold_music_v2/remove"
+      );
+
+      console.log(response.data);
+    }
+
+    main().catch(console.error);
+    ```
+
+=== "Python SDK"
+
+    ```python
+    import os
+    from dotenv import load_dotenv
+    from ringcentral_engage_voice import RingCentralEngageVoice
+
+    load_dotenv()
+
+    ev = RingCentralEngageVoice(
+        os.environ["RC_CLIENT_ID"],
+        os.environ["RC_CLIENT_SECRET"],
+    )
+    ev.authorize(jwt=os.environ["RC_JWT"])
+
+    response = ev.delete(
+        "/api/v1/admin/accounts/{accountId}/utilities/audioFiles/support_hold_music_v2/remove"
+    )
+    print(response.json())
     ```
 
 ??? example "Response example"
