@@ -46,6 +46,15 @@ You can verify the specs locally with the following if you have [Go installed](h
 
 If you wish to change the specs being tested edit the [specs_test.go](specs_test.go) file.
 
+### Generating the Postman Collection
+
+The public Postman collection and environment template are generated from the RingCX OpenAPI specification. Regenerate and verify them with:
+
+```
+python3 scripts/generate_postman.py
+python3 scripts/generate_postman.py --check
+```
+
  [specs-status-svg]: https://github.com/ringcentral/engage-voice-api-docs/workflows/build/badge.svg?branch=master
  [specs-status-url]: https://github.com/ringcentral/engage-voice-api-docs/actions
  [docs-status-svg]: https://readthedocs.org/projects/engage-voice-api-docs/badge/?version=latest
