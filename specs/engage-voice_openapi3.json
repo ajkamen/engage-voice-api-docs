@@ -10103,6 +10103,11 @@
         "scheme": "bearer",
         "type": "http"
       },
+      "XAuthToken": {
+        "in": "header",
+        "name": "X-Auth-Token",
+        "type": "apiKey"
+      },
       "apiKey": {
         "in": "header",
         "name": "apiKey",
@@ -19292,7 +19297,7 @@
     },
     "/voice/api/v1/admin/token": {
       "get": {
-        "description": "Permissions: Authenticated User",
+        "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token.",
         "operationId": "getApiTokensForLoggedInUser",
         "responses": {
           "200": {
@@ -19323,19 +19328,16 @@
             "BearerAuth": []
           },
           {
-            "BearerAuth": []
-          },
-          {
-            "BearerAuth": []
+            "XAuthToken": []
           }
         ],
-        "summary": "Retrieves all Api Tokens for AuthenticatedUser",
+        "summary": "List permanent API tokens",
         "tags": [
-          "Legacy Auth"
+          "API Tokens"
         ]
       },
       "post": {
-        "description": "Permissions: Authenticated User",
+        "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token. Each successful request creates a permanent API token.",
         "operationId": "createApiTokenForLoggedInUser",
         "responses": {
           "200": {
@@ -19366,21 +19368,18 @@
             "BearerAuth": []
           },
           {
-            "BearerAuth": []
-          },
-          {
-            "BearerAuth": []
+            "XAuthToken": []
           }
         ],
-        "summary": "Creates a new 'Api Token' based AuthenticatedUser that does not expire",
+        "summary": "Create a permanent API token",
         "tags": [
-          "Legacy Auth"
+          "API Tokens"
         ]
       }
     },
     "/voice/api/v1/admin/token/{token}": {
       "delete": {
-        "description": "Permissions: Anonymous User",
+        "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token. The token identified in the path is revoked.",
         "operationId": "removeApiToken",
         "parameters": [
           {
@@ -19419,15 +19418,12 @@
             "BearerAuth": []
           },
           {
-            "BearerAuth": []
-          },
-          {
-            "BearerAuth": []
+            "XAuthToken": []
           }
         ],
-        "summary": "Removes an api token",
+        "summary": "Delete a permanent API token",
         "tags": [
-          "Legacy Auth"
+          "API Tokens"
         ]
       }
     },
@@ -19630,11 +19626,7 @@
             "description": "Not Found"
           }
         },
-        "security": [
-          {
-            "BearerAuth": []
-          }
-        ]
+        "security": []
       }
     },
     "/voice/api/integration/v1/admin/users/{mainAccountId}": {
@@ -35084,8 +35076,12 @@
       "description": "Manage campaign leads, lead search, and lead actions."
     },
     {
+      "name": "API Tokens",
+      "description": "Create, list, and revoke permanent API tokens."
+    },
+    {
       "name": "Legacy Auth",
-      "description": "Authenticate against legacy RingCX deployments."
+      "description": "Authenticate legacy RingCX portal deployments with X-Auth-Token."
     },
     {
       "name": "Outbound",
@@ -35329,6 +35325,7 @@
         "Token",
         "OAuth",
         "RingCentral Auth",
+        "API Tokens",
         "Legacy Auth"
       ]
     },

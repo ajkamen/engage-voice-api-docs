@@ -17,6 +17,8 @@ ROOT = Path(__file__).resolve().parents[1]
 SPEC_PATH = ROOT / "specs" / "engage-voice_openapi3.json"
 COLLECTION_PATH = ROOT / "specs" / "engage-voice_postman2.json"
 ENVIRONMENT_PATH = ROOT / "specs" / "ringcx_postman_environment.json"
+LEGACY_COLLECTION_PATH = ROOT / "specs" / "engage-voice_legacy_auth_postman2.json"
+LEGACY_ENVIRONMENT_PATH = ROOT / "specs" / "ringcx_legacy_postman_environment.json"
 
 HTTP_METHODS = ("get", "post", "put", "patch", "delete", "head", "options")
 MAX_EXAMPLE_PROPERTIES = 10
@@ -24,6 +26,7 @@ MAX_EXAMPLE_DEPTH = 4
 
 RINGCX_BASE_URL = "{{ringcx_base_url}}"
 RINGCENTRAL_BASE_URL = "{{ringcentral_base_url}}"
+LEGACY_BASE_URL = "{{legacy_base_url}}"
 
 PATH_VARIABLE_ALIASES = {
     "accountId": "rcx_sub_account_id",
@@ -35,6 +38,10 @@ PATH_VARIABLE_ALIASES = {
 HELPER_OPERATIONS = {
     ("POST", "/api/auth/login/rc/accesstoken"),
     ("GET", "/voice/api/v1/admin/accounts"),
+}
+
+LEGACY_ONLY_OPERATIONS = {
+    ("POST", "/voice/api/v1/auth/login"),
 }
 
 COMMON_VARIABLES = [
@@ -67,6 +74,27 @@ SECRET_VARIABLE_KEYS = {
     "rco_access_token",
     "ringcx_bearer_token",
     "rcev_access_token",
+}
+
+LEGACY_VARIABLES = [
+    {
+        "key": "legacy_base_url",
+        "value": "https://portal.vacd.biz/api",
+        "type": "default",
+    },
+    {"key": "legacy_username", "value": "", "type": "secret"},
+    {"key": "legacy_password", "value": "", "type": "secret"},
+    {"key": "legacy_auth_token", "value": "", "type": "secret"},
+    {"key": "legacy_api_token", "value": "", "type": "secret"},
+    {"key": "legacy_api_token_to_delete", "value": "", "type": "secret"},
+]
+
+LEGACY_SECRET_VARIABLE_KEYS = {
+    "legacy_username",
+    "legacy_password",
+    "legacy_auth_token",
+    "legacy_api_token",
+    "legacy_api_token_to_delete",
 }
 
 
@@ -716,7 +744,7 @@ def build_collection(document: Dict[str, Any]) -> Tuple[Dict[str, Any], int, Lis
             if not isinstance(operation, dict):
                 continue
             operation_count += 1
-            if (method.upper(), path) in HELPER_OPERATIONS:
+            if (method.upper(), path) in HELPER_OPERATIONS | LEGACY_ONLY_OPERATIONS:
                 continue
             item, item_variables = build_operation_item(
                 document, path, path_item, method, operation
@@ -793,6 +821,195 @@ def build_environment() -> Dict[str, Any]:
     }
 
 
+def legacy_api_key_auth(token_variable: str = "legacy_auth_token") -> Dict[str, Any]:
+    return {
+        "type": "apikey",
+        "apikey": [
+            {"key": "key", "value": "X-Auth-Token", "type": "string"},
+            {"key": "value", "value": "{{" + token_variable + "}}", "type": "string"},
+            {"key": "in", "value": "header", "type": "string"},
+        ],
+    }
+
+
+def build_legacy_collection() -> Dict[str, Any]:
+    login = {
+        "name": "1. Get temporary legacy auth token",
+        "id": request_id("POST", "/legacy/v1/auth/login"),
+        "request": {
+            "method": "POST",
+            "auth": {"type": "noauth"},
+            "header": [
+                {"key": "Accept", "value": "application/json", "type": "text"},
+                {
+                    "key": "Content-Type",
+                    "value": "application/x-www-form-urlencoded",
+                    "type": "text",
+                },
+            ],
+            "body": {
+                "mode": "urlencoded",
+                "urlencoded": [
+                    {"key": "username", "value": "{{legacy_username}}", "type": "text"},
+                    {"key": "password", "value": "{{legacy_password}}", "type": "text"},
+                    {"key": "stayLoggedIn", "value": "false", "type": "text"},
+                ],
+            },
+            "url": make_url(LEGACY_BASE_URL, "/v1/auth/login"),
+            "description": (
+                "Authenticates a user on a legacy RingCX portal and stores the returned temporary "
+                "authToken as legacy_auth_token. This request does not use bearer authentication."
+            ),
+        },
+        "event": [
+            auth_event(
+                [
+                    "pm.test('Legacy login succeeds', function () {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                    "const body = pm.response.json();",
+                    "pm.expect(body).to.have.property('authToken');",
+                    "pm.environment.set('legacy_auth_token', String(body.authToken));",
+                ]
+            )
+        ],
+        "response": [],
+    }
+
+    create_token = {
+        "name": "2. Create permanent legacy API token",
+        "id": request_id("POST", "/legacy/v1/admin/token"),
+        "request": {
+            "method": "POST",
+            "header": [{"key": "Accept", "value": "text/plain", "type": "text"}],
+            "url": make_url(LEGACY_BASE_URL, "/v1/admin/token"),
+            "description": (
+                "Creates a permanent API token for the authenticated legacy user and stores it as "
+                "legacy_api_token. Each successful run creates another token."
+            ),
+        },
+        "event": [
+            auth_event(
+                [
+                    "pm.test('Legacy API token creation succeeds', function () {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                    "const token = pm.response.text().trim();",
+                    "pm.expect(token).to.not.equal('');",
+                    "pm.environment.set('legacy_api_token', token);",
+                ]
+            )
+        ],
+        "response": [],
+    }
+
+    list_tokens = {
+        "name": "3. List legacy API tokens",
+        "id": request_id("GET", "/legacy/v1/admin/token"),
+        "request": {
+            "method": "GET",
+            "header": [{"key": "Accept", "value": "application/json", "type": "text"}],
+            "url": make_url(LEGACY_BASE_URL, "/v1/admin/token"),
+            "description": "Lists permanent API tokens owned by the authenticated legacy user.",
+        },
+        "event": [
+            auth_event(
+                [
+                    "pm.test('Legacy API token list succeeds', function () {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                ]
+            )
+        ],
+        "response": [],
+    }
+
+    test_token = {
+        "name": "4. Test permanent legacy API token",
+        "id": request_id("GET", "/legacy/v1/admin/users"),
+        "request": {
+            "method": "GET",
+            "auth": legacy_api_key_auth("legacy_api_token"),
+            "header": [{"key": "Accept", "value": "application/json", "type": "text"}],
+            "url": make_url(LEGACY_BASE_URL, "/v1/admin/users"),
+            "description": (
+                "Calls a legacy API with legacy_api_token in the X-Auth-Token header. The user must "
+                "have permission to retrieve users."
+            ),
+        },
+        "event": [
+            auth_event(
+                [
+                    "pm.test('Permanent legacy API token is accepted', function () {",
+                    "  pm.response.to.have.status(200);",
+                    "});",
+                ]
+            )
+        ],
+        "response": [],
+    }
+
+    delete_token = {
+        "name": "5. Delete selected legacy API token",
+        "id": request_id("DELETE", "/legacy/v1/admin/token/{token}"),
+        "request": {
+            "method": "DELETE",
+            "header": [{"key": "Accept", "value": "application/json", "type": "text"}],
+            "url": make_url(
+                LEGACY_BASE_URL,
+                "/v1/admin/token/{{legacy_api_token_to_delete}}",
+            ),
+            "description": (
+                "Deletes only the token entered in legacy_api_token_to_delete. The value is blank "
+                "by default to prevent an unintended deletion."
+            ),
+        },
+        "event": [
+            auth_event(
+                [
+                    "pm.test('Legacy API token deletion succeeds', function () {",
+                    "  pm.expect(pm.response.code).to.be.oneOf([200, 204]);",
+                    "});",
+                ]
+            )
+        ],
+        "response": [],
+    }
+
+    return {
+        "info": {
+            "name": "RingCentral RingCX Legacy Authentication",
+            "description": (
+                "Authentication helpers for RingCX deployments that use a legacy portal host and "
+                "X-Auth-Token. Use the main RingCX Voice API collection for current deployments."
+            ),
+            "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        },
+        "auth": legacy_api_key_auth(),
+        "item": [
+            {
+                "name": "Legacy authentication",
+                "description": (
+                    "Choose the legacy portal host in the companion environment, configure the "
+                    "legacy username and password, and run requests individually in order."
+                ),
+                "item": [login, create_token, list_tokens, test_token, delete_token],
+            }
+        ],
+    }
+
+
+def build_legacy_environment() -> Dict[str, Any]:
+    return {
+        "name": "RingCX Legacy Authentication Environment",
+        "values": [
+            {**copy.deepcopy(variable), "enabled": True}
+            for variable in LEGACY_VARIABLES
+        ],
+        "_postman_variable_scope": "environment",
+    }
+
+
 def walk_items(items: Iterable[Dict[str, Any]]) -> Iterable[Dict[str, Any]]:
     for item in items:
         if "request" in item:
@@ -808,7 +1025,9 @@ def validate_generated(
 ) -> List[str]:
     errors: List[str] = []
     requests = list(walk_items(collection.get("item") or []))
-    expected_request_count = operation_count - len(HELPER_OPERATIONS) + 4
+    expected_request_count = (
+        operation_count - len(HELPER_OPERATIONS) - len(LEGACY_ONLY_OPERATIONS) + 4
+    )
     if len(requests) != expected_request_count:
         errors.append(
             f"Expected {expected_request_count} requests, generated {len(requests)}"
@@ -825,7 +1044,10 @@ def validate_generated(
         if isinstance(path_item.get(method), dict)
     }
     actual_request_ids = set(request_ids)
-    missing_operation_ids = expected_operation_ids - actual_request_ids
+    legacy_operation_ids = {
+        request_id(method, path) for method, path in LEGACY_ONLY_OPERATIONS
+    }
+    missing_operation_ids = expected_operation_ids - actual_request_ids - legacy_operation_ids
     if missing_operation_ids:
         errors.append(
             f"Generated collection is missing {len(missing_operation_ids)} OpenAPI operations"
@@ -916,6 +1138,71 @@ def validate_generated(
     return errors
 
 
+def validate_legacy_generated(
+    collection: Dict[str, Any], environment: Dict[str, Any]
+) -> List[str]:
+    errors: List[str] = []
+    requests = list(walk_items(collection.get("item") or []))
+
+    if len(requests) != 5:
+        errors.append(f"Expected 5 legacy auth requests, generated {len(requests)}")
+
+    request_ids = [item.get("id") for item in requests]
+    if len(request_ids) != len(set(request_ids)):
+        errors.append("Generated duplicate legacy Postman request IDs")
+
+    collection_auth = collection.get("auth") or {}
+    if collection_auth.get("type") != "apikey":
+        errors.append("Legacy collection must use API key authentication")
+    auth_values = {
+        item.get("key"): item.get("value")
+        for item in collection_auth.get("apikey") or []
+    }
+    if auth_values.get("key") != "X-Auth-Token":
+        errors.append("Legacy collection must send X-Auth-Token")
+
+    for item in requests:
+        request = item.get("request") or {}
+        raw_url = (request.get("url") or {}).get("raw", "")
+        if not raw_url.startswith(LEGACY_BASE_URL + "/v1/"):
+            errors.append(f"{item.get('name')}: legacy URL is not rooted at legacy_base_url")
+
+        auth = request.get("auth") or {}
+        if auth.get("type") == "bearer":
+            errors.append(f"{item.get('name')}: legacy request must not use bearer auth")
+        for header in request.get("header") or []:
+            if str(header.get("key", "")).lower() == "authorization":
+                errors.append(
+                    f"{item.get('name')}: legacy request must not send Authorization"
+                )
+
+    login_request = next(
+        (item for item in requests if item.get("name", "").startswith("1.")), None
+    )
+    if not login_request or (login_request.get("request") or {}).get("auth") != {
+        "type": "noauth"
+    }:
+        errors.append("Legacy login request must explicitly disable authentication")
+
+    serialized = json.dumps(collection, ensure_ascii=True)
+    for fragment in (
+        "https://ringcx.ringcentral.com",
+        "https://engage.ringcentral.com",
+        "/voice/api/",
+    ):
+        if fragment in serialized:
+            errors.append(f"Legacy collection contains current-host fragment: {fragment}")
+
+    environment_values = {
+        value.get("key"): value.get("value") for value in environment.get("values") or []
+    }
+    for key in LEGACY_SECRET_VARIABLE_KEYS:
+        if environment_values.get(key):
+            errors.append(f"Legacy environment secret variable {key} must be blank")
+
+    return errors
+
+
 def compare_file(path: Path, expected: Dict[str, Any]) -> bool:
     if not path.exists():
         print(f"Missing generated file: {path.relative_to(ROOT)}", file=sys.stderr)
@@ -943,8 +1230,11 @@ def main() -> int:
     document = load_json(SPEC_PATH)
     collection, operation_count, path_variables = build_collection(document)
     environment = build_environment()
+    legacy_collection = build_legacy_collection()
+    legacy_environment = build_legacy_environment()
 
     errors = validate_generated(document, collection, environment, operation_count)
+    errors.extend(validate_legacy_generated(legacy_collection, legacy_environment))
     if errors:
         for error in errors:
             print(f"error: {error}", file=sys.stderr)
@@ -953,16 +1243,23 @@ def main() -> int:
     if args.check:
         current = compare_file(COLLECTION_PATH, collection)
         current = compare_file(ENVIRONMENT_PATH, environment) and current
+        current = compare_file(LEGACY_COLLECTION_PATH, legacy_collection) and current
+        current = compare_file(LEGACY_ENVIRONMENT_PATH, legacy_environment) and current
         if not current:
             return 1
     else:
         write_json(COLLECTION_PATH, collection)
         write_json(ENVIRONMENT_PATH, environment)
+        write_json(LEGACY_COLLECTION_PATH, legacy_collection)
+        write_json(LEGACY_ENVIRONMENT_PATH, legacy_environment)
 
-    request_count = operation_count - len(HELPER_OPERATIONS) + 4
+    request_count = (
+        operation_count - len(HELPER_OPERATIONS) - len(LEGACY_ONLY_OPERATIONS) + 4
+    )
     print(
-        f"Postman collection is current: {operation_count} OpenAPI operations, "
-        f"{request_count} requests, {len(path_variables)} path variables."
+        f"Postman collections are current: {operation_count} OpenAPI operations, "
+        f"{request_count} current requests, 5 legacy auth requests, "
+        f"{len(path_variables)} path variables."
     )
     return 0
 

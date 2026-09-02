@@ -12419,10 +12419,10 @@
       "name": "Authentication",
       "item": [
         {
-          "name": "Legacy Auth",
+          "name": "API Tokens",
           "item": [
             {
-              "name": "Retrieves all Api Tokens for AuthenticatedUser",
+              "name": "List permanent API tokens",
               "id": "fcc0356a-035e-5f9c-b4ea-e927a3c39a83",
               "request": {
                 "method": "GET",
@@ -12446,12 +12446,12 @@
                     "token"
                   ]
                 },
-                "description": "Permissions: Authenticated User"
+                "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token."
               },
               "response": []
             },
             {
-              "name": "Creates a new 'Api Token' based AuthenticatedUser that does not expire",
+              "name": "Create a permanent API token",
               "id": "5542daab-43f0-5c36-90cb-436b5c740f0f",
               "request": {
                 "method": "POST",
@@ -12475,12 +12475,12 @@
                     "token"
                   ]
                 },
-                "description": "Permissions: Authenticated User"
+                "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token. Each successful request creates a permanent API token."
               },
               "response": []
             },
             {
-              "name": "Removes an api token",
+              "name": "Delete a permanent API token",
               "id": "3eb35185-69b7-5e46-aad5-6d8c93653c02",
               "request": {
                 "method": "DELETE",
@@ -12505,64 +12505,12 @@
                     "{{token}}"
                   ]
                 },
-                "description": "Permissions: Anonymous User"
-              },
-              "response": []
-            },
-            {
-              "name": "Application login to authenticate and receive an X-Auth-Token",
-              "id": "9dcaac47-eb12-5a3d-a8a6-505d46290879",
-              "request": {
-                "method": "POST",
-                "header": [
-                  {
-                    "key": "Accept",
-                    "value": "application/json",
-                    "type": "text"
-                  }
-                ],
-                "url": {
-                  "raw": "{{ringcx_base_url}}/voice/api/v1/auth/login?username=<username>&password=<password>&stayLoggedIn=false",
-                  "host": [
-                    "{{ringcx_base_url}}"
-                  ],
-                  "path": [
-                    "voice",
-                    "api",
-                    "v1",
-                    "auth",
-                    "login"
-                  ],
-                  "query": [
-                    {
-                      "key": "username",
-                      "value": "<username>",
-                      "disabled": true,
-                      "description": "username"
-                    },
-                    {
-                      "key": "password",
-                      "value": "<password>",
-                      "disabled": true,
-                      "description": "password"
-                    },
-                    {
-                      "key": "stayLoggedIn",
-                      "value": "false",
-                      "disabled": true,
-                      "description": "stayLoggedIn"
-                    }
-                  ]
-                },
-                "description": "Permissions: Anonymous User",
-                "auth": {
-                  "type": "noauth"
-                }
+                "description": "Permissions: Authenticated User. Authenticate with a current RingCX bearer token or a legacy X-Auth-Token. The token identified in the path is revoked."
               },
               "response": []
             }
           ],
-          "description": "Authenticate against legacy RingCX deployments."
+          "description": "Create, list, and revoke permanent API tokens."
         }
       ]
     },

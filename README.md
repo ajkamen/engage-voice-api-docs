@@ -48,7 +48,7 @@ If you wish to change the specs being tested edit the [specs_test.go](specs_test
 
 ### Generating the Postman Collection
 
-The public Postman collection and environment template are generated from the RingCX OpenAPI specification. Regenerate and verify them with:
+The current RingCX collection and the legacy authentication companion collection are generated together. Regenerate and verify all Postman artifacts with:
 
 ```
 python3 scripts/generate_postman.py

@@ -6,6 +6,8 @@ The files are available here:
 
 * [Postman Collection v2.1](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/engage-voice_postman2.json)
 * [Postman Environment template](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/ringcx_postman_environment.json)
+* [Legacy Authentication Collection v2.1](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/engage-voice_legacy_auth_postman2.json)
+* [Legacy Authentication Environment template](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/ringcx_legacy_postman_environment.json)
 * [OpenAPI 3.0 Specification](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/engage-voice_openapi3.json)
 
 ## Prerequisites
@@ -20,7 +22,7 @@ Before using the collection, you need:
 See [Authenticating with RingCentral](authentication/auth-ringcentral.md) for application setup and authentication details.
 
 !!! primary "Legacy authentication"
-    The collection's setup workflow uses the current RingCentral JWT and RingCX token exchange flow. The APIs under **Authentication > Legacy Auth** remain available for integrations that require a supported legacy authentication method.
+    The main collection uses the current RingCentral JWT and RingCX token exchange flow. Deployments that use a legacy portal host should use the separate [Legacy Authentication Collection](#legacy-authentication-in-postman), which sends `X-Auth-Token` instead of bearer authentication.
 
 ## Import the collection and environment
 
@@ -72,6 +74,20 @@ API requests are grouped by the same product areas and API tags used in the API 
     Do not use Postman's **Run collection** command against a production account. The collection includes operations that create, update, log out, and delete RingCX resources.
 
 Optional query parameters are included but disabled by default. Enable only the parameters required by your request.
+
+## Legacy authentication in Postman
+
+Legacy deployments use a different base URL, URL structure, and authorization header. Their authentication workflow is kept in a separate collection so its `X-Auth-Token` configuration cannot be confused with the bearer token used by current RingCX APIs.
+
+1. Import the [Legacy Authentication Collection v2.1](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/engage-voice_legacy_auth_postman2.json).
+2. Import and select the [Legacy Authentication Environment template](https://raw.githubusercontent.com/ringcentral/engage-voice-api-docs/main/specs/ringcx_legacy_postman_environment.json).
+3. Set `legacy_base_url` to the legacy portal root for your deployment, without a trailing slash: `https://portal.vacd.biz/api` or `https://portal.virtualacd.biz/api`.
+4. Set `legacy_username` and `legacy_password`.
+5. Run **Get temporary legacy auth token**. The test script saves the returned `authToken` as `legacy_auth_token`.
+
+The remaining requests let you create and list permanent API tokens, test a permanent API token against the users endpoint, and delete a selected API token. Each successful create request generates another permanent token. The delete request uses the blank `legacy_api_token_to_delete` variable so you must explicitly select the token to revoke.
+
+The companion collection covers legacy authentication and token management only. Use the resulting token in the `X-Auth-Token` header when calling a supported legacy API.
 
 ## Feedback
 
