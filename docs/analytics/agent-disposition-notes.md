@@ -15,7 +15,7 @@ Agent disposition notes capture the outcome and free-text notes an agent records
 
 * Use a RingCX access token. For authentication details, see [RingCentral authentication](../authentication/auth-ringcentral.md).
 * Use the RingCX sub-account ID as `accountId`.
-* Use a valid UII for call-level reads and live-call updates.
+* Obtain the UII from [Listing Active Calls](active-calls/index.md#listing-active-calls) while the call is active, and retain it for call-level updates and archived call-history retrieval.
 * Disposition values must already exist in the account, queue, or campaign configuration that applies to the interaction.
 * URL-encode query parameter values, especially free-text notes.
 
