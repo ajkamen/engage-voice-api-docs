@@ -184,7 +184,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
       "dialPriority": "NORMAL",
       "duplicateHandling": "REMOVE_FROM_LIST",
       "listState": "ACTIVE",
-      "timeZoneOption": "NOT_APPLICABLE",
+      "timeZoneOption": "NPA_NXX",
       "uploadLeads": [
         {
           "externId": "lead-1001",
@@ -198,6 +198,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
           "leadPriority": 5,
           "maxPasses": 3,
           "callerId": "4155550199",
+          "reserveAgent": "980",
           "auxData1": "renewal"
         }
       ]
@@ -217,7 +218,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
         "dialPriority": "NORMAL",
         "duplicateHandling": "REMOVE_FROM_LIST",
         "listState": "ACTIVE",
-        "timeZoneOption": "NOT_APPLICABLE",
+        "timeZoneOption": "NPA_NXX",
         "uploadLeads": [
             {
                 "externId": "lead-1001",
@@ -231,6 +232,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
                 "leadPriority": 5,
                 "maxPasses": 3,
                 "callerId": "4155550199",
+                "reserveAgent": "980",
                 "auxData1": "renewal",
             }
         ],
@@ -259,7 +261,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
       dialPriority: "NORMAL",
       duplicateHandling: "REMOVE_FROM_LIST",
       listState: "ACTIVE",
-      timeZoneOption: "NOT_APPLICABLE",
+      timeZoneOption: "NPA_NXX",
       uploadLeads: [
         {
           externId: "lead-1001",
@@ -273,6 +275,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
           leadPriority: 5,
           maxPasses: 3,
           callerId: "4155550199",
+          reserveAgent: "980",
           auxData1: "renewal"
         }
       ]
@@ -313,7 +316,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
         dialPriority: "NORMAL",
         duplicateHandling: "REMOVE_FROM_LIST",
         listState: "ACTIVE",
-        timeZoneOption: "NOT_APPLICABLE",
+        timeZoneOption: "NPA_NXX",
         uploadLeads: [
           {
             externId: "lead-1001",
@@ -327,6 +330,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
             leadPriority: 5,
             maxPasses: 3,
             callerId: "4155550199",
+            reserveAgent: "980",
             auxData1: "renewal"
           }
         ]
@@ -362,7 +366,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
         "dialPriority": "NORMAL",
         "duplicateHandling": "REMOVE_FROM_LIST",
         "listState": "ACTIVE",
-        "timeZoneOption": "NOT_APPLICABLE",
+        "timeZoneOption": "NPA_NXX",
         "uploadLeads": [
             {
                 "externId": "lead-1001",
@@ -376,6 +380,7 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
                 "leadPriority": 5,
                 "maxPasses": 3,
                 "callerId": "4155550199",
+                "reserveAgent": "980",
                 "auxData1": "renewal",
             }
         ],
@@ -387,6 +392,8 @@ Direct loading sends leads as JSON and is the simplest option when your integrat
     ).json()
     print(response)
     ```
+
+To reserve a lead for a specific agent, set `reserveAgent` to the RingCX `agentId`. Use the [agent list endpoint](../../users/agents/agents.md#retrieve-agents) to find valid agent IDs. A blank, null, omitted, invalid, or inaccessible `reserveAgent` value does not reject the lead; RingCX accepts the lead without the reservation and increments `failedAgentAssignment` in the response.
 
 ### Direct Load Response
 
@@ -401,11 +408,13 @@ The direct load response summarizes accepted, inserted, converted, rejected, and
   "dncReturnedCount": 0,
   "failedAgentAssignment": 0,
   "listState": "ACTIVE",
-  "timeZoneOption": "NOT_APPLICABLE",
+  "timeZoneOption": "NPA_NXX",
   "processingResult": "OK",
   "rejectedRows": []
 }
 ```
+
+`failedAgentAssignment` is the number of accepted leads whose requested agent reservation could not be applied. Check this value even when `leadsAccepted` shows that every lead was accepted.
 
 ## File Preview and Process
 
@@ -435,7 +444,7 @@ The `pageColumnMappings` values are zero-based column indexes from the selected 
       "fileContainsHeaders": true,
       "duplicateHandling": "REMOVE_FROM_LIST",
       "listState": "ACTIVE",
-      "timeZoneOption": "NOT_APPLICABLE",
+      "timeZoneOption": "NPA_NXX",
       "pageNumber": 1,
       "pageColumnMappings": {
         "LEAD_PHONE": 0,
@@ -473,7 +482,7 @@ The `pageColumnMappings` values are zero-based column indexes from the selected 
         "fileContainsHeaders": True,
         "duplicateHandling": "REMOVE_FROM_LIST",
         "listState": "ACTIVE",
-        "timeZoneOption": "NOT_APPLICABLE",
+        "timeZoneOption": "NPA_NXX",
         "pageNumber": 1,
         "pageColumnMappings": {
             "LEAD_PHONE": 0,
@@ -525,7 +534,7 @@ The `pageColumnMappings` values are zero-based column indexes from the selected 
       fileContainsHeaders: true,
       duplicateHandling: "REMOVE_FROM_LIST",
       listState: "ACTIVE",
-      timeZoneOption: "NOT_APPLICABLE",
+      timeZoneOption: "NPA_NXX",
       pageNumber: 1,
       pageColumnMappings: {
         LEAD_PHONE: 0,
@@ -573,7 +582,7 @@ After the preview response returns a `transactionId`, you can submit the process
         fileContainsHeaders: true,
         duplicateHandling: "REMOVE_FROM_LIST",
         listState: "ACTIVE",
-        timeZoneOption: "NOT_APPLICABLE",
+        timeZoneOption: "NPA_NXX",
         pageNumber: 1,
         pageColumnMappings: {
           LEAD_PHONE: 0,
@@ -615,7 +624,7 @@ After the preview response returns a `transactionId`, you can submit the process
         "fileContainsHeaders": True,
         "duplicateHandling": "REMOVE_FROM_LIST",
         "listState": "ACTIVE",
-        "timeZoneOption": "NOT_APPLICABLE",
+        "timeZoneOption": "NPA_NXX",
         "pageNumber": 1,
         "pageColumnMappings": {
             "LEAD_PHONE": 0,
@@ -673,9 +682,10 @@ The process request returns an accepted or created status after RingCX accepts t
 | `leadPriority` | Numeric priority used by outbound dialing when prioritization is enabled. |
 | `maxPasses` | Maximum number of dialing passes for the lead. |
 | `callerId` | Caller ID to use for the lead when the campaign supports lead-level caller ID. |
+| `reserveAgent` | RingCX agent ID to reserve the lead for during direct loading. An invalid or inaccessible ID does not reject the lead. |
 | `auxData1` through `auxData5` | Custom fields for campaign- or integration-specific lead data. |
 | `duplicateHandling` | Duplicate behavior during load. Values include `RETAIN_ALL`, `REMOVE_ALL_EXISTING`, and `REMOVE_FROM_LIST`. |
-| `timeZoneOption` | How RingCX derives or applies lead time zones. Values include `NPA_NXX`, `ZIPCODE`, `EXPLICIT`, `COUNTRY`, and `NOT_APPLICABLE`. |
+| `timeZoneOption` | How RingCX derives or applies lead time zones. Supported upload values are `NPA_NXX`, `ZIPCODE`, `EXPLICIT`, and `COUNTRY`. |
 | `fileType` | File format for preview/process imports. Values are `EXCEL`, `PIPE`, `COMMA`, and `TAB`. |
 | `pageColumnMappings` | Map of RingCX lead fields to zero-based column indexes from the preview response. |
 
